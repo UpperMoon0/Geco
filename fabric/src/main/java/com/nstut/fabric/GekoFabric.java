@@ -1,5 +1,6 @@
 package com.nstut.fabric;
 
+import com.nstut.fabric.world.ModBiomeModifications;
 import net.fabricmc.api.ModInitializer;
 
 import com.nstut.Geko;
@@ -7,11 +8,7 @@ import com.nstut.Geko;
 public final class GekoFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        // This code runs as soon as Minecraft is in a mod-load-ready state.
-        // However, some things (like resources) may still be uninitialized.
-        // Proceed with mild caution.
-
-        // Run our common setup.
         Geko.init();
+        ModBiomeModifications.registerBiomeModifications();
     }
 }

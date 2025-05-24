@@ -1,0 +1,89 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Gradle
+.gradle/
+build/
+gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+gradle-app.setting
+gradle-wrapper.jar.sha256
+gradle-wrapper.properties.sha256
+
+# Gradle cache related
+*.lock
+*.bin
+*.class
+
+# Build output
+libs/
+devlibs/
+remapped_jars/
+*/build/libs/
+*/build/devlibs/
+
+# Minecraft Modding Specific
+run/
+runs/
+usercache.json
+usernamecache.json
+options.txt
+logs/
+*.log
+crash-reports/
+debug.log
+latest.log
+hs_err_pid*.log
+
+# Loom cache and generated files
+loom-cache/
+*/loom-cache/
+common/.gradle/
+fabric/.gradle/
+neoforge/.gradle/
+*.srg
+*.tiny
+*.xcfg
+*.accesswidener
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Secrets (if any, add specific files here)
+# مثلا: secrets.properties
+
+# Compiled files
+*.jar
+*.zip
+
+# Specific to your project structure if needed
+# e.g. if you have other generated folders not covered
+
+# Ignore Forge/NeoForge generated files
+forge_minecraft_classpath.txt
+neoforge_minecraft_classpath.txt
+*/forge_minecraft_classpath.txt
+*/neoforge_minecraft_classpath.txt

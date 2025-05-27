@@ -3,6 +3,7 @@ package com.nstut.block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument; // Added import
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,7 +22,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 public class EbonyLogBlock extends RotatedPillarBlock {
     public EbonyLogBlock() {
         super(BlockBehaviour.Properties.of()
-                .mapColor(MapColor.COLOR_BLACK) 
+                .mapColor(MapColor.COLOR_BLACK)
+                .instrument(NoteBlockInstrument.BASS) // Added instrument property
                 .strength(2.0F)
                 .sound(SoundType.WOOD)
                 .ignitedByLava());

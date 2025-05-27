@@ -63,7 +63,7 @@ loom {
     runs {
         data {
             data()
-            programArgs.addAll '--mod', 'geko', '--output', file('src/generated/resources').getAbsolutePath(), '--existing', file('src/main/resources').getAbsolutePath()
+            programArgs.addAll '--mod', 'geko', '--output', file('src/generated/resources').getAbsolutePath()
             runDir "run"
         }
     }

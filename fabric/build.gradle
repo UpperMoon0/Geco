@@ -69,7 +69,7 @@ loom {
 
 task runData {
     group = 'geko'
-    description = 'Runs data generation for Fabric'
+    description = 'Generate data files for Fabric platform'
     dependsOn 'runDatagen'
 }
 

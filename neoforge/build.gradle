@@ -42,6 +42,10 @@ processResources {
     filesMatching('META-INF/neoforge.mods.toml') {
         expand version: project.version
     }
+
+    from(project(':common').sourceSets.main.resources) {
+        include 'geko.mixins.json'
+    }
 }
 
 shadowJar {

@@ -57,28 +57,6 @@ remapJar {
     inputFile.set shadowJar.archiveFile
 }
 
-loom {
-    runs {
-        datagen {
-            inherit server
-            name "Data Generation"
-            vmArg "-Dneoforge.enabledGameTestNamespaces=geko"
-            vmArg "-Dneoforge.logging.console.level=debug"
-            programArg "--mod"
-            programArg "geko"
-            programArg "--all"
-            programArg "--output"
-            programArg file("../common/src/generated/resources").absolutePath
-            programArg "--existing"
-            programArg file("../common/src/main/resources").absolutePath
-        }
-    }
-}
 
-task runData {
-    group = 'geko'
-    description = 'Runs data generation for NeoForge'
-    dependsOn 'runDatagen'
-}
 
 

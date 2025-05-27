@@ -2,6 +2,36 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+loom {
+    runs {
+        datagen {
+            inherit server
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources").absolutePath}"
+            vmArg "-Dfabric-api.datagen.modid=geko"
+            vmArg "-Dfabric-api.datagen.strict-validation"
+        }
+    }
+}
+
+// Task to copy generated data to main resources
+task copyGeneratedData(type: Copy) {
+    group = 'geko'
+    description = 'Copies generated worldgen data from generated to main resources'
+    from file("src/generated/resources/data")
+    into file("src/main/resources/data")
+    onlyIf { file("src/generated/resources/data").exists() }
+}
+
+// Task to run data generation and copy results
+task generateData {
+    group = 'geko'
+    description = 'Runs data generation and copies results to main resources'
+    dependsOn 'runDatagen'
+    finalizedBy 'copyGeneratedData'
+}
+
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.

@@ -45,13 +45,6 @@
       }
     },
     "decorators": [],
-    "dirt_provider": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:dirt"
-      }
-    },
-    "decorators": [],
     "ignore_vines": true
   }
 }

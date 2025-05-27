@@ -1,7 +1,7 @@
 package com.nstut;
 
 import com.nstut.registry.ModBlocks;
-import com.nstut.registry.ModCreativeTabs; // Added import
+import com.nstut.registry.ModCreativeTabs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +12,7 @@ public class Geko {
     public static void init() {
         LOGGER.info("Geko mod initializing...");
         ModBlocks.register();
-        ModCreativeTabs.register(); // Added registration
-        // Other registries like items, entities, etc. would go here
+        ModCreativeTabs.register();
         LOGGER.info("Geko mod initialized.");
     }
 }

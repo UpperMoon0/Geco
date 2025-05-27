@@ -8,6 +8,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class ModWorldGeneration {
     
+    // Bootstrap methods for data generation
     public static void bootstrapConfiguredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         ModConfiguredFeatures.bootstrap(context);
     }

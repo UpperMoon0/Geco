@@ -73,9 +73,15 @@ subprojects {
     }
 }
 
-// Centralized data generation task
+// Centralized data generation tasks
 task runDataGen {
     group = 'geko'
     description = 'Runs centralized data generation for all platforms'
-    dependsOn ':common:runDatagen'
+    dependsOn ':fabric:runData', ':neoforge:runData'
+}
+
+task datagen {
+    group = 'geko'
+    description = 'Runs data generation for all platforms (alias for runDataGen)'
+    dependsOn 'runDataGen'
 }

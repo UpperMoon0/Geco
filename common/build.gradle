@@ -11,22 +11,3 @@ dependencies {
     // Architectury API. This is optional, and you can comment it out if you don't need it.
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 }
-
-// Centralized data generation configuration
-loom {
-    runs {
-        datagen {
-            client()
-            name "Centralized Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-            vmArg "-Dfabric-api.datagen.strict-validation"
-            runDir "../fabric/run"
-            
-            // Add NeoForge data generation arguments
-            programArgs.addAll '--mod', 'geko'
-            programArgs.addAll '--output', file('src/generated/resources').getAbsolutePath()
-            programArgs.addAll '--neoforge-output', file('../neoforge/src/generated/resources').getAbsolutePath()
-        }
-    }
-}

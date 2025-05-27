@@ -1,6 +1,5 @@
 package com.nstut.fabric.data;
 
-import com.nstut.Geko;
 import com.nstut.registry.ModWorldGeneration;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

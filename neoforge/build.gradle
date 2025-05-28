@@ -7,6 +7,15 @@ architectury {
     neoForge()
 }
 
+// Include common source files in development
+sourceSets {
+    main {
+        // Only include the compiled output, not the classpaths to avoid conflicts
+        compileClasspath += project(':common').sourceSets.main.output
+        runtimeClasspath += project(':common').sourceSets.main.output
+    }
+}
+
 configurations {
     common {
         canBeResolved = true
@@ -14,6 +23,7 @@ configurations {
     }
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
 
     shadowBundle {
         canBeResolved = true
@@ -32,8 +42,16 @@ dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
     modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    common(project(path: ':common', configuration: 'namedElements')) { 
+        transitive false
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+    
+    // Ensure common classes are available in development
+    implementation(project(':common')) {
+        exclude group: 'net.fabricmc', module: 'fabric-loader'
+    }
 }
 
 processResources {

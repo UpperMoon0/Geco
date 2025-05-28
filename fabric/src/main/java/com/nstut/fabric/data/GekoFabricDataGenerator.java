@@ -10,7 +10,7 @@ public class GekoFabricDataGenerator implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         
         // Add the worldgen data provider that outputs to common module
-        pack.addProvider(FabricWorldGenDataProvider::new);
+        pack.addProvider(CommonWorldGenDataProvider::new);
         
         // Add the NeoForge biome modifier provider (cross-module generation)
         pack.addProvider(NeoForgeBiomeModifierDataProvider::new);

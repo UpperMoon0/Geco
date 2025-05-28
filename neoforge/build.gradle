@@ -21,6 +21,15 @@ sourceSets {
     }
 }
 
+// Source sets for generated resources
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
 configurations {
     common {
         canBeResolved = true

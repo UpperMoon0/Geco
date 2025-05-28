@@ -75,13 +75,7 @@ subprojects {
 
 // Centralized data generation tasks - using Fabric's datagen for all platforms
 task runDataGen {
-    group = 'geko'
+    group = 'data'
     description = 'Runs centralized data generation using Fabric datagen'
     dependsOn ':fabric:runData'
-}
-
-task datagen {
-    group = 'geko'
-    description = 'Runs data generation from common module (alias for runDataGen)'
-    dependsOn 'runDataGen'
 }

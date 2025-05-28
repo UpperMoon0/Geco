@@ -22,7 +22,7 @@
       "com.nstut.fabric.client.GekoFabricClient"
     ],
     "fabric-datagen": [
-      "com.nstut.fabric.data.GekoDataGenerator"
+      "com.nstut.fabric.data.GekoFabricDataGenerator"
     ]
   },
   "mixins": [

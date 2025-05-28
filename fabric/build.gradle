@@ -54,4 +54,26 @@ remapJar {
     inputFile.set shadowJar.archiveFile
 }
 
+loom {
+    runs {
+        datagen {
+            inherit client
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.modid=geko"
+            runDir "build/datagen"
+        }
+    }
+}
+
+// Source sets for generated resources
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
+}
+
 

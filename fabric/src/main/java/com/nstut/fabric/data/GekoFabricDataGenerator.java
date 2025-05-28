@@ -11,6 +11,9 @@ public class GekoFabricDataGenerator implements DataGeneratorEntrypoint {
         
         // Add the worldgen data provider that outputs to common module
         pack.addProvider(FabricWorldGenDataProvider::new);
+        
+        // Add the NeoForge biome modifier provider (cross-module generation)
+        pack.addProvider(NeoForgeBiomeModifierDataProvider::new);
     }
     
     @Override

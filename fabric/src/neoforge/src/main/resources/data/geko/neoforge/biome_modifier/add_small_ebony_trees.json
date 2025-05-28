@@ -4,6 +4,6 @@
     "minecraft:savanna",
     "minecraft:savanna_plateau"
   ],
-  "features": "geko:tall_ebony_trees_placed",
+  "features": "geko:small_ebony_trees_placed",
   "step": "vegetal_decoration"
 }

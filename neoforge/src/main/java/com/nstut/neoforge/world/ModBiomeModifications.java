@@ -29,7 +29,7 @@ public class ModBiomeModifications {
         return () -> {
             // Get the Biome Registry
             @SuppressWarnings("unchecked") // Cast is necessary due to the generic nature of BuiltInRegistries.REGISTRY.get()
-            Registry<Biome> biomeRegistry = (Registry<Biome>) BuiltInRegistries.REGISTRY.get(Registries.BIOME);
+            Registry<Biome> biomeRegistry = (Registry<Biome>) BuiltInRegistries.REGISTRY.get(Registries.BIOME.location());
             if (biomeRegistry == null) {
                 throw new IllegalStateException("Biome registry (minecraft:biome) not found in BuiltInRegistries.");
             }
@@ -40,7 +40,7 @@ public class ModBiomeModifications {
 
             // Get the Placed Feature Registry
             @SuppressWarnings("unchecked") // Cast is necessary due to the generic nature of BuiltInRegistries.REGISTRY.get()
-            Registry<PlacedFeature> placedFeatureRegistry = (Registry<PlacedFeature>) BuiltInRegistries.REGISTRY.get(Registries.PLACED_FEATURE);
+            Registry<PlacedFeature> placedFeatureRegistry = (Registry<PlacedFeature>) BuiltInRegistries.REGISTRY.get(Registries.PLACED_FEATURE.location());
             if (placedFeatureRegistry == null) {
                 throw new IllegalStateException("Placed Feature registry (minecraft:placed_feature) not found in BuiltInRegistries.");
             }

@@ -77,5 +77,5 @@ subprojects {
 task runDataGen {
     group = 'data'
     description = 'Runs centralized data generation using Fabric datagen'
-    dependsOn ':fabric:runData'
+    dependsOn ':fabric:runDatagen'
 }

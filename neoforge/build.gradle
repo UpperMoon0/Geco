@@ -10,10 +10,6 @@ architectury {
 // Include common source files in development
 sourceSets {
     main {
-        // Only include the compiled output, not the classpaths to avoid conflicts
-        compileClasspath += project(':common').sourceSets.main.output
-        runtimeClasspath += project(':common').sourceSets.main.output
-        
         // Include generated resources
         resources {
             srcDirs += 'src/generated/resources'

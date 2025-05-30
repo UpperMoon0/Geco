@@ -2,6 +2,7 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+// loom block for datagen
 loom {
     // Enable data generation
     runs {

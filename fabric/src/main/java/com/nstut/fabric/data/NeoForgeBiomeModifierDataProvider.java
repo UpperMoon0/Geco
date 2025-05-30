@@ -43,7 +43,7 @@ public class NeoForgeBiomeModifierDataProvider implements DataProvider {
         json.addProperty("step", "vegetal_decoration");
         
         // Output to the neoforge module's generated resources directory
-        Path neoforgeModulePath = output.getOutputFolder().getParent().getParent().getParent().getParent().getParent().resolve("neoforge");
+        Path neoforgeModulePath = output.getOutputFolder().getParent().getParent().getParent().getParent().resolve("neoforge");
         Path outputPath = neoforgeModulePath
             .resolve("src/generated/resources/data")
             .resolve(Geko.MOD_ID)

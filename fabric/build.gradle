@@ -62,6 +62,7 @@ loom {
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
             vmArg "-Dfabric-api.datagen.modid=geko"
+            vmArg "-Dfabric.datagen.existing_file_behavior=OVERWRITE"
             runDir "build/datagen"
         }
     }

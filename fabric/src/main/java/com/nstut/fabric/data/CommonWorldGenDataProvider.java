@@ -16,7 +16,7 @@ public class CommonWorldGenDataProvider extends FabricDynamicRegistryProvider {
     
     private static FabricDataOutput createCommonOutput(FabricDataOutput fabricOutput) {
         // Create a custom output that points to the common module
-        var commonPath = fabricOutput.getOutputFolder().getParent().getParent().getParent().getParent().getParent().resolve("common").resolve("src/generated/resources");
+        var commonPath = fabricOutput.getOutputFolder().getParent().getParent().getParent().getParent().resolve("common").resolve("src/generated/resources");
         return new FabricDataOutput(fabricOutput.getModContainer(), commonPath, fabricOutput.isStrictValidationEnabled());
     }
 

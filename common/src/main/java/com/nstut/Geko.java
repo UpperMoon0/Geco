@@ -1,5 +1,6 @@
 package com.nstut;
 
+import com.nstut.registry.ModBlockEntities;
 import com.nstut.registry.ModBlocks;
 import com.nstut.registry.ModCreativeTabs;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ public class Geko {
     public static void init() {
         LOGGER.info("Geko mod initializing...");
         ModBlocks.register();
+        ModBlockEntities.register();
         ModCreativeTabs.register();
         LOGGER.info("Geko mod initialized.");
     }

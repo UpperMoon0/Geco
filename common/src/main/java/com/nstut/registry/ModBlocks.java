@@ -5,6 +5,8 @@ import com.nstut.block.EbonyLeavesBlock;
 import com.nstut.block.EbonyLogBlock;
 import com.nstut.block.EbonyPlanksBlock;
 import com.nstut.block.EbonySaplingBlock;
+import com.nstut.block.EbonySignBlock;
+import com.nstut.block.EbonyWallSignBlock;
 import com.nstut.block.StrippedEbonyLogBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -63,8 +65,8 @@ public class ModBlocks {
     public static final RegistrySupplier<Block> EBONY_FENCE_GATE = registerBlock("ebony_fence_gate", () -> new FenceGateBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_BUTTON = registerBlock("ebony_button", () -> new ButtonBlock(EBONY_BLOCK_SET_TYPE, 30, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion()), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_PRESSURE_PLATE = registerBlock("ebony_pressure_plate", () -> new PressurePlateBlock(EBONY_BLOCK_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion()), new Item.Properties());
-    public static final RegistrySupplier<Block> EBONY_SIGN = registerBlock("ebony_sign", () -> new StandingSignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f)), new Item.Properties());
-    public static final RegistrySupplier<Block> EBONY_WALL_SIGN = registerBlock("ebony_wall_sign", () -> new WallSignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f).dropsLike(EBONY_SIGN.get())), new Item.Properties());
+    public static final RegistrySupplier<Block> EBONY_SIGN = registerBlock("ebony_sign", () -> new EbonySignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f)), new Item.Properties());
+    public static final RegistrySupplier<Block> EBONY_WALL_SIGN = registerBlock("ebony_wall_sign", () -> new EbonyWallSignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f).dropsLike(EBONY_SIGN.get())), new Item.Properties());
 
     // Helper method to register blocks and their items
     private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> blockSupplier, Item.Properties properties) {

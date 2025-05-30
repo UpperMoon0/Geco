@@ -1,0 +1,23 @@
+package com.nstut.registry;
+
+import com.nstut.Geko;
+import com.nstut.block.entity.EbonySignBlockEntity;
+import dev.architectury.registry.registries.DeferredRegister;
+import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+
+public class ModBlockEntities {
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+            DeferredRegister.create(Geko.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
+
+    public static final RegistrySupplier<BlockEntityType<EbonySignBlockEntity>> EBONY_SIGN_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("ebony_sign", () ->
+                    BlockEntityType.Builder.of(EbonySignBlockEntity::new,
+                            ModBlocks.EBONY_SIGN.get(), ModBlocks.EBONY_WALL_SIGN.get()
+                    ).build(null));
+
+    public static void register() {
+        BLOCK_ENTITIES.register();
+    }
+}

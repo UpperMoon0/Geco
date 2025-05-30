@@ -4,5 +4,12 @@
   "block.geko.stripped_ebony_log": "Stripped Ebony Log",
   "block.geko.ebony_sapling": "Ebony Sapling",
   "block.geko.ebony_planks": "Ebony Planks",
+  "block.geko.ebony_stairs": "Ebony Stairs",
+  "block.geko.ebony_slab": "Ebony Slab",
+  "block.geko.ebony_fence": "Ebony Fence",
+  "block.geko.ebony_fence_gate": "Ebony Fence Gate",
+  "block.geko.ebony_button": "Ebony Button",
+  "block.geko.ebony_pressure_plate": "Ebony Pressure Plate",
+  "block.geko.ebony_sign": "Ebony Sign",
   "itemGroup.geko.geko_tab": "Geko Mod"
 }

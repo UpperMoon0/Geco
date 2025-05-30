@@ -21,6 +21,13 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.EBONY_LEAVES.get());
                 output.accept(ModBlocks.EBONY_SAPLING.get());
                 output.accept(ModBlocks.EBONY_PLANKS.get()); // Added Ebony Planks
+                output.accept(ModBlocks.EBONY_STAIRS.get());
+                output.accept(ModBlocks.EBONY_SLAB.get());
+                output.accept(ModBlocks.EBONY_FENCE.get());
+                output.accept(ModBlocks.EBONY_FENCE_GATE.get());
+                output.accept(ModBlocks.EBONY_BUTTON.get());
+                output.accept(ModBlocks.EBONY_PRESSURE_PLATE.get());
+                output.accept(ModBlocks.EBONY_SIGN.get());
             })
             .build());
 

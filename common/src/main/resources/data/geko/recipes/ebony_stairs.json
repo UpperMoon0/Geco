@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P  ",
+    "PP ",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "geko:ebony_planks"
+    }
+  },
+  "result": {
+    "item": "geko:ebony_stairs",
+    "count": 4
+  }
+}

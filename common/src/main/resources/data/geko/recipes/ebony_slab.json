@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "geko:ebony_planks"
+    }
+  },
+  "result": {
+    "item": "geko:ebony_slab",
+    "count": 6
+  }
+}

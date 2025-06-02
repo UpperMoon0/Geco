@@ -17,6 +17,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.StandingSignBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
@@ -68,6 +70,8 @@ public class ModBlocks {
     public static final RegistrySupplier<Block> EBONY_PRESSURE_PLATE = registerBlock("ebony_pressure_plate", () -> new PressurePlateBlock(EBONY_BLOCK_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion()), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_SIGN = registerBlock("ebony_sign", () -> new EbonySignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f)), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_WALL_SIGN = registerBlock("ebony_wall_sign", () -> new EbonyWallSignBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(1.0f).dropsLike(EBONY_SIGN.get())), new Item.Properties());
+    public static final RegistrySupplier<Block> EBONY_DOOR = registerBlock("ebony_door", () -> new DoorBlock(EBONY_BLOCK_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(3.0f)), new Item.Properties());
+    public static final RegistrySupplier<Block> EBONY_TRAPDOOR = registerBlock("ebony_trapdoor", () -> new TrapDoorBlock(EBONY_BLOCK_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion().strength(3.0f)), new Item.Properties());
 
     // Helper method to register blocks and their items
     private static <T extends Block> RegistrySupplier<T> registerBlock(String name, Supplier<T> blockSupplier, Item.Properties properties) {

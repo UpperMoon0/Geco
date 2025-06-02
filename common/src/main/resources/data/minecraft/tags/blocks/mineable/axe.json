@@ -12,6 +12,8 @@
     "geco:ebony_fence_gate",
     "geco:ebony_button",
     "geco:ebony_pressure_plate",
+    "geco:ebony_door",
+    "geco:ebony_trapdoor",
     "geco:ebony_sign",
     "geco:ebony_wall_sign"
   ]

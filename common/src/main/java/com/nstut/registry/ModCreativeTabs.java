@@ -27,6 +27,8 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.EBONY_FENCE_GATE.get());
                 output.accept(ModBlocks.EBONY_BUTTON.get());
                 output.accept(ModBlocks.EBONY_PRESSURE_PLATE.get());
+                output.accept(ModBlocks.EBONY_DOOR.get());
+                output.accept(ModBlocks.EBONY_TRAPDOOR.get());
                 output.accept(ModBlocks.EBONY_SIGN.get());
             })
             .build());

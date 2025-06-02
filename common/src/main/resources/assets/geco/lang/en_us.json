@@ -10,6 +10,8 @@
   "block.geco.ebony_fence_gate": "Ebony Fence Gate",
   "block.geco.ebony_button": "Ebony Button",
   "block.geco.ebony_pressure_plate": "Ebony Pressure Plate",
+  "block.geco.ebony_door": "Ebony Door",
+  "block.geco.ebony_trapdoor": "Ebony Trapdoor",
   "block.geco.ebony_sign": "Ebony Sign",
   "itemGroup.geco.geco_tab": "Geco Mod"
 }

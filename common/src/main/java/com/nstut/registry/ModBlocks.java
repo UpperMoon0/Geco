@@ -1,7 +1,6 @@
 package com.nstut.registry;
 
 import com.nstut.Geco;
-import com.nstut.block.EbonyFenceBlock; // Added import
 import com.nstut.block.EbonyLeavesBlock;
 import com.nstut.block.EbonyLogBlock;
 import com.nstut.block.EbonyPlanksBlock;
@@ -24,9 +23,7 @@ import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
@@ -39,20 +36,20 @@ public class ModBlocks {
 
     // Ebony Wood Type & SetType
     public static final BlockSetType EBONY_BLOCK_SET_TYPE = new BlockSetType(
-            Geco.MOD_ID + ":ebony", // name
-            true,                    // canOpenByHand
-            true,                    // canOpenByWindCharge
-            true,                    // canButtonBeActivatedByArrows
-            BlockSetType.PressurePlateSensitivity.EVERYTHING, // pressurePlateSensitivity
-            SoundType.WOOD,          // soundType
-            SoundEvents.WOODEN_DOOR_CLOSE,     // doorClose
-            SoundEvents.WOODEN_DOOR_OPEN,      // doorOpen
-            SoundEvents.WOODEN_TRAPDOOR_CLOSE, // trapdoorClose
-            SoundEvents.WOODEN_TRAPDOOR_OPEN,  // trapdoorOpen
-            SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, // pressurePlateClickOff
-            SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON,  // pressurePlateClickOn
-            SoundEvents.WOODEN_BUTTON_CLICK_OFF, // buttonClickOff
-            SoundEvents.WOODEN_BUTTON_CLICK_ON   // buttonClickOn
+            Geco.MOD_ID + ":ebony", 
+            true,                    
+            true,                    
+            true,                    
+            BlockSetType.PressurePlateSensitivity.EVERYTHING, 
+            SoundType.WOOD,         
+            SoundEvents.WOODEN_DOOR_CLOSE,     
+            SoundEvents.WOODEN_DOOR_OPEN,      
+            SoundEvents.WOODEN_TRAPDOOR_CLOSE, 
+            SoundEvents.WOODEN_TRAPDOOR_OPEN,  
+            SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, 
+            SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON,  
+            SoundEvents.WOODEN_BUTTON_CLICK_OFF, 
+            SoundEvents.WOODEN_BUTTON_CLICK_ON   
     );
     public static final WoodType EBONY_WOOD_TYPE = new WoodType(Geco.MOD_ID + ":ebony", EBONY_BLOCK_SET_TYPE);
     
@@ -64,7 +61,7 @@ public class ModBlocks {
     public static final RegistrySupplier<Block> EBONY_PLANKS = registerBlock("ebony_planks", EbonyPlanksBlock::new, new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_STAIRS = registerBlock("ebony_stairs", () -> new StairBlock(EBONY_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_SLAB = registerBlock("ebony_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties());
-    public static final RegistrySupplier<Block> EBONY_FENCE = registerBlock("ebony_fence", () -> new EbonyFenceBlock(BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties()); // Changed to EbonyFenceBlock
+    public static final RegistrySupplier<Block> EBONY_FENCE = registerBlock("ebony_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_FENCE_GATE = registerBlock("ebony_fence_gate", () -> new FenceGateBlock(EBONY_WOOD_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_BUTTON = registerBlock("ebony_button", () -> new ButtonBlock(EBONY_BLOCK_SET_TYPE, 30, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion()), new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_PRESSURE_PLATE = registerBlock("ebony_pressure_plate", () -> new PressurePlateBlock(EBONY_BLOCK_SET_TYPE, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get()).noOcclusion()), new Item.Properties());

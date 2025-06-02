@@ -30,6 +30,8 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.EBONY_DOOR.get());
                 output.accept(ModBlocks.EBONY_TRAPDOOR.get());
                 output.accept(ModBlocks.EBONY_SIGN.get());
+                output.accept(ModBlocks.EBONY_WALL_SIGN.get());
+                output.accept(ModBlocks.EBONY_HANGING_SIGN.get());
             })
             .build());
 

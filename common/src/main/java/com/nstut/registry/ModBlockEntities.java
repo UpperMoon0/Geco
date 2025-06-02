@@ -1,6 +1,7 @@
 package com.nstut.registry;
 
 import com.nstut.Geco;
+import com.nstut.block.entity.EbonyHangingSignBlockEntity;
 import com.nstut.block.entity.EbonySignBlockEntity;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -15,6 +16,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("ebony_sign", () ->
                     BlockEntityType.Builder.of(EbonySignBlockEntity::new,
                             ModBlocks.EBONY_SIGN.get(), ModBlocks.EBONY_WALL_SIGN.get()
+                    ).build(null));
+
+    public static final RegistrySupplier<BlockEntityType<EbonyHangingSignBlockEntity>> EBONY_HANGING_SIGN_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("ebony_hanging_sign", () ->
+                    BlockEntityType.Builder.of(EbonyHangingSignBlockEntity::new,
+                            ModBlocks.EBONY_HANGING_SIGN.get(), ModBlocks.EBONY_WALL_HANGING_SIGN.get()
                     ).build(null));
 
     public static void register() {

@@ -1,14 +1,3 @@
-// 1.21.1	2025-06-03T01:47:56.344409642	Geco/Geco WorldGen Data (Common)
-63f9f4e3c834d24bf8194c3877911b2fbba1f8b7 ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/ebony_trees_placed.json
-f610aed7d5c9c1fc623e000ec16f33343dc49593 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/bent_ebony_tree.json
-dd75c25a89bb8206da53c140d750ebf44e2b2b12 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/large_ebony_tree.json
-fb8fb8f51006c5ce88df1901c995524c9549e6ad ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/tall_ebony_tree.json
-7dcdb06af92559b172025882104e46d93f31bb74 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/small_ebony_tree.json
-b1320474807fe2cd2bcf0472083fcaabcb3c8be3 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/ebony_tree.json
-2ed1ae0d8e90536bb40631dc4eb78866dc0ee0df ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/small_ebony_trees_placed.json
-75fdc5c020efd0bd4f289d91cbaee0498027cdc0 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/sparse_ebony_tree.json
-56054fb4bf5cb5a9118dba9476a77f1fcc14bd00 ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/bent_ebony_trees_placed.json
-a86ecfd5e6e3920dd7cb3434a6791b29d52e0135 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/fancy_ebony_tree.json
-f2c1c773a498877a5621a317fdb6b5dcac2e9b1b ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/rare_large_ebony_trees_placed.json
-6261b423717c2c37ff6522a0e83f00a4292518a4 ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/sparse_ebony_trees_placed.json
-6a8c0294cada579a61b9c8d04bcf91549c45696c ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/tall_ebony_trees_placed.json
+// 1.21.1	2025-06-03T02:11:20.322077657	Geco/Geco WorldGen Data (Common)
+d2043d6b65a600ca03cdc934c8a24c2cbc913369 ../../../../common/src/generated/resources/data/geco/worldgen/placed_feature/ebony_tree_type_a_placed.json
+8d618df74bc96e8c107d3cb06a4acaf06c5ef703 ../../../../common/src/generated/resources/data/geco/worldgen/configured_feature/ebony_tree_type_a.json

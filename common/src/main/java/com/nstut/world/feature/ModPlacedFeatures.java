@@ -15,6 +15,8 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import com.nstut.registry.ModBlocks;
 import java.util.List;
 
 public class ModPlacedFeatures {
@@ -56,43 +58,49 @@ public class ModPlacedFeatures {
         // Regular Ebony Tree
         register(context, EBONY_TREES_PLACED, ebonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(16), // Regular
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
 
         // Small Ebony Tree - more common
         register(context, SMALL_EBONY_TREES_PLACED, smallEbonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(8), // More common
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
 
         // Tall Ebony Tree - less common
         register(context, TALL_EBONY_TREES_PLACED, tallEbonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(24), // Less common
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
                       
         // Bent Ebony Tree
         register(context, BENT_EBONY_TREES_PLACED, bentEbonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(20), // Moderate rarity
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
 
         // Sparse Ebony Tree - less dense/rarer
         register(context, SPARSE_EBONY_TREES_PLACED, sparseEbonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(32), // Rarer/more sparse
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
                       
         // Rare Large Ebony Tree - very rare
         register(context, RARE_LARGE_EBONY_TREES_PLACED, largeEbonyTree, 
             List.of(RarityFilter.onAverageOnceEvery(64), // Very rare
-                      InSquarePlacement.spread(), 
-                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), 
+                      InSquarePlacement.spread(),
+                      HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                      PlacementUtils.filteredByBlockSurvival(ModBlocks.EBONY_SAPLING.get()),
                       BiomeFilter.biome()));
     }
 }

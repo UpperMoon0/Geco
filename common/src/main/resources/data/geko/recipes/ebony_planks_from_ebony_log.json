@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "geko:ebony_logs"
+      "tag": "geco:ebony_logs"
     }
   ],
   "result": {
-    "item": "geko:ebony_planks",
+    "item": "geco:ebony_planks",
     "count": 4
   }
 }

@@ -1,6 +1,6 @@
 package com.nstut.fabric.data;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
@@ -21,7 +21,7 @@ public class GekoFabricDataGenerator implements DataGeneratorEntrypoint {
     
     @Override
     public String getEffectiveModId() {
-        return Geko.MOD_ID;
+        return Geco.MOD_ID;
     }
 
     @Override

@@ -5,10 +5,10 @@
   ],
   "key": {
     "P": {
-      "item": "geko:ebony_planks"
+      "item": "geco:ebony_planks"
     }
   },
   "result": {
-    "item": "geko:ebony_pressure_plate"
+    "item": "geco:ebony_pressure_plate"
   }
 }

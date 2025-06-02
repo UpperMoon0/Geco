@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "geko:block/ebony_leaves" }
+    "": { "model": "geco:block/ebony_leaves" }
   }
 }

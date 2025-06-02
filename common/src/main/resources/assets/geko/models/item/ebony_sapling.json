@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "geko:block/ebony_sapling"
+    "layer0": "geco:block/ebony_sapling"
   }
 }

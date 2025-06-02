@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_up",
   "textures": {
-    "texture": "geko:block/ebony_planks"
+    "texture": "geco:block/ebony_planks"
   }
 }

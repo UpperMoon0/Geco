@@ -1,6 +1,6 @@
 package com.nstut.registry;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
@@ -9,11 +9,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 public class ModCreativeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Geko.MOD_ID, Registries.CREATIVE_MODE_TAB);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Geco.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
     public static final RegistrySupplier<CreativeModeTab> GEKO_TAB = CREATIVE_MODE_TABS.register("geko_tab", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0) // Added Row.TOP and 0
             .icon(() -> new ItemStack(ModBlocks.EBONY_LOG.get())) // Example icon, can be changed
-            .title(Component.translatable("itemGroup." + Geko.MOD_ID + ".geko_tab"))
+            .title(Component.translatable("itemGroup." + Geco.MOD_ID + ".geko_tab"))
             .displayItems((params, output) -> {
                 // Add items here
                 output.accept(ModBlocks.EBONY_LOG.get());

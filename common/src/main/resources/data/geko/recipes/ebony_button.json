@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "geko:ebony_planks"
+      "item": "geco:ebony_planks"
     }
   ],
   "result": {
-    "item": "geko:ebony_button"
+    "item": "geco:ebony_button"
   }
 }

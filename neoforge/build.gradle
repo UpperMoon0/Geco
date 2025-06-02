@@ -72,7 +72,7 @@ processResources {
     }
 
     from(project(':common').sourceSets.main.resources) {
-        include 'geko.mixins.json'
+        include 'geco.mixins.json'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

@@ -7,11 +7,11 @@
   ],
   "key": {
     "P": {
-      "item": "geko:ebony_planks"
+      "item": "geco:ebony_planks"
     }
   },
   "result": {
-    "item": "geko:ebony_stairs",
+    "item": "geco:ebony_stairs",
     "count": 4
   }
 }

@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "geko:ebony_log",
-    "geko:ebony_leaves",
-    "geko:stripped_ebony_log",
-    "geko:ebony_sapling",
-    "geko:ebony_planks",
-    "geko:ebony_stairs",
-    "geko:ebony_slab",
-    "geko:ebony_fence",
-    "geko:ebony_fence_gate",
-    "geko:ebony_button",
-    "geko:ebony_pressure_plate",
-    "geko:ebony_sign",
-    "geko:ebony_wall_sign"
+    "geco:ebony_log",
+    "geco:ebony_leaves",
+    "geco:stripped_ebony_log",
+    "geco:ebony_sapling",
+    "geco:ebony_planks",
+    "geco:ebony_stairs",
+    "geco:ebony_slab",
+    "geco:ebony_fence",
+    "geco:ebony_fence_gate",
+    "geco:ebony_button",
+    "geco:ebony_pressure_plate",
+    "geco:ebony_sign",
+    "geco:ebony_wall_sign"
   ]
 }

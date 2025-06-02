@@ -24,6 +24,6 @@ public class FabricWorldGenDataProvider extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return "Geko WorldGen Data";
+        return "Geco WorldGen Data";
     }
 }

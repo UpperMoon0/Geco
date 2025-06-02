@@ -17,7 +17,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "geko:ebony_leaves",
+        "Name": "geco:ebony_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -44,7 +44,7 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "geko:ebony_log",
+        "Name": "geco:ebony_log",
         "Properties": {
           "axis": "y"
         }

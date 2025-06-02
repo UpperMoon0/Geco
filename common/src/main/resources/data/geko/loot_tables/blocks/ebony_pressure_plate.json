@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geko:ebony_pressure_plate"
+          "name": "geco:ebony_pressure_plate"
         }
       ],
       "conditions": [

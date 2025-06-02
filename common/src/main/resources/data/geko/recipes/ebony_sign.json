@@ -7,14 +7,14 @@
   ],
   "key": {
     "P": {
-      "item": "geko:ebony_planks"
+      "item": "geco:ebony_planks"
     },
     "S": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "geko:ebony_sign",
+    "item": "geco:ebony_sign",
     "count": 3
   }
 }

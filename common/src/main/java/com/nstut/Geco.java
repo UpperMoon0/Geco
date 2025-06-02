@@ -6,15 +6,15 @@ import com.nstut.registry.ModCreativeTabs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Geko {
-    public static final String MOD_ID = "geko";
+public class Geco {
+    public static final String MOD_ID = "geco";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     
     public static void init() {
-        LOGGER.info("Geko mod initializing...");
+        LOGGER.info("Geco mod initializing...");
         ModBlocks.register();
         ModBlockEntities.register();
         ModCreativeTabs.register();
-        LOGGER.info("Geko mod initialized.");
+        LOGGER.info("Geco mod initialized.");
     }
 }

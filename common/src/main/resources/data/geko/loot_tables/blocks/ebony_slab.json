@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geko:ebony_slab",
+          "name": "geco:ebony_slab",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -14,7 +14,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "geko:ebony_slab",
+                  "block": "geco:ebony_slab",
                   "properties": {
                     "type": "double"
                   }

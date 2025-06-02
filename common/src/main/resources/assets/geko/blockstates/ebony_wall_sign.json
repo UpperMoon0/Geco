@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "geko:block/ebony_sign",
+      "model": "geco:block/ebony_sign",
       "y": 270
     },
     "facing=north": {
-      "model": "geko:block/ebony_sign",
+      "model": "geco:block/ebony_sign",
       "y": 180
     },
     "facing=south": {
-      "model": "geko:block/ebony_sign"
+      "model": "geco:block/ebony_sign"
     },
     "facing=west": {
-      "model": "geko:block/ebony_sign",
+      "model": "geco:block/ebony_sign",
       "y": 90
     }
   }

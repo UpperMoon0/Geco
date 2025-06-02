@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geko:stripped_ebony_log"
+          "name": "geco:stripped_ebony_log"
         }
       ],
       "conditions": [

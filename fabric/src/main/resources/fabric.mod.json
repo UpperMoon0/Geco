@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "geko",
+  "id": "geco",
   "version": "1.0.0",
-  "name": "Geko",
+  "name": "Geco",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
@@ -12,7 +12,7 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
   "license": "CC0-1.0",
-  "icon": "assets/geko/icon.png",
+  "icon": "assets/geco/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -26,7 +26,7 @@
     ]
   },
   "mixins": [
-    "geko.mixins.json"
+    "geco.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.14",

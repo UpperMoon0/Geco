@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "geko:block/ebony_planks"
+    "all": "geco:block/ebony_planks"
   }
 }

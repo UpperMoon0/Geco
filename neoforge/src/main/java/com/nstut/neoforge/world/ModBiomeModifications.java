@@ -1,6 +1,6 @@
 package com.nstut.neoforge.world;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import com.nstut.world.feature.ModPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 public class ModBiomeModifications {    
     public static final DeferredRegister<BiomeModifier> BIOME_MODIFIERS = 
-        DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Geko.MOD_ID);
+        DeferredRegister.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Geco.MOD_ID);
 
     // Helper method to create biome modifier
     private static Supplier<BiomeModifier> createSavannaTreeModifier(ResourceKey<PlacedFeature> placedFeatureKey) {

@@ -1,6 +1,6 @@
 package com.nstut.world.feature;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import com.nstut.registry.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -28,26 +28,26 @@ public class ModConfiguredFeatures {
     
     // Resource Keys for our tree features
     public static final ResourceKey<ConfiguredFeature<?, ?>> EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "ebony_tree"));
             
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "fancy_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "fancy_ebony_tree"));
             
     public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "large_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "large_ebony_tree"));
             
     // New savanna ebony tree variations
     public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "small_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "small_ebony_tree"));
             
     public static final ResourceKey<ConfiguredFeature<?, ?>> TALL_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "tall_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "tall_ebony_tree"));
             
     public static final ResourceKey<ConfiguredFeature<?, ?>> BENT_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "bent_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "bent_ebony_tree"));
             
     public static final ResourceKey<ConfiguredFeature<?, ?>> SPARSE_EBONY_TREE = 
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "sparse_ebony_tree"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "sparse_ebony_tree"));
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         

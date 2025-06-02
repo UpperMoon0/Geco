@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "geko:ebony_log",
-    "geko:stripped_ebony_log"
+    "geco:ebony_log",
+    "geco:stripped_ebony_log"
   ]
 }

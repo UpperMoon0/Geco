@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "geko:block/ebony_sign"
+      "model": "geco:block/ebony_sign"
     }
   }
 }

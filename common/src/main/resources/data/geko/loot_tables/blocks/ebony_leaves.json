@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geko:ebony_leaves"
+          "name": "geco:ebony_leaves"
         }
       ],
       "conditions": [
@@ -33,7 +33,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geko:ebony_sapling" // Assuming you will create geko:ebony_sapling
+          "name": "geco:ebony_sapling" // Assuming you will create geco:ebony_sapling
         }
       ],
       "conditions": [

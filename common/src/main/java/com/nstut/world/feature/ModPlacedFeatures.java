@@ -1,6 +1,6 @@
 package com.nstut.world.feature;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -21,22 +21,22 @@ public class ModPlacedFeatures {
     
     // Resource Keys for our placed features
     public static final ResourceKey<PlacedFeature> EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "ebony_trees_placed"));
             
     // New savanna ebony tree variations - different spawn rates for variety
     public static final ResourceKey<PlacedFeature> SMALL_EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "small_ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "small_ebony_trees_placed"));
             
     public static final ResourceKey<PlacedFeature> TALL_EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "tall_ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "tall_ebony_trees_placed"));
             
     public static final ResourceKey<PlacedFeature> BENT_EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "bent_ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "bent_ebony_trees_placed"));
             
     public static final ResourceKey<PlacedFeature> SPARSE_EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "sparse_ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "sparse_ebony_trees_placed"));
               public static final ResourceKey<PlacedFeature> RARE_LARGE_EBONY_TREES_PLACED = 
-            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "rare_large_ebony_trees_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "rare_large_ebony_trees_placed"));
 
     private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(feature, List.copyOf(modifiers)));

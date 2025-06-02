@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate_open",
   "textures": {
-    "texture": "geko:block/ebony_planks"
+    "texture": "geco:block/ebony_planks"
   }
 }

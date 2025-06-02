@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'geko'
+rootProject.name = 'geco'
 
 include 'common'
 include 'fabric'

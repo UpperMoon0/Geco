@@ -1,6 +1,6 @@
 package com.nstut.registry;
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 import com.nstut.block.EbonyFenceBlock; // Added import
 import com.nstut.block.EbonyLeavesBlock;
 import com.nstut.block.EbonyLogBlock;
@@ -32,12 +32,12 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Geko.MOD_ID, Registries.BLOCK);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Geko.MOD_ID, Registries.ITEM);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Geco.MOD_ID, Registries.BLOCK);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Geco.MOD_ID, Registries.ITEM);
 
     // Ebony Wood Type & SetType
     public static final BlockSetType EBONY_BLOCK_SET_TYPE = new BlockSetType(
-            Geko.MOD_ID + ":ebony", // name
+            Geco.MOD_ID + ":ebony", // name
             true,                    // canOpenByHand
             true,                    // canOpenByWindCharge
             true,                    // canButtonBeActivatedByArrows
@@ -52,7 +52,7 @@ public class ModBlocks {
             SoundEvents.WOODEN_BUTTON_CLICK_OFF, // buttonClickOff
             SoundEvents.WOODEN_BUTTON_CLICK_ON   // buttonClickOn
     );
-    public static final WoodType EBONY_WOOD_TYPE = new WoodType(Geko.MOD_ID + ":ebony", EBONY_BLOCK_SET_TYPE);
+    public static final WoodType EBONY_WOOD_TYPE = new WoodType(Geco.MOD_ID + ":ebony", EBONY_BLOCK_SET_TYPE);
     
     // Ebony Wood Set
     public static final RegistrySupplier<Block> EBONY_LOG = registerBlock("ebony_log", EbonyLogBlock::new, new Item.Properties());

@@ -15,21 +15,21 @@ import net.neoforged.fml.common.EventBusSubscriber; // Added import
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 // import net.neoforged.neoforge.client.event.ModelEvent; // ModelEvent does not have RegisterLayerDefinitions
 
-import com.nstut.Geko;
+import com.nstut.Geco;
 
-@Mod(Geko.MOD_ID)
+@Mod(Geco.MOD_ID)
 public final class GekoNeoForge {
     public GekoNeoForge(IEventBus modEventBus, ModContainer modContainer) {
-        Geko.init();
+        Geco.init();
         
         // Register biome modifications for NeoForge
         ModBiomeModifications.register(modEventBus);
     }
 
-    @EventBusSubscriber(modid = Geko.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = Geco.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         public static final ModelLayerLocation EBONY_SIGN_MODEL_LAYER =
-                new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Geko.MOD_ID, "sign/ebony"), "main");
+                new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "sign/ebony"), "main");
 
         @SubscribeEvent
         public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {

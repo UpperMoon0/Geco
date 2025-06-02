@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/button_inventory",
   "textures": {
-    "texture": "geko:block/ebony_planks"
+    "texture": "geco:block/ebony_planks"
   }
 }

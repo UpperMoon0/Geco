@@ -1,15 +1,15 @@
 {
-  "block.geko.ebony_log": "Ebony Log",
-  "block.geko.ebony_leaves": "Ebony Leaves",
-  "block.geko.stripped_ebony_log": "Stripped Ebony Log",
-  "block.geko.ebony_sapling": "Ebony Sapling",
-  "block.geko.ebony_planks": "Ebony Planks",
-  "block.geko.ebony_stairs": "Ebony Stairs",
-  "block.geko.ebony_slab": "Ebony Slab",
-  "block.geko.ebony_fence": "Ebony Fence",
-  "block.geko.ebony_fence_gate": "Ebony Fence Gate",
-  "block.geko.ebony_button": "Ebony Button",
-  "block.geko.ebony_pressure_plate": "Ebony Pressure Plate",
-  "block.geko.ebony_sign": "Ebony Sign",
-  "itemGroup.geko.geko_tab": "Geko Mod"
+  "block.geco.ebony_log": "Ebony Log",
+  "block.geco.ebony_leaves": "Ebony Leaves",
+  "block.geco.stripped_ebony_log": "Stripped Ebony Log",
+  "block.geco.ebony_sapling": "Ebony Sapling",
+  "block.geco.ebony_planks": "Ebony Planks",
+  "block.geco.ebony_stairs": "Ebony Stairs",
+  "block.geco.ebony_slab": "Ebony Slab",
+  "block.geco.ebony_fence": "Ebony Fence",
+  "block.geco.ebony_fence_gate": "Ebony Fence Gate",
+  "block.geco.ebony_button": "Ebony Button",
+  "block.geco.ebony_pressure_plate": "Ebony Pressure Plate",
+  "block.geco.ebony_sign": "Ebony Sign",
+  "itemGroup.geco.geko_tab": "Geco Mod"
 }

@@ -2,7 +2,7 @@ package com.nstut.fabric.data;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
-import com.nstut.Geko;
+import com.nstut.Geco;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -21,12 +21,12 @@ public class NeoForgeBiomeModifierDataProvider implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
         return CompletableFuture.allOf(
-            createBiomeModifier(cache, "add_small_ebony_trees", "geko:small_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_regular_ebony_trees", "geko:ebony_trees_placed"),
-            createBiomeModifier(cache, "add_sparse_ebony_trees", "geko:sparse_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_bent_ebony_trees", "geko:bent_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_tall_ebony_trees", "geko:tall_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_large_ebony_trees", "geko:rare_large_ebony_trees_placed")
+            createBiomeModifier(cache, "add_small_ebony_trees", "geco:small_ebony_trees_placed"),
+            createBiomeModifier(cache, "add_regular_ebony_trees", "geco:ebony_trees_placed"),
+            createBiomeModifier(cache, "add_sparse_ebony_trees", "geco:sparse_ebony_trees_placed"),
+            createBiomeModifier(cache, "add_bent_ebony_trees", "geco:bent_ebony_trees_placed"),
+            createBiomeModifier(cache, "add_tall_ebony_trees", "geco:tall_ebony_trees_placed"),
+            createBiomeModifier(cache, "add_large_ebony_trees", "geco:rare_large_ebony_trees_placed")
         );
     }
     
@@ -46,7 +46,7 @@ public class NeoForgeBiomeModifierDataProvider implements DataProvider {
         Path neoforgeModulePath = output.getOutputFolder().getParent().getParent().getParent().getParent().resolve("neoforge");
         Path outputPath = neoforgeModulePath
             .resolve("src/generated/resources/data")
-            .resolve(Geko.MOD_ID)
+            .resolve(Geco.MOD_ID)
             .resolve("neoforge/biome_modifier")
             .resolve(name + ".json");
             

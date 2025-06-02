@@ -5,11 +5,11 @@
   ],
   "key": {
     "P": {
-      "item": "geko:ebony_planks"
+      "item": "geco:ebony_planks"
     }
   },
   "result": {
-    "item": "geko:ebony_slab",
+    "item": "geco:ebony_slab",
     "count": 6
   }
 }

@@ -59,41 +59,16 @@ public class ModBiomeModifications {
             );
         };
     }
-      // Register biome modifiers using DeferredRegister (Java-based approach)
-    public static final Supplier<BiomeModifier> ADD_SMALL_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_small_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.SMALL_EBONY_TREES_PLACED)
-    );
-    
-    public static final Supplier<BiomeModifier> ADD_REGULAR_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_regular_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.EBONY_TREES_PLACED)
-    );
-    
-    public static final Supplier<BiomeModifier> ADD_SPARSE_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_sparse_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.SPARSE_EBONY_TREES_PLACED)
-    );
-    
-    public static final Supplier<BiomeModifier> ADD_BENT_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_bent_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.BENT_EBONY_TREES_PLACED)
-    );
-    
-    public static final Supplier<BiomeModifier> ADD_TALL_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_tall_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.TALL_EBONY_TREES_PLACED)
-    );
-    
-    public static final Supplier<BiomeModifier> ADD_LARGE_EBONY_TREES = BIOME_MODIFIERS.register(
-        "add_large_ebony_trees", 
-        createSavannaTreeModifier(ModPlacedFeatures.RARE_LARGE_EBONY_TREES_PLACED)
-    );
+
+    // Supplier for the new Ebony Tree Type A
+    public static final Supplier<BiomeModifier> ADD_EBONY_TREE_TYPE_A_SAVANNA =
+        createSavannaTreeModifier(ModPlacedFeatures.EBONY_TREE_TYPE_A_PLACED);
     
     /**
      * Register the biome modifiers - called from the main mod class
      */
     public static void register(IEventBus modEventBus) {
+        BIOME_MODIFIERS.register("add_ebony_tree_type_a_savanna", ADD_EBONY_TREE_TYPE_A_SAVANNA);
         BIOME_MODIFIERS.register(modEventBus);
     }
 }

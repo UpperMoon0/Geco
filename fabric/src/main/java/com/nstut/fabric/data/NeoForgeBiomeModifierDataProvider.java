@@ -20,14 +20,8 @@ public class NeoForgeBiomeModifierDataProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        return CompletableFuture.allOf(
-            createBiomeModifier(cache, "add_small_ebony_trees", "geco:small_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_regular_ebony_trees", "geco:ebony_trees_placed"),
-            createBiomeModifier(cache, "add_sparse_ebony_trees", "geco:sparse_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_bent_ebony_trees", "geco:bent_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_tall_ebony_trees", "geco:tall_ebony_trees_placed"),
-            createBiomeModifier(cache, "add_large_ebony_trees", "geco:rare_large_ebony_trees_placed")
-        );
+        // TODO: Add biome modifier data generation for the new Type A ebony tree variant
+        return CompletableFuture.completedFuture(null);
     }
     
     private CompletableFuture<?> createBiomeModifier(CachedOutput cache, String name, String featureName) {

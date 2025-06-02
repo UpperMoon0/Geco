@@ -7,7 +7,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import com.nstut.registry.ModWorldGeneration; // Assuming ModWorldGeneration is in this package
 
-public class GekoFabricDataGenerator implements DataGeneratorEntrypoint {
+public class GecoFabricDataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();

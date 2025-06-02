@@ -4,7 +4,7 @@ import com.nstut.registry.ModWorldGeneration;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 
-public class GekoCommonDataGenerators {
+public class GecoCommonDataGenerators {
     
     // Registry builder for worldgen data - centralized for all platforms
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()

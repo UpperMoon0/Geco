@@ -1,8 +1,6 @@
 package com.nstut.neoforge;
 
 import com.nstut.neoforge.world.ModBiomeModifications;
-import com.nstut.registry.ModBlockEntities;
-import com.nstut.registry.ModBlocks;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -11,15 +9,14 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.EventBusSubscriber; // Added import
+import net.neoforged.fml.common.EventBusSubscriber; 
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-// import net.neoforged.neoforge.client.event.ModelEvent; // ModelEvent does not have RegisterLayerDefinitions
 
 import com.nstut.Geco;
 
 @Mod(Geco.MOD_ID)
-public final class GekoNeoForge {
-    public GekoNeoForge(IEventBus modEventBus, ModContainer modContainer) {
+public final class GecoNeoForge {
+    public GecoNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         Geco.init();
         
         // Register biome modifications for NeoForge

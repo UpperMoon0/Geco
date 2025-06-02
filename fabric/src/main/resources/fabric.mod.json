@@ -16,13 +16,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nstut.fabric.GekoFabric"
+      "com.nstut.fabric.GecoFabric"
     ],
     "client": [
-      "com.nstut.fabric.client.GekoFabricClient"
+      "com.nstut.fabric.client.GecoFabricClient"
     ],
     "fabric-datagen": [
-      "com.nstut.fabric.data.GekoFabricDataGenerator"
+      "com.nstut.fabric.data.GecoFabricDataGenerator"
     ]
   },
   "mixins": [

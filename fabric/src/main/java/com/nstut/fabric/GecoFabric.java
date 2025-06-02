@@ -5,7 +5,7 @@ import net.fabricmc.api.ModInitializer;
 
 import com.nstut.Geco;
 
-public final class GekoFabric implements ModInitializer {
+public final class GecoFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Geco.init();

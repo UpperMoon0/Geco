@@ -18,9 +18,11 @@ public class ModCreativeTabs {
                 // Add items here
                 output.accept(ModBlocks.EBONY_LOG.get());
                 output.accept(ModBlocks.STRIPPED_EBONY_LOG.get());
+                output.accept(ModBlocks.EBONY_WOOD.get());
+                output.accept(ModBlocks.STRIPPED_EBONY_WOOD.get());
                 output.accept(ModBlocks.EBONY_LEAVES.get());
                 output.accept(ModBlocks.EBONY_SAPLING.get());
-                output.accept(ModBlocks.EBONY_PLANKS.get()); // Added Ebony Planks
+                output.accept(ModBlocks.EBONY_PLANKS.get()); 
                 output.accept(ModBlocks.EBONY_STAIRS.get());
                 output.accept(ModBlocks.EBONY_SLAB.get());
                 output.accept(ModBlocks.EBONY_FENCE.get());
@@ -29,6 +31,8 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.EBONY_PRESSURE_PLATE.get());
                 output.accept(ModBlocks.EBONY_DOOR.get());
                 output.accept(ModBlocks.EBONY_TRAPDOOR.get());
+                output.accept(ModBlocks.EBONY_SIGN.get());
+                output.accept(ModBlocks.EBONY_HANGING_SIGN.get());
             })
             .build());
 

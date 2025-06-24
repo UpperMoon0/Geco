@@ -1,17 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building_blocks",
-  "group": "wooden_slab",
-  "pattern": [
-    "###"
-  ],
+  "category": "misc",
   "key": {
-    "#": {
+    "P": {
       "item": "geco:ebony_planks"
     }
   },
+  "pattern": [
+    "PPP"
+  ],
   "result": {
-    "id": "geco:ebony_slab",
-    "count": 6
+    "count": 6,
+    "id": "geco:ebony_slab"
   }
 }

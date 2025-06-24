@@ -1,18 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building_blocks",
-  "group": "bark",
-  "pattern": [
-    "##",
-    "##"
-  ],
+  "category": "misc",
   "key": {
-    "#": {
+    "L": {
       "item": "geco:ebony_log"
     }
   },
+  "pattern": [
+    "LL",
+    "LL"
+  ],
   "result": {
-    "id": "geco:ebony_wood",
-    "count": 3
+    "count": 3,
+    "id": "geco:ebony_wood"
   }
 }

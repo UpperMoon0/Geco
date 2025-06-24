@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "building_blocks",
-  "group": "planks",
-  "ingredients": [{
-    "tag": "geco:ebony_logs"
-  }],
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "geco:ebony_logs"
+    }
+  ],
   "result": {
-    "id": "geco:ebony_planks",
-    "count": 4
+    "count": 4,
+    "id": "geco:ebony_planks"
   }
 }

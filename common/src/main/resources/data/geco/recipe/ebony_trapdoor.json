@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "L": {
-      "item": "geco:stripped_ebony_log"
+    "P": {
+      "item": "geco:ebony_planks"
     }
   },
   "pattern": [
-    "LL",
-    "LL"
+    "PPP",
+    "PPP"
   ],
   "result": {
-    "count": 3,
-    "id": "geco:stripped_ebony_wood"
+    "count": 2,
+    "id": "geco:ebony_trapdoor"
   }
 }

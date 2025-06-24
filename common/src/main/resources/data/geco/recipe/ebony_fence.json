@@ -4,15 +4,17 @@
   "key": {
     "P": {
       "item": "geco:ebony_planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "P  ",
-    "PP ",
-    "PPP"
+    "PSP",
+    "PSP"
   ],
   "result": {
-    "count": 4,
-    "id": "geco:ebony_stairs"
+    "count": 3,
+    "id": "geco:ebony_fence"
   }
 }

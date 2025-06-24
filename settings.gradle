@@ -11,5 +11,5 @@ plugins {
 rootProject.name = 'geco'
 
 include 'common'
-include 'neoforge'
+include 'neoforge-1.21.1'
 include 'fabric'

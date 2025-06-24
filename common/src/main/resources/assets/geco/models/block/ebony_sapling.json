@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "geco:block/ebony_sapling"
-  },
-  "render_type": "minecraft:cutout"
-}

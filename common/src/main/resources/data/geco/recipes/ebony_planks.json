@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredient": {
+    "tag": "geco:ebony_logs"
+  },
+  "result": "geco:ebony_planks",
+  "count": 4
+}

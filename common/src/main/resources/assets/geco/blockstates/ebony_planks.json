@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "geco:block/ebony_planks" }
+    "": {
+      "model": "geco:block/ebony_planks"
+    }
   }
 }

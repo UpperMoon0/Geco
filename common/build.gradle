@@ -1,39 +1,34 @@
-architectury {
-    common rootProject.enabled_platforms.split(',')
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.95'
 }
 
-// loom block for datagen
-loom {
-    // Enable data generation
-    runs {
-        datagen {
-            inherit server
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=geco"
-            
-            runDir "build/datagen"
-        }
+// Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+version = '1.0.0'
+group = 'com.nstut.geco.common'
+
+repositories {
+    mavenCentral()
+}
+
+neoForge {
+    // Specify the version of NeoForge to use.
+    version = '21.1.184'
+
+    parchment {
+        mappingsVersion = '2024.11.17'
+        minecraftVersion = '1.21.1'
     }
 }
 
-// Include generated resources in the source sets
-sourceSets {
-    main {
-        resources {
-            srcDirs += 'src/generated/resources'
-        }
-    }
+dependencies {
+    // This gives us the Minecraft and NeoForge APIs without the platform-specific parts
+    compileOnly "net.neoforged:neoforge:21.1.184"
 }
 
-dependencies {  
-    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
-    // which get remapped to the correct annotations on each platform.
-    // Do NOT use other classes from Fabric Loader.
-    // Use compileOnly to avoid runtime conflicts
-    compileOnly "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-
-    // Architectury API. This is optional, and you can comment it out if you don't need it.
-    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }

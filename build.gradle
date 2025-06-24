@@ -1,6 +1,30 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
+    id 'architectury-plugin' version '3.4-SNAPSHOT' apply false
+    id 'com.gradleup.shadow' version '8.3.1' apply false
+    id 'net.neoforged.moddev' version '2.0.95' apply false
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+    maven {
+        name = 'Architectury'
+        url = 'https://maven.architectury.dev/'
+    }
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
 }
 
 // Configure gradle wrapper
@@ -20,8 +44,6 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'dev.architectury.loom'
-    apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
 
     base {
@@ -29,6 +51,17 @@ subprojects {
         archivesName = "$rootProject.archives_name-$project.name"
     }
 
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+}
+
+// Configure only fabric and neoforge subprojects with Architectury Loom
+configure(subprojects.findAll { it.name in ['fabric', 'neoforge'] }) {
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
 
     loom {
         silentMojangMappingsLicense()
@@ -37,12 +70,6 @@ subprojects {
     dependencies {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
         mappings loom.officialMojangMappings()
-    }
-
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
-        }
     }
 }
 

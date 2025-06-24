@@ -7,25 +7,6 @@ architectury {
     neoForge()
 }
 
-// Include common source files in development
-sourceSets {
-    main {
-        // Include generated resources
-        resources {
-            srcDirs += 'src/generated/resources'
-        }
-    }
-}
-
-// Source sets for generated resources
-sourceSets {
-    main {
-        resources {
-            srcDir 'src/generated/resources'
-        }
-    }
-}
-
 configurations {
     common {
         canBeResolved = true
@@ -57,28 +38,32 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
-    
-    // Ensure common classes are available in development
-    implementation(project(':common')) {
-        exclude group: 'net.fabricmc', module: 'fabric-loader'
-    }
 }
 
 processResources {
     inputs.property 'version', project.version
+    inputs.property 'mod_version', rootProject.mod_version
+    inputs.property 'archives_name', rootProject.archives_name
+    inputs.property 'mod_display_name', rootProject.mod_display_name
+    inputs.property 'minecraft_version', rootProject.minecraft_version
+    inputs.property 'neoforge_version', rootProject.neoforge_version
+    inputs.property 'architectury_api_version', rootProject.architectury_api_version
 
     filesMatching('META-INF/neoforge.mods.toml') {
-        expand version: project.version
+        expand(
+            version: project.version,
+            mod_version: rootProject.mod_version,
+            archives_name: rootProject.archives_name,
+            mod_display_name: rootProject.mod_display_name,
+            minecraft_version: rootProject.minecraft_version,
+            neoforge_version: rootProject.neoforge_version,
+            architectury_api_version: rootProject.architectury_api_version
+        )
     }
 
     from(project(':common').sourceSets.main.resources) {
         include 'geco.mixins.json'
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-// Fix duplicate handling for sourcesJar task
-tasks.withType(Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 

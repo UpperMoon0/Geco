@@ -4,9 +4,9 @@ loaderVersion = "[4,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "geco"
-version = "${version}"
-displayName = "Geco"
+modId = "${archives_name}"
+version = "${mod_version}"
+displayName = "${mod_display_name}"
 authors = "Me!"
 description = '''
 This is an example description! Tell everyone what your mod is about!
@@ -16,21 +16,21 @@ This is an example description! Tell everyone what your mod is about!
 [[dependencies.geco]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1,)"
+versionRange = "[${neoforge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.geco]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.geco]]
 modId = "architectury"
 type = "required"
-versionRange = "[13.0.8,)"
+versionRange = "[${architectury_api_version},)"
 ordering = "AFTER"
 side = "BOTH"
 

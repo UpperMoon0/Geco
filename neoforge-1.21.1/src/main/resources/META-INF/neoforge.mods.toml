@@ -1,0 +1,26 @@
+# This is the neoforge.mods.toml file for the Geco mod
+modLoader="javafml"
+loaderVersion="[1,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="geco"
+version="1.0.0"
+displayName="Geco"
+authors="YourNameHere, OtherNameHere"
+description='''Example mod description.
+Newline characters can be used and will be replaced properly.'''
+
+[[dependencies.geco]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.184,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.geco]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"

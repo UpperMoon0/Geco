@@ -12,4 +12,5 @@ rootProject.name = 'geco'
 
 include 'common'
 include 'neoforge-1.21.1'
+include 'forge-1.20.1'  // Temporarily disabled due to compatibility issues
 include 'fabric'

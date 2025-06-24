@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:crafting_shapeless",
-  "group": "planks",
-  "ingredient": {
-    "item": "geco:ebony_wood"
-  },
-  "result": "geco:ebony_planks",
-  "count": 4
-}

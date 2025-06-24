@@ -5,7 +5,9 @@ import com.nstut.block.EbonyLeavesBlock;
 import com.nstut.block.EbonyLogBlock;
 import com.nstut.block.EbonyPlanksBlock;
 import com.nstut.block.EbonySaplingBlock;
+import com.nstut.block.EbonyWoodBlock;
 import com.nstut.block.StrippedEbonyLogBlock;
+import com.nstut.block.StrippedEbonyWoodBlock;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
@@ -54,6 +56,8 @@ public class ModBlocks {
     // Ebony Wood Set
     public static final RegistrySupplier<Block> EBONY_LOG = registerBlock("ebony_log", EbonyLogBlock::new, new Item.Properties());
     public static final RegistrySupplier<Block> STRIPPED_EBONY_LOG = registerBlock("stripped_ebony_log", StrippedEbonyLogBlock::new, new Item.Properties());
+    public static final RegistrySupplier<Block> EBONY_WOOD = registerBlock("ebony_wood", EbonyWoodBlock::new, new Item.Properties());
+    public static final RegistrySupplier<Block> STRIPPED_EBONY_WOOD = registerBlock("stripped_ebony_wood", StrippedEbonyWoodBlock::new, new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_LEAVES = registerBlock("ebony_leaves", EbonyLeavesBlock::new, new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_SAPLING = registerBlock("ebony_sapling", EbonySaplingBlock::new, new Item.Properties());
     public static final RegistrySupplier<Block> EBONY_PLANKS = registerBlock("ebony_planks", EbonyPlanksBlock::new, new Item.Properties());

@@ -15,7 +15,6 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
-
 import java.util.function.Supplier;
 
 @Mod(Geco.MOD_ID)

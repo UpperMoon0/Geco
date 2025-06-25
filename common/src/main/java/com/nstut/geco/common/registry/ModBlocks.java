@@ -1,5 +1,6 @@
 package com.nstut.geco.common.registry;
 
+import com.nstut.geco.common.block.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -102,19 +103,19 @@ public class ModBlocks {
                 .noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
         
         EBONY_SIGN = REGISTRY_HELPER.registerBlock("ebony_sign",
-            () -> new StandingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
+            () -> new EbonySignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
                 .noCollission().strength(1.0F).ignitedByLava()));
         
         EBONY_WALL_SIGN = REGISTRY_HELPER.registerBlock("ebony_wall_sign",
-            () -> new WallSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_SIGN.get())
+            () -> new EbonyWallSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_SIGN.get())
                 .dropsLike(EBONY_SIGN.get())));
         
         EBONY_HANGING_SIGN = REGISTRY_HELPER.registerBlock("ebony_hanging_sign",
-            () -> new CeilingHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
+            () -> new EbonyHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
                 .noCollission().strength(1.0F).ignitedByLava()));
         
         EBONY_WALL_HANGING_SIGN = REGISTRY_HELPER.registerBlock("ebony_wall_hanging_sign",
-            () -> new WallHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_HANGING_SIGN.get())
+            () -> new EbonyWallHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_HANGING_SIGN.get())
                 .dropsLike(EBONY_HANGING_SIGN.get())));
     }
     

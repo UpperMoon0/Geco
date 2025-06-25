@@ -3,6 +3,7 @@ package com.nstut.registry;
 import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.block.entity.EbonyHangingSignBlockEntity;
 import com.nstut.geco.common.block.entity.EbonySignBlockEntity;
+import com.nstut.geco.common.registry.ModBlocks;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -23,7 +24,7 @@ public class ModBlockEntities {
             ModBlocks.EBONY_HANGING_SIGN.get(),
             ModBlocks.EBONY_WALL_HANGING_SIGN.get()).build(null));
 
-    public static void register() {
+    public static void init() {
         BLOCK_ENTITIES.register();
     }
 }

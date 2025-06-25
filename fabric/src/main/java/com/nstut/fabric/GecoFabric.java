@@ -16,8 +16,6 @@ import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
 import com.nstut.geco.common.registry.ModBoatTypes;
 import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.level.block.Block;
-
 import java.util.function.Supplier;
 
 public class GecoFabric implements ModInitializer {
@@ -63,21 +61,20 @@ public class GecoFabric implements ModInitializer {
         // Set up creative tab registry helper
         ModCreativeTabs.REGISTRY_HELPER = new ModCreativeTabs.CreativeTabRegistryHelper() {
             @Override
-            public Supplier<CreativeModeTab> registerCreativeTab(String name) {
+            public void registerCreativeTab(String name, java.util.List<Supplier<? extends Item>> items) {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
                 CreativeModeTab tab = FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup.geco.geco_tab"))
                     .icon(() -> ModItems.EBONY_LOG.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        // Automatically add all registered mod items
-                        ModItems.getAllItems().forEach(itemSupplier -> {
+                        // Add all provided items
+                        items.forEach(itemSupplier -> {
                             output.accept(itemSupplier.get());
                         });
                     })
                     .build();
                 
-                CreativeModeTab registeredTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
-                return () -> registeredTab;
+                Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
             }
         };
         
@@ -85,9 +82,8 @@ public class GecoFabric implements ModInitializer {
         ModBoatTypes.REGISTRY_HELPER = new ModBoatTypes.BoatTypeRegistryHelper() {
             @Override
             public Supplier<Boat.Type> registerBoatType(String name, Supplier<Block> planks) {
-                // For Fabric, we'll create a custom boat type using reflection or mixin
-                // For now, return a dummy implementation - this will need platform-specific boat type creation
-                return () -> Boat.Type.OAK; // Temporary placeholder
+                // Use reflection to create proper custom boat type following vanilla pattern
+                return () -> com.nstut.geco.common.util.BoatTypeHelper.createEbonyBoatType(planks.get());
             }
         };
     }

@@ -3,7 +3,6 @@ package com.nstut.geco.common.registry;
 import com.nstut.geco.common.Geco;
 
 import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 

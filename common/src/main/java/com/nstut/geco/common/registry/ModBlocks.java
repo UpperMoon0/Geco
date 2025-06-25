@@ -28,10 +28,6 @@ public class ModBlocks {
     public static Supplier<Block> EBONY_TRAPDOOR;
     public static Supplier<Block> EBONY_PRESSURE_PLATE;
     public static Supplier<Block> EBONY_BUTTON;
-    public static Supplier<Block> EBONY_SIGN;
-    public static Supplier<Block> EBONY_WALL_SIGN;
-    public static Supplier<Block> EBONY_HANGING_SIGN;
-    public static Supplier<Block> EBONY_WALL_HANGING_SIGN;
     
     // Ebony Natural Blocks
     public static Supplier<Block> EBONY_LEAVES;
@@ -105,22 +101,6 @@ public class ModBlocks {
         EBONY_BUTTON = REGISTRY_HELPER.registerBlock("ebony_button",
             () -> new ButtonBlock(ModBlockSetTypes.EBONY, 30, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
                 .noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY)));
-        
-        EBONY_SIGN = REGISTRY_HELPER.registerBlock("ebony_sign",
-            () -> new EbonySignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
-                .noCollission().strength(1.0F).ignitedByLava()));
-        
-        EBONY_WALL_SIGN = REGISTRY_HELPER.registerBlock("ebony_wall_sign",
-            () -> new EbonyWallSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_SIGN.get())
-                .dropsLike(EBONY_SIGN.get())));
-        
-        EBONY_HANGING_SIGN = REGISTRY_HELPER.registerBlock("ebony_hanging_sign",
-            () -> new EbonyHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_PLANKS.get())
-                .noCollission().strength(1.0F).ignitedByLava()));
-        
-        EBONY_WALL_HANGING_SIGN = REGISTRY_HELPER.registerBlock("ebony_wall_hanging_sign",
-            () -> new EbonyWallHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_HANGING_SIGN.get())
-                .dropsLike(EBONY_HANGING_SIGN.get())));
         
         // Ebony Natural Blocks
         EBONY_LEAVES = REGISTRY_HELPER.registerBlock("ebony_leaves",

@@ -1,12 +1,15 @@
 {
   "required": true,
-  "package": "com.nstut.mixin",
-  "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "client": [
-  ],
+  "package": "com.nstut.geco.common.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "geco.refmap.json",
   "mixins": [
+    "BoatMixin",
+    "ChestBoatMixin"
   ],
+  "client": [],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }

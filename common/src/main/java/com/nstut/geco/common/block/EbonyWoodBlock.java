@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.phys.BlockHitResult;
-import com.nstut.registry.ModBlocks;
+import com.nstut.geco.common.registry.ModBlocks;
 import net.minecraft.world.entity.EquipmentSlot;
 
 public class EbonyWoodBlock extends RotatedPillarBlock {

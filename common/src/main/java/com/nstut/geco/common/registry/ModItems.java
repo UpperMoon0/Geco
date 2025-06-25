@@ -2,8 +2,6 @@ package com.nstut.geco.common.registry;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.SignItem;
 import net.minecraft.world.item.BoatItem;
 
 import java.util.ArrayList;
@@ -23,6 +21,8 @@ public class ModItems {
     public static Supplier<BlockItem> STRIPPED_EBONY_LOG;
     public static Supplier<BlockItem> EBONY_WOOD;
     public static Supplier<BlockItem> STRIPPED_EBONY_WOOD;
+    public static Supplier<BlockItem> EBONY_LEAVES;
+    public static Supplier<BlockItem> EBONY_SAPLING;
     public static Supplier<BlockItem> EBONY_PLANKS;
     public static Supplier<BlockItem> EBONY_STAIRS;
     public static Supplier<BlockItem> EBONY_SLAB;
@@ -32,13 +32,7 @@ public class ModItems {
     public static Supplier<BlockItem> EBONY_TRAPDOOR;
     public static Supplier<BlockItem> EBONY_PRESSURE_PLATE;
     public static Supplier<BlockItem> EBONY_BUTTON;
-    public static Supplier<BlockItem> EBONY_LEAVES;
-    public static Supplier<BlockItem> EBONY_SAPLING;
-    
-    // Sign Items
-    public static Supplier<SignItem> EBONY_SIGN;
-    public static Supplier<HangingSignItem> EBONY_HANGING_SIGN;
-    
+
     // Boat Items
     public static Supplier<BoatItem> EBONY_BOAT;
     public static Supplier<BoatItem> EBONY_CHEST_BOAT;
@@ -53,6 +47,8 @@ public class ModItems {
         STRIPPED_EBONY_LOG = registerBlockItemAndTrack("stripped_ebony_log", ModBlocks.STRIPPED_EBONY_LOG);
         EBONY_WOOD = registerBlockItemAndTrack("ebony_wood", ModBlocks.EBONY_WOOD);
         STRIPPED_EBONY_WOOD = registerBlockItemAndTrack("stripped_ebony_wood", ModBlocks.STRIPPED_EBONY_WOOD);
+        EBONY_LEAVES = registerBlockItemAndTrack("ebony_leaves", ModBlocks.EBONY_LEAVES);
+        EBONY_SAPLING = registerBlockItemAndTrack("ebony_sapling", ModBlocks.EBONY_SAPLING);
         EBONY_PLANKS = registerBlockItemAndTrack("ebony_planks", ModBlocks.EBONY_PLANKS);
         EBONY_STAIRS = registerBlockItemAndTrack("ebony_stairs", ModBlocks.EBONY_STAIRS);
         EBONY_SLAB = registerBlockItemAndTrack("ebony_slab", ModBlocks.EBONY_SLAB);
@@ -62,15 +58,6 @@ public class ModItems {
         EBONY_TRAPDOOR = registerBlockItemAndTrack("ebony_trapdoor", ModBlocks.EBONY_TRAPDOOR);
         EBONY_PRESSURE_PLATE = registerBlockItemAndTrack("ebony_pressure_plate", ModBlocks.EBONY_PRESSURE_PLATE);
         EBONY_BUTTON = registerBlockItemAndTrack("ebony_button", ModBlocks.EBONY_BUTTON);
-        EBONY_LEAVES = registerBlockItemAndTrack("ebony_leaves", ModBlocks.EBONY_LEAVES);
-        EBONY_SAPLING = registerBlockItemAndTrack("ebony_sapling", ModBlocks.EBONY_SAPLING);
-        
-        // Sign Items
-        EBONY_SIGN = registerAndTrack("ebony_sign",
-            () -> new SignItem(new Item.Properties().stacksTo(16), ModBlocks.EBONY_SIGN.get(), ModBlocks.EBONY_WALL_SIGN.get()));
-        
-        EBONY_HANGING_SIGN = registerAndTrack("ebony_hanging_sign",
-            () -> new HangingSignItem(ModBlocks.EBONY_HANGING_SIGN.get(), ModBlocks.EBONY_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
         
         // Boat Items
         EBONY_BOAT = registerAndTrack("ebony_boat",

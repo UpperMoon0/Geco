@@ -1,7 +1,6 @@
 package com.nstut.geco.common;
 
 import com.nstut.geco.common.registry.*;
-import com.nstut.registry.ModBlockEntities;
 
 public class Geco {
     public static final String MOD_ID = "geco";

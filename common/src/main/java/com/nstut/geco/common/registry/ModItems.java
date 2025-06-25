@@ -4,6 +4,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.BoatItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,10 @@ public class ModItems {
     public static Supplier<SignItem> EBONY_SIGN;
     public static Supplier<HangingSignItem> EBONY_HANGING_SIGN;
     
+    // Boat Items
+    public static Supplier<BoatItem> EBONY_BOAT;
+    public static Supplier<BoatItem> EBONY_CHEST_BOAT;
+    
     public static void init() {
         if (REGISTRY_HELPER == null) {
             throw new IllegalStateException("ItemRegistryHelper not set! Platform-specific code must set this before calling init()");
@@ -66,6 +71,13 @@ public class ModItems {
         
         EBONY_HANGING_SIGN = registerAndTrack("ebony_hanging_sign",
             () -> new HangingSignItem(ModBlocks.EBONY_HANGING_SIGN.get(), ModBlocks.EBONY_WALL_HANGING_SIGN.get(), new Item.Properties().stacksTo(16)));
+        
+        // Boat Items
+        EBONY_BOAT = registerAndTrack("ebony_boat",
+            () -> new BoatItem(false, ModBoatTypes.EBONY.get(), new Item.Properties().stacksTo(1)));
+        
+        EBONY_CHEST_BOAT = registerAndTrack("ebony_chest_boat",
+            () -> new BoatItem(true, ModBoatTypes.EBONY.get(), new Item.Properties().stacksTo(1)));
     }
     
     // Helper methods to register items and automatically track them

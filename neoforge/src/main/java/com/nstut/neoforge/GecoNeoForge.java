@@ -15,6 +15,9 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
+import com.nstut.geco.common.registry.ModBoatTypes;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 @Mod(Geco.MOD_ID)
@@ -78,9 +81,19 @@ public class GecoNeoForge {
                         });
                     })
                     .build());
-            }
-        };
-    }
+           }
+       };
+       
+       // Set up boat type registry helper
+       ModBoatTypes.REGISTRY_HELPER = new ModBoatTypes.BoatTypeRegistryHelper() {
+           @Override
+           public Supplier<Boat.Type> registerBoatType(String name, Supplier<Block> planks) {
+               // For NeoForge, we'll create a custom boat type
+               // For now, return a dummy implementation - this will need platform-specific boat type creation
+               return () -> Boat.Type.OAK; // Temporary placeholder
+           }
+       };
+   }
     
     private void commonSetup(final FMLCommonSetupEvent event) {
 

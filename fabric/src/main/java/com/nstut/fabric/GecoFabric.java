@@ -14,6 +14,9 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
+import com.nstut.geco.common.registry.ModBoatTypes;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
@@ -75,6 +78,16 @@ public class GecoFabric implements ModInitializer {
                 
                 CreativeModeTab registeredTab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
                 return () -> registeredTab;
+            }
+        };
+        
+        // Set up boat type registry helper
+        ModBoatTypes.REGISTRY_HELPER = new ModBoatTypes.BoatTypeRegistryHelper() {
+            @Override
+            public Supplier<Boat.Type> registerBoatType(String name, Supplier<Block> planks) {
+                // For Fabric, we'll create a custom boat type using reflection or mixin
+                // For now, return a dummy implementation - this will need platform-specific boat type creation
+                return () -> Boat.Type.OAK; // Temporary placeholder
             }
         };
     }

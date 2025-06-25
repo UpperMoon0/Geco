@@ -26,6 +26,8 @@ public class ModItems {
     public static Supplier<BlockItem> EBONY_TRAPDOOR;
     public static Supplier<BlockItem> EBONY_PRESSURE_PLATE;
     public static Supplier<BlockItem> EBONY_BUTTON;
+    public static Supplier<BlockItem> EBONY_LEAVES;
+    public static Supplier<BlockItem> EBONY_SAPLING;
     
     // Sign Items
     public static Supplier<SignItem> EBONY_SIGN;
@@ -50,6 +52,8 @@ public class ModItems {
         EBONY_TRAPDOOR = REGISTRY_HELPER.registerBlockItem("ebony_trapdoor", ModBlocks.EBONY_TRAPDOOR);
         EBONY_PRESSURE_PLATE = REGISTRY_HELPER.registerBlockItem("ebony_pressure_plate", ModBlocks.EBONY_PRESSURE_PLATE);
         EBONY_BUTTON = REGISTRY_HELPER.registerBlockItem("ebony_button", ModBlocks.EBONY_BUTTON);
+        EBONY_LEAVES = REGISTRY_HELPER.registerBlockItem("ebony_leaves", ModBlocks.EBONY_LEAVES);
+        EBONY_SAPLING = REGISTRY_HELPER.registerBlockItem("ebony_sapling", ModBlocks.EBONY_SAPLING);
         
         // Sign Items
         EBONY_SIGN = REGISTRY_HELPER.registerItem("ebony_sign",

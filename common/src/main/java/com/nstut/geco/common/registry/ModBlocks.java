@@ -33,6 +33,10 @@ public class ModBlocks {
     public static Supplier<Block> EBONY_HANGING_SIGN;
     public static Supplier<Block> EBONY_WALL_HANGING_SIGN;
     
+    // Ebony Natural Blocks
+    public static Supplier<Block> EBONY_LEAVES;
+    public static Supplier<Block> EBONY_SAPLING;
+    
     public static void init() {
         if (REGISTRY_HELPER == null) {
             throw new IllegalStateException("BlockRegistryHelper not set! Platform-specific code must set this before calling init()");
@@ -117,6 +121,13 @@ public class ModBlocks {
         EBONY_WALL_HANGING_SIGN = REGISTRY_HELPER.registerBlock("ebony_wall_hanging_sign",
             () -> new EbonyWallHangingSignBlock(ModWoodTypes.EBONY, BlockBehaviour.Properties.ofFullCopy(EBONY_HANGING_SIGN.get())
                 .dropsLike(EBONY_HANGING_SIGN.get())));
+        
+        // Ebony Natural Blocks
+        EBONY_LEAVES = REGISTRY_HELPER.registerBlock("ebony_leaves",
+            () -> new EbonyLeavesBlock());
+        
+        EBONY_SAPLING = REGISTRY_HELPER.registerBlock("ebony_sapling",
+            () -> new EbonySaplingBlock());
     }
     
     // Interface that platform-specific code must implement

@@ -88,6 +88,8 @@ public class GecoNeoForge {
                         output.accept(ModItems.EBONY_BUTTON.get());
                         output.accept(ModItems.EBONY_SIGN.get());
                         output.accept(ModItems.EBONY_HANGING_SIGN.get());
+                        output.accept(ModItems.EBONY_LEAVES.get());
+                        output.accept(ModItems.EBONY_SAPLING.get());
                     })
                     .build());
             }

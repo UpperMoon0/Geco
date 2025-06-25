@@ -1,34 +1,8 @@
 {
   "variants": {
-    "facing=south,in_wall=false,open=false": {
-      "model": "geco:block/ebony_fence_gate"
-    },
-    "facing=west,in_wall=false,open=false": {
-      "model": "geco:block/ebony_fence_gate",
-      "y": 90,
-      "uvlock": true
-    },
-    "facing=north,in_wall=false,open=false": {
-      "model": "geco:block/ebony_fence_gate",
-      "y": 180,
-      "uvlock": true
-    },
     "facing=east,in_wall=false,open=false": {
       "model": "geco:block/ebony_fence_gate",
       "y": 270,
-      "uvlock": true
-    },
-    "facing=south,in_wall=false,open=true": {
-      "model": "geco:block/ebony_fence_gate_open"
-    },
-    "facing=west,in_wall=false,open=true": {
-      "model": "geco:block/ebony_fence_gate_open",
-      "y": 90,
-      "uvlock": true
-    },
-    "facing=north,in_wall=false,open=true": {
-      "model": "geco:block/ebony_fence_gate_open",
-      "y": 180,
       "uvlock": true
     },
     "facing=east,in_wall=false,open=true": {
@@ -36,12 +10,24 @@
       "y": 270,
       "uvlock": true
     },
-    "facing=south,in_wall=true,open=false": {
-      "model": "geco:block/ebony_fence_gate_wall"
-    },
-    "facing=west,in_wall=true,open=false": {
+    "facing=east,in_wall=true,open=false": {
       "model": "geco:block/ebony_fence_gate_wall",
-      "y": 90,
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,in_wall=true,open=true": {
+      "model": "geco:block/ebony_fence_gate_wall_open",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=north,in_wall=false,open=false": {
+      "model": "geco:block/ebony_fence_gate",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,in_wall=false,open=true": {
+      "model": "geco:block/ebony_fence_gate_open",
+      "y": 180,
       "uvlock": true
     },
     "facing=north,in_wall=true,open=false": {
@@ -49,27 +35,45 @@
       "y": 180,
       "uvlock": true
     },
-    "facing=east,in_wall=true,open=false": {
-      "model": "geco:block/ebony_fence_gate_wall",
-      "y": 270,
-      "uvlock": true
-    },
-    "facing=south,in_wall=true,open=true": {
-      "model": "geco:block/ebony_fence_gate_wall_open"
-    },
-    "facing=west,in_wall=true,open=true": {
-      "model": "geco:block/ebony_fence_gate_wall_open",
-      "y": 90,
-      "uvlock": true
-    },
     "facing=north,in_wall=true,open=true": {
       "model": "geco:block/ebony_fence_gate_wall_open",
       "y": 180,
       "uvlock": true
     },
-    "facing=east,in_wall=true,open=true": {
+    "facing=south,in_wall=false,open=false": {
+      "model": "geco:block/ebony_fence_gate",
+      "uvlock": true
+    },
+    "facing=south,in_wall=false,open=true": {
+      "model": "geco:block/ebony_fence_gate_open",
+      "uvlock": true
+    },
+    "facing=south,in_wall=true,open=false": {
+      "model": "geco:block/ebony_fence_gate_wall",
+      "uvlock": true
+    },
+    "facing=south,in_wall=true,open=true": {
       "model": "geco:block/ebony_fence_gate_wall_open",
-      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,in_wall=false,open=false": {
+      "model": "geco:block/ebony_fence_gate",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,in_wall=false,open=true": {
+      "model": "geco:block/ebony_fence_gate_open",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,in_wall=true,open=false": {
+      "model": "geco:block/ebony_fence_gate_wall",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,in_wall=true,open=true": {
+      "model": "geco:block/ebony_fence_gate_wall_open",
+      "y": 90,
       "uvlock": true
     }
   }

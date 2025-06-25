@@ -66,24 +66,10 @@ public class GecoFabric implements ModInitializer {
                     .title(Component.translatable("itemGroup.geco.geco_tab"))
                     .icon(() -> ModItems.EBONY_LOG.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        // Add all items to the creative tab
-                        output.accept(ModItems.EBONY_LOG.get());
-                        output.accept(ModItems.STRIPPED_EBONY_LOG.get());
-                        output.accept(ModItems.EBONY_WOOD.get());
-                        output.accept(ModItems.STRIPPED_EBONY_WOOD.get());
-                        output.accept(ModItems.EBONY_PLANKS.get());
-                        output.accept(ModItems.EBONY_STAIRS.get());
-                        output.accept(ModItems.EBONY_SLAB.get());
-                        output.accept(ModItems.EBONY_FENCE.get());
-                        output.accept(ModItems.EBONY_FENCE_GATE.get());
-                        output.accept(ModItems.EBONY_DOOR.get());
-                        output.accept(ModItems.EBONY_TRAPDOOR.get());
-                        output.accept(ModItems.EBONY_PRESSURE_PLATE.get());
-                        output.accept(ModItems.EBONY_BUTTON.get());
-                        output.accept(ModItems.EBONY_SIGN.get());
-                        output.accept(ModItems.EBONY_HANGING_SIGN.get());
-                        output.accept(ModItems.EBONY_LEAVES.get());
-                        output.accept(ModItems.EBONY_SAPLING.get());
+                        // Automatically add all registered mod items
+                        ModItems.getAllItems().forEach(itemSupplier -> {
+                            output.accept(itemSupplier.get());
+                        });
                     })
                     .build();
                 

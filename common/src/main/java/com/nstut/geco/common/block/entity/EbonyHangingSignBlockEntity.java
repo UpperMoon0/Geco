@@ -1,4 +1,4 @@
-package com.nstut.block.entity;
+package com.nstut.geco.common.block.entity;
 
 import com.nstut.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;

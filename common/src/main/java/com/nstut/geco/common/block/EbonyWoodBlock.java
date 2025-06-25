@@ -1,4 +1,4 @@
-package com.nstut.block;
+package com.nstut.geco.common.block;
 
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;

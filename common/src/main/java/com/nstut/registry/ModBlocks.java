@@ -1,17 +1,18 @@
 package com.nstut.registry;
 
-import com.nstut.Geco;
-import com.nstut.block.EbonyHangingSignBlock;
-import com.nstut.block.EbonyLeavesBlock;
-import com.nstut.block.EbonyLogBlock;
-import com.nstut.block.EbonyPlanksBlock;
-import com.nstut.block.EbonySaplingBlock;
-import com.nstut.block.EbonySignBlock;
-import com.nstut.block.EbonyWallHangingSignBlock;
-import com.nstut.block.EbonyWallSignBlock;
-import com.nstut.block.EbonyWoodBlock;
-import com.nstut.block.StrippedEbonyLogBlock;
-import com.nstut.block.StrippedEbonyWoodBlock;
+import com.nstut.geco.common.Geco;
+import com.nstut.geco.common.block.EbonyHangingSignBlock;
+import com.nstut.geco.common.block.EbonyLeavesBlock;
+import com.nstut.geco.common.block.EbonyLogBlock;
+import com.nstut.geco.common.block.EbonyPlanksBlock;
+import com.nstut.geco.common.block.EbonySaplingBlock;
+import com.nstut.geco.common.block.EbonySignBlock;
+import com.nstut.geco.common.block.EbonyWallHangingSignBlock;
+import com.nstut.geco.common.block.EbonyWallSignBlock;
+import com.nstut.geco.common.block.EbonyWoodBlock;
+import com.nstut.geco.common.block.StrippedEbonyLogBlock;
+import com.nstut.geco.common.block.StrippedEbonyWoodBlock;
+
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;

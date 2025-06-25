@@ -1,6 +1,6 @@
 package com.nstut.registry;
 
-import com.nstut.Geco;
+import com.nstut.geco.common.Geco;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;

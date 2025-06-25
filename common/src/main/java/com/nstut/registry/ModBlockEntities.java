@@ -1,12 +1,13 @@
 package com.nstut.registry;
 
-import com.nstut.Geco;
+import com.nstut.geco.common.Geco;
+import com.nstut.geco.common.block.entity.EbonyHangingSignBlockEntity;
+import com.nstut.geco.common.block.entity.EbonySignBlockEntity;
+
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import com.nstut.block.entity.EbonySignBlockEntity;
-import com.nstut.block.entity.EbonyHangingSignBlockEntity;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =

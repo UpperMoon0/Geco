@@ -15,8 +15,6 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
-import com.nstut.geco.common.registry.ModBoatTypes;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.neoforged.neoforge.common.NeoForge;
 import java.util.function.Supplier;
 
@@ -44,10 +42,6 @@ public class GecoNeoForge {
         
         // Register client events (only if on client side)
         modEventBus.addListener(com.nstut.neoforge.client.GecoNeoForgeClient::onClientSetup);
-        
-        // Register server events for handling boat drops
-        NeoForge.EVENT_BUS.register(BoatDropHandler.class);
-        
     }
     
     private void setupRegistryHelpers() {
@@ -89,15 +83,6 @@ public class GecoNeoForge {
                     .build());
            }
        };
-       
-       // Set up boat type registry helper
-       ModBoatTypes.REGISTRY_HELPER = new ModBoatTypes.BoatTypeRegistryHelper() {
-           @Override
-           public Supplier<Boat.Type> registerBoatType(String name, Supplier<Block> planks) {
-               // Use reflection to create proper custom boat type following vanilla pattern
-               return () -> com.nstut.geco.common.util.BoatTypeHelper.createEbonyBoatType(planks.get());
-           }
-       };
    }
    
    private void commonSetup(final FMLCommonSetupEvent event) {
@@ -110,19 +95,5 @@ public class GecoNeoForge {
     
     public static class ClientModEvents {
         // Client-side event handlers
-    }
-    
-    // Event handler to fix boat drops - this is a simpler approach
-    // Since the loot tables are already correctly configured, we need to ensure
-    // our boats use the custom boat type properly, or override the getDropItem method
-    public static class BoatDropHandler {
-        // For now, we acknowledge that the proper solution requires custom boat entities
-        // or a more complex boat type registration system
-        
-        // The real issue is that our boat items create vanilla oak boats instead of custom boats
-        // This would require creating custom boat entity classes or using mixins
-        
-        // A temporary workaround would be to use data generation to create the proper
-        // entity loot tables, but the root cause is the boat type registration
     }
 }

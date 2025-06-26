@@ -10,7 +10,6 @@ public class Geco {
         ModItems.init();
         ModBlockSetTypes.init();
         ModWoodTypes.init();
-        ModBoatTypes.init();
         ModCreativeTabs.init();
         ModBlockEntities.init();
     }

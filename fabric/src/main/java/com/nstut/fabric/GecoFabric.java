@@ -14,8 +14,6 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
-import com.nstut.geco.common.registry.ModBoatTypes;
-import net.minecraft.world.entity.vehicle.Boat;
 import java.util.function.Supplier;
 
 public class GecoFabric implements ModInitializer {
@@ -75,15 +73,6 @@ public class GecoFabric implements ModInitializer {
                     .build();
                 
                 Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
-            }
-        };
-        
-        // Set up boat type registry helper
-        ModBoatTypes.REGISTRY_HELPER = new ModBoatTypes.BoatTypeRegistryHelper() {
-            @Override
-            public Supplier<Boat.Type> registerBoatType(String name, Supplier<Block> planks) {
-                // Use reflection to create proper custom boat type following vanilla pattern
-                return () -> com.nstut.geco.common.util.BoatTypeHelper.createEbonyBoatType(planks.get());
             }
         };
     }

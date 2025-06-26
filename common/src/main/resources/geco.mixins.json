@@ -5,8 +5,6 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "geco.refmap.json",
   "mixins": [
-    "BoatMixin",
-    "ChestBoatMixin"
   ],
   "client": [],
   "server": [],

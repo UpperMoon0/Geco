@@ -2,7 +2,6 @@ package com.nstut.geco.common.registry;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BoatItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +31,6 @@ public class ModItems {
     public static Supplier<BlockItem> EBONY_TRAPDOOR;
     public static Supplier<BlockItem> EBONY_PRESSURE_PLATE;
     public static Supplier<BlockItem> EBONY_BUTTON;
-
-    // Boat Items
-    public static Supplier<BoatItem> EBONY_BOAT;
-    public static Supplier<BoatItem> EBONY_CHEST_BOAT;
     
     public static void init() {
         if (REGISTRY_HELPER == null) {
@@ -58,13 +53,6 @@ public class ModItems {
         EBONY_TRAPDOOR = registerBlockItemAndTrack("ebony_trapdoor", ModBlocks.EBONY_TRAPDOOR);
         EBONY_PRESSURE_PLATE = registerBlockItemAndTrack("ebony_pressure_plate", ModBlocks.EBONY_PRESSURE_PLATE);
         EBONY_BUTTON = registerBlockItemAndTrack("ebony_button", ModBlocks.EBONY_BUTTON);
-        
-        // Boat Items
-        EBONY_BOAT = registerAndTrack("ebony_boat",
-            () -> new BoatItem(false, ModBoatTypes.EBONY.get(), new Item.Properties().stacksTo(1)));
-        
-        EBONY_CHEST_BOAT = registerAndTrack("ebony_chest_boat",
-            () -> new BoatItem(true, ModBoatTypes.EBONY.get(), new Item.Properties().stacksTo(1)));
     }
     
     // Helper methods to register items and automatically track them

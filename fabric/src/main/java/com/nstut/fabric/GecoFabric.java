@@ -1,15 +1,19 @@
 package com.nstut.fabric;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
@@ -24,6 +28,13 @@ public class GecoFabric implements ModInitializer {
         
         // Now safe to call init
         Geco.init();
+
+        // Register the ebony_tree_jigsaw_placed feature for world generation
+        BiomeModifications.addFeature(
+                BiomeSelectors.all(), // Or more specific biomes like BiomeSelectors.tag(BiomeTags.IS_SAVANNA)
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "ebony_tree_jigsaw_placed"))
+        );
     }
     
     private void setupRegistryHelpers() {
@@ -32,7 +43,7 @@ public class GecoFabric implements ModInitializer {
             @Override
             public <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> block) {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
-                T registeredBlock = Registry.register(BuiltInRegistries.BLOCK, id, block.get());
+                T registeredBlock = net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.BLOCK, id, block.get());
                 return () -> registeredBlock;
             }
         };
@@ -42,7 +53,7 @@ public class GecoFabric implements ModInitializer {
             @Override
             public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> item) {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
-                T registeredItem = Registry.register(BuiltInRegistries.ITEM, id, item.get());
+                T registeredItem = net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.ITEM, id, item.get());
                 return () -> registeredItem;
             }
             
@@ -51,7 +62,7 @@ public class GecoFabric implements ModInitializer {
             public <T extends BlockItem> Supplier<T> registerBlockItem(String name, Supplier<?> block) {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
                 BlockItem blockItem = new BlockItem((Block) block.get(), new Item.Properties());
-                T registeredItem = (T) Registry.register(BuiltInRegistries.ITEM, id, blockItem);
+                T registeredItem = (T) net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.ITEM, id, blockItem);
                 return () -> registeredItem;
             }
         };
@@ -62,7 +73,7 @@ public class GecoFabric implements ModInitializer {
             public void registerCreativeTab(String name, java.util.List<Supplier<? extends Item>> items) {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
                 CreativeModeTab tab = FabricItemGroup.builder()
-                    .title(Component.translatable("itemGroup.geco.geco_tab"))
+                    .title(net.minecraft.network.chat.Component.translatable("itemGroup.geco.geco_tab"))
                     .icon(() -> ModItems.EBONY_LOG.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         // Add all provided items
@@ -72,7 +83,7 @@ public class GecoFabric implements ModInitializer {
                     })
                     .build();
                 
-                Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
+                net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
             }
         };
     }

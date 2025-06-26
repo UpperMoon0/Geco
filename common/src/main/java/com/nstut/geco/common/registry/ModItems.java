@@ -55,13 +55,6 @@ public class ModItems {
         EBONY_BUTTON = registerBlockItemAndTrack("ebony_button", ModBlocks.EBONY_BUTTON);
     }
     
-    // Helper methods to register items and automatically track them
-    private static <T extends Item> Supplier<T> registerAndTrack(String name, Supplier<T> item) {
-        Supplier<T> registeredItem = REGISTRY_HELPER.registerItem(name, item);
-        ALL_ITEMS.add(registeredItem);
-        return registeredItem;
-    }
-    
     private static <T extends BlockItem> Supplier<T> registerBlockItemAndTrack(String name, Supplier<?> block) {
         Supplier<T> registeredItem = REGISTRY_HELPER.registerBlockItem(name, block);
         ALL_ITEMS.add(registeredItem);

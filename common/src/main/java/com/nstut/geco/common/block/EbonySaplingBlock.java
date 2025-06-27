@@ -51,10 +51,7 @@ public class EbonySaplingBlock extends SaplingBlock {
                     StructureTemplate template = optionalTemplate.get();
                     BlockPos structureOrigin = pos.offset(-template.getSize().getX() / 2, 0, -template.getSize().getZ() / 2); 
     
-                    StructurePlaceSettings settings = new StructurePlaceSettings()
-                            .setRotation(Rotation.getRandom(random))
-                            .setMirror(Mirror.values()[random.nextInt(Mirror.values().length)])
-                            .setRandom(random);
+                    StructurePlaceSettings settings = new StructurePlaceSettings();
     
                     template.placeInWorld(level, structureOrigin, structureOrigin, settings, random, 3); 
                 }

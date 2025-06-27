@@ -20,8 +20,8 @@ public class EbonyTreeGrower {
 
     public static final TreeGrower EBONY_TREE_GROWER = new TreeGrower("ebony",
             Optional.of(EBONY_CONFIGURED_FEATURE_KEY), // Regular tree
-            Optional.empty(), 
-            Optional.empty()); 
+            Optional.empty(),
+            Optional.empty());
 
     public static boolean growTree(ServerLevelAccessor level, BlockPos pos, BlockState state, RandomSource random) {
         // This method might not be needed if we use the TreeGrower directly.

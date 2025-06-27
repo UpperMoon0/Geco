@@ -1,0 +1,30 @@
+{
+  "structures": [
+    {
+      "structure": "geco:ebony_tree_m1",
+      "weight": 1
+    },
+    {
+      "structure": "geco:ebony_tree_m2",
+      "weight": 1
+    },
+    {
+      "structure": "geco:ebony_tree_m3",
+      "weight": 1
+    },
+    {
+      "structure": "geco:ebony_tree_m4",
+      "weight": 1
+    },
+    {
+      "structure": "geco:ebony_tree_m5",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 5,
+    "separation": 2,
+    "salt": 1646207470
+  }
+}

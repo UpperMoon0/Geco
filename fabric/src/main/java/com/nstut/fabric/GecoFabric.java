@@ -28,13 +28,6 @@ public class GecoFabric implements ModInitializer {
         
         // Now safe to call init
         Geco.init();
-
-        // Register the ebony_tree_jigsaw_placed feature for world generation
-        BiomeModifications.addFeature(
-                BiomeSelectors.all(), // Or more specific biomes like BiomeSelectors.tag(BiomeTags.IS_SAVANNA)
-                GenerationStep.Decoration.VEGETAL_DECORATION,
-                ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "ebony_tree_jigsaw_placed"))
-        );
     }
     
     private void setupRegistryHelpers() {

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "geco",
-  "version": "1.0.0",
-  "name": "Geco",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
   "authors": [
-    "Me!"
+    "${mod_authors}"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",

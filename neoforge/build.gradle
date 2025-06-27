@@ -8,23 +8,10 @@ architectury {
 }
 
 // Include common source files in development
-sourceSets {
-    main {
-        // Include generated resources
-        resources {
-            srcDirs += 'src/generated/resources'
-        }
-    }
+sourceSets.main.resources {
+    srcDirs += 'src/generated/resources'
 }
 
-// Source sets for generated resources
-sourceSets {
-    main {
-        resources {
-            srcDir 'src/generated/resources'
-        }
-    }
-}
 
 configurations {
     common {
@@ -65,16 +52,27 @@ dependencies {
 }
 
 processResources {
-    inputs.property 'version', project.version
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    filesMatching('META-INF/neoforge.mods.toml') {
-        expand version: project.version
+    inputs.property 'mod_version', rootProject.mod_version
+    inputs.property 'mod_id', rootProject.mod_id
+    inputs.property 'mod_name', rootProject.mod_name
+    inputs.property 'mod_description', rootProject.mod_description
+    inputs.property 'mod_authors', rootProject.mod_authors
+
+    filesMatching('neoforge.mods.toml') {
+        expand(
+            mod_version: rootProject.mod_version,
+            mod_id: rootProject.mod_id,
+            mod_name: rootProject.mod_name,
+            mod_description: rootProject.mod_description,
+            mod_authors: rootProject.mod_authors,
+        )
     }
 
     from(project(':common').sourceSets.main.resources) {
         include 'geco.mixins.json'
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.withType(Jar) {

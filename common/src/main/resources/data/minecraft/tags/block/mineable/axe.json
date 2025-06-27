@@ -1,9 +1,6 @@
 {
   "values": [
-    "geco:ebony_log",
-    "geco:stripped_ebony_log",
-    "geco:ebony_wood",
-    "geco:stripped_ebony_wood",
+    "#geco:ebony_logs",
     "geco:ebony_sapling",
     "geco:ebony_planks",
     "geco:ebony_stairs",

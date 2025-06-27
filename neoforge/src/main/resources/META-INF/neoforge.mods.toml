@@ -4,13 +4,11 @@ loaderVersion = "[4,)"
 license = "Insert License Here"
 
 [[mods]]
-modId = "geco"
-version = "${version}"
-displayName = "Geco"
-authors = "Me!"
-description = '''
-This is an example description! Tell everyone what your mod is about!
-'''
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "${mod_author}"
+description = "${mod_description}"
 #logoFile = ""
 
 [[dependencies.geco]]

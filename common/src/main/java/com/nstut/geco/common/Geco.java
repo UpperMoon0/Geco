@@ -6,7 +6,6 @@ import com.nstut.geco.common.registry.ModBlockSetTypes;
 import com.nstut.geco.common.registry.ModCreativeTabs;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModWoodTypes;
-import com.nstut.geco.common.registry.ModPlacedFeatures;
 import net.minecraft.resources.ResourceLocation;
 
 public class Geco {
@@ -19,7 +18,6 @@ public class Geco {
         ModWoodTypes.init();
         ModCreativeTabs.init();
         ModBlockEntities.init();
-        ModPlacedFeatures.init();
     }
 
     public static ResourceLocation id(String path) {

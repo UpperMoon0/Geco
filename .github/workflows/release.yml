@@ -24,11 +24,12 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-        working-directory: Geco
+
+      - name: Ensure Gradle Wrapper
+        run: ./gradlew wrapper --gradle-version 8.14.2
 
       - name: Build with Gradle
         run: ./gradlew build
-        working-directory: Geco
 
       - name: Get Mod Version
         id: get_version

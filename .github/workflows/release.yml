@@ -14,19 +14,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: 'gradle' 
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-
-      - name: Ensure Gradle Wrapper
-        run: ./gradlew wrapper --gradle-version 8.14.2
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -34,7 +33,7 @@ jobs:
       - name: Get Mod Version
         id: get_version
         run: |
-          mod_version_line=$(grep 'mod_version = ' gradle.properties)
+          mod_version_line=$(grep -E 'mod_version\s*=\s*' gradle.properties)
           mod_version=$(echo "$mod_version_line" | cut -d '=' -f 2 | xargs)
           echo "mod_version=$mod_version" >> $GITHUB_OUTPUT
 
@@ -56,7 +55,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            forge/build/libs/geco-forge-*.jar
+            neoforge/build/libs/geco-neoforge-*.jar
             fabric/build/libs/geco-fabric-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

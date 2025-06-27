@@ -55,7 +55,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            forge/build/libs/geco-forge-*.jar
+            neoforge/build/libs/geco-neoforge-*.jar
             fabric/build/libs/geco-fabric-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

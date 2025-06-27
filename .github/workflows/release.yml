@@ -24,9 +24,11 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+        working-directory: Geco
 
       - name: Build with Gradle
         run: ./gradlew build
+        working-directory: Geco
 
       - name: Get Mod Version
         id: get_version

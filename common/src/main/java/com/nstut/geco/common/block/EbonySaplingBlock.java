@@ -34,11 +34,15 @@ public class EbonySaplingBlock extends SaplingBlock {
             if (state.getValue(STAGE) == 0) {
                 level.setBlock(pos, state.cycle(STAGE), 4);
             } else {
+                if (!this.mayPlaceOn(level.getBlockState(pos.below()), level, pos.below())) {
+                    return; // Do not grow if the block below is not suitable
+                }
+
                 // Remove the sapling block
                 level.removeBlock(pos, false);
     
                 StructureTemplateManager structureTemplateManager = level.getStructureManager();
-                String[] treeNames = {"ebony_tree_m1", "ebony_tree_m2", "ebony_tree_m3", "ebony_tree_m4"};
+                String[] treeNames = {"ebony_tree_m1", "ebony_tree_m2", "ebony_tree_m3", "ebony_tree_m4", "ebony_tree_m5"}; // Added m5
                 String selectedTree = treeNames[random.nextInt(treeNames.length)];
                 ResourceLocation structureLocation = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, selectedTree);
     
@@ -47,11 +51,11 @@ public class EbonySaplingBlock extends SaplingBlock {
     
                 if (optionalTemplate.isPresent()) {
                     StructureTemplate template = optionalTemplate.get();
-                    BlockPos structureOrigin = pos.offset(-template.getSize().getX() / 2, 0, -template.getSize().getZ() / 2); 
+                    BlockPos structureOrigin = pos.offset(-template.getSize().getX() / 2, 0, -template.getSize().getZ() / 2);
     
                     StructurePlaceSettings settings = new StructurePlaceSettings();
     
-                    template.placeInWorld(level, structureOrigin, structureOrigin, settings, random, 3); 
+                    template.placeInWorld(level, structureOrigin, structureOrigin, settings, random, 3);
                 }
             }
         }

@@ -10,8 +10,6 @@ import net.minecraft.world.level.material.PushReaction;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -40,7 +38,7 @@ public class EbonySaplingBlock extends SaplingBlock {
                 level.removeBlock(pos, false);
     
                 StructureTemplateManager structureTemplateManager = level.getStructureManager();
-                String[] treeNames = {"ebony_tree_m1", "ebony_tree_m2", "ebony_tree_m3", "ebony_tree_m4", "ebony_tree_m5"};
+                String[] treeNames = {"ebony_tree_m1", "ebony_tree_m2", "ebony_tree_m3", "ebony_tree_m4"};
                 String selectedTree = treeNames[random.nextInt(treeNames.length)];
                 ResourceLocation structureLocation = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, selectedTree);
     

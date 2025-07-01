@@ -1,13 +1,13 @@
 {
+  "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
       "tag": "geco:ebony_logs"
     }
   ],
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "result": {
     "count": 4,
     "id": "geco:ebony_planks"
-  }
+  },
+  "category": "misc"
 }

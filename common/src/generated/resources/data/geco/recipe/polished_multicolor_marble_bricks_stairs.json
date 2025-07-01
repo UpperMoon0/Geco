@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "geco:polished_multicolor_marble_bricks_stairs"
+  },
+  "key": {
+    "B": {
+      "item": "geco:polished_multicolor_marble_bricks"
+    }
+  }
+}

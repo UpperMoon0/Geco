@@ -1,6 +1,7 @@
 package com.nstut.geco.common.registry;
 
 import com.nstut.geco.common.wood.WoodType;
+import com.nstut.geco.common.stone.StoneType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 
@@ -20,7 +21,7 @@ public class ModItems {
     
     // Maps to store dynamically registered items
     private static final Map<WoodType, WoodItemSet> WOOD_ITEM_SETS = new HashMap<>();
-    
+    private static final Map<StoneType, StoneItemSet> STONE_ITEM_SETS = new HashMap<>();
     
     /**
      * Container class to hold all items for a wood type
@@ -66,6 +67,69 @@ public class ModItems {
     }
     
     /**
+     * Container class to hold all items for a stone type
+     */
+    public static class StoneItemSet {
+        // Default variant
+        public final Supplier<BlockItem> base;
+        public final Supplier<BlockItem> baseSlab;
+        public final Supplier<BlockItem> baseStairs;
+        public final Supplier<BlockItem> baseWall;
+        
+        // Polished variant
+        public final Supplier<BlockItem> polished;
+        public final Supplier<BlockItem> polishedSlab;
+        public final Supplier<BlockItem> polishedStairs;
+        public final Supplier<BlockItem> polishedWall;
+        
+        // Polished bricks variant
+        public final Supplier<BlockItem> polishedBricks;
+        public final Supplier<BlockItem> polishedBricksSlab;
+        public final Supplier<BlockItem> polishedBricksStairs;
+        public final Supplier<BlockItem> polishedBricksWall;
+        
+        // Polished tiles variant
+        public final Supplier<BlockItem> polishedTiles;
+        public final Supplier<BlockItem> polishedTilesSlab;
+        public final Supplier<BlockItem> polishedTilesStairs;
+        public final Supplier<BlockItem> polishedTilesWall;
+        
+        // Smooth variant
+        public final Supplier<BlockItem> smooth;
+        public final Supplier<BlockItem> smoothSlab;
+        public final Supplier<BlockItem> smoothStairs;
+        public final Supplier<BlockItem> smoothWall;
+        
+        public StoneItemSet(
+                Supplier<BlockItem> base, Supplier<BlockItem> baseSlab, Supplier<BlockItem> baseStairs, Supplier<BlockItem> baseWall,
+                Supplier<BlockItem> polished, Supplier<BlockItem> polishedSlab, Supplier<BlockItem> polishedStairs, Supplier<BlockItem> polishedWall,
+                Supplier<BlockItem> polishedBricks, Supplier<BlockItem> polishedBricksSlab, Supplier<BlockItem> polishedBricksStairs, Supplier<BlockItem> polishedBricksWall,
+                Supplier<BlockItem> polishedTiles, Supplier<BlockItem> polishedTilesSlab, Supplier<BlockItem> polishedTilesStairs, Supplier<BlockItem> polishedTilesWall,
+                Supplier<BlockItem> smooth, Supplier<BlockItem> smoothSlab, Supplier<BlockItem> smoothStairs, Supplier<BlockItem> smoothWall) {
+            this.base = base;
+            this.baseSlab = baseSlab;
+            this.baseStairs = baseStairs;
+            this.baseWall = baseWall;
+            this.polished = polished;
+            this.polishedSlab = polishedSlab;
+            this.polishedStairs = polishedStairs;
+            this.polishedWall = polishedWall;
+            this.polishedBricks = polishedBricks;
+            this.polishedBricksSlab = polishedBricksSlab;
+            this.polishedBricksStairs = polishedBricksStairs;
+            this.polishedBricksWall = polishedBricksWall;
+            this.polishedTiles = polishedTiles;
+            this.polishedTilesSlab = polishedTilesSlab;
+            this.polishedTilesStairs = polishedTilesStairs;
+            this.polishedTilesWall = polishedTilesWall;
+            this.smooth = smooth;
+            this.smoothSlab = smoothSlab;
+            this.smoothStairs = smoothStairs;
+            this.smoothWall = smoothWall;
+        }
+    }
+    
+    /**
      * Gets the WoodItemSet for a specific wood type.
      *
      * @param woodType The wood type to get items for
@@ -73,6 +137,16 @@ public class ModItems {
      */
     public static WoodItemSet getWoodItemSet(WoodType woodType) {
         return WOOD_ITEM_SETS.get(woodType);
+    }
+    
+    /**
+     * Gets the StoneItemSet for a specific stone type.
+     *
+     * @param stoneType The stone type to get items for
+     * @return The StoneItemSet containing all items for this stone type
+     */
+    public static StoneItemSet getStoneItemSet(StoneType stoneType) {
+        return STONE_ITEM_SETS.get(stoneType);
     }
     
     public static void init() {
@@ -85,6 +159,10 @@ public class ModItems {
             registerWoodItemSet(woodType);
         }
         
+        // Dynamically register items for all stone types
+        for (StoneType stoneType : ModStoneTypes.REGISTERED_STONE_TYPES) {
+            registerStoneItemSet(stoneType);
+        }
     }
     
     /**
@@ -123,6 +201,61 @@ public class ModItems {
                 stairs, slab, fence, fenceGate, door, trapdoor, pressurePlate, button, leaves, sapling);
         
         WOOD_ITEM_SETS.put(woodType, itemSet);
+    }
+    
+    /**
+     * Registers all items for a specific stone type.
+     *
+     * @param stoneType The stone type to register items for
+     */
+    private static void registerStoneItemSet(StoneType stoneType) {
+        String stoneName = stoneType.getPath();
+        ModBlocks.StoneBlockSet blockSet = ModBlocks.getStoneBlockSet(stoneType);
+        
+        if (blockSet == null) {
+            throw new IllegalStateException("StoneBlockSet not found for stone type: " + stoneName +
+                ". Make sure ModBlocks.init() is called before ModItems.init()");
+        }
+        
+        // Register all block items for base variant
+        Supplier<BlockItem> base = registerBlockItemAndTrack(stoneName, blockSet.base);
+        Supplier<BlockItem> baseSlab = registerBlockItemAndTrack(stoneName + "_slab", blockSet.baseSlab);
+        Supplier<BlockItem> baseStairs = registerBlockItemAndTrack(stoneName + "_stairs", blockSet.baseStairs);
+        Supplier<BlockItem> baseWall = registerBlockItemAndTrack(stoneName + "_wall", blockSet.baseWall);
+        
+        // Register all block items for polished variant
+        Supplier<BlockItem> polished = registerBlockItemAndTrack("polished_" + stoneName, blockSet.polished);
+        Supplier<BlockItem> polishedSlab = registerBlockItemAndTrack("polished_" + stoneName + "_slab", blockSet.polishedSlab);
+        Supplier<BlockItem> polishedStairs = registerBlockItemAndTrack("polished_" + stoneName + "_stairs", blockSet.polishedStairs);
+        Supplier<BlockItem> polishedWall = registerBlockItemAndTrack("polished_" + stoneName + "_wall", blockSet.polishedWall);
+        
+        // Register all block items for polished bricks variant
+        Supplier<BlockItem> polishedBricks = registerBlockItemAndTrack("polished_" + stoneName + "_bricks", blockSet.polishedBricks);
+        Supplier<BlockItem> polishedBricksSlab = registerBlockItemAndTrack("polished_" + stoneName + "_bricks_slab", blockSet.polishedBricksSlab);
+        Supplier<BlockItem> polishedBricksStairs = registerBlockItemAndTrack("polished_" + stoneName + "_bricks_stairs", blockSet.polishedBricksStairs);
+        Supplier<BlockItem> polishedBricksWall = registerBlockItemAndTrack("polished_" + stoneName + "_bricks_wall", blockSet.polishedBricksWall);
+        
+        // Register all block items for polished tiles variant
+        Supplier<BlockItem> polishedTiles = registerBlockItemAndTrack("polished_" + stoneName + "_tiles", blockSet.polishedTiles);
+        Supplier<BlockItem> polishedTilesSlab = registerBlockItemAndTrack("polished_" + stoneName + "_tiles_slab", blockSet.polishedTilesSlab);
+        Supplier<BlockItem> polishedTilesStairs = registerBlockItemAndTrack("polished_" + stoneName + "_tiles_stairs", blockSet.polishedTilesStairs);
+        Supplier<BlockItem> polishedTilesWall = registerBlockItemAndTrack("polished_" + stoneName + "_tiles_wall", blockSet.polishedTilesWall);
+        
+        // Register all block items for smooth variant
+        Supplier<BlockItem> smooth = registerBlockItemAndTrack("smooth_" + stoneName, blockSet.smooth);
+        Supplier<BlockItem> smoothSlab = registerBlockItemAndTrack("smooth_" + stoneName + "_slab", blockSet.smoothSlab);
+        Supplier<BlockItem> smoothStairs = registerBlockItemAndTrack("smooth_" + stoneName + "_stairs", blockSet.smoothStairs);
+        Supplier<BlockItem> smoothWall = registerBlockItemAndTrack("smooth_" + stoneName + "_wall", blockSet.smoothWall);
+        
+        // Store the complete set
+        StoneItemSet itemSet = new StoneItemSet(
+                base, baseSlab, baseStairs, baseWall,
+                polished, polishedSlab, polishedStairs, polishedWall,
+                polishedBricks, polishedBricksSlab, polishedBricksStairs, polishedBricksWall,
+                polishedTiles, polishedTilesSlab, polishedTilesStairs, polishedTilesWall,
+                smooth, smoothSlab, smoothStairs, smoothWall);
+        
+        STONE_ITEM_SETS.put(stoneType, itemSet);
     }
     
     private static <T extends BlockItem> Supplier<T> registerBlockItemAndTrack(String name, Supplier<?> block) {

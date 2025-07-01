@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "geco:block/smooth_cream_marble",
+    "bottom": "geco:block/smooth_cream_marble",
+    "top": "geco:block/smooth_cream_marble"
+  }
+}

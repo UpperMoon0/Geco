@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "geco:block/polished_multicolor_marble_bricks",
+    "bottom": "geco:block/polished_multicolor_marble_bricks",
+    "top": "geco:block/polished_multicolor_marble_bricks"
+  }
+}

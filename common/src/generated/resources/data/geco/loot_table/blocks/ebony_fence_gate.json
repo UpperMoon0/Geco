@@ -1,19 +1,19 @@
 {
+  "type": "minecraft:block",
   "pools": [
     {
       "entries": [
         {
-          "name": "geco:ebony_fence_gate",
-          "type": "minecraft:item"
+          "type": "minecraft:item",
+          "name": "geco:ebony_fence_gate"
         }
       ],
-      "rolls": 1.0,
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ],
-  "type": "minecraft:block"
+  ]
 }

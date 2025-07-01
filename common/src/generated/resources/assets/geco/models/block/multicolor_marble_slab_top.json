@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "geco:block/multicolor_marble",
+    "bottom": "geco:block/multicolor_marble",
+    "top": "geco:block/multicolor_marble"
+  }
+}

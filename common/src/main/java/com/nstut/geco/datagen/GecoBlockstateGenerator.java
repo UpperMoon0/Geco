@@ -2,6 +2,7 @@ package com.nstut.geco.datagen;
 
 import com.google.gson.Gson;
 import com.nstut.geco.common.wood.WoodType;
+import com.nstut.geco.common.stone.StoneType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ public class GecoBlockstateGenerator {
         this.gson = gson;
     }
 
-    public void generateBlockstateFiles(WoodType wood) throws IOException {
+    public void generateWoodBlockstateFiles(WoodType wood) throws IOException {
         String woodName = wood.getPath();
         // Generate log blockstate
         Map<String, Object> logBlockstate = Map.of(
@@ -130,59 +131,11 @@ public class GecoBlockstateGenerator {
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_sapling.json"), saplingBlockstate);
 
         // Generate slab blockstate
-        Map<String, Object> slabBlockstate = Map.of(
-            "variants", Map.of(
-                "type=bottom", Map.of("model", "geco:block/" + woodName + "_slab"),
-                "type=double", Map.of("model", "geco:block/" + woodName + "_planks"),
-                "type=top", Map.of("model", "geco:block/" + woodName + "_slab_top")
-            )
-        );
+        Map<String, Object> slabBlockstate = generateSlabBlockstate(woodName, woodName + "_planks");
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_slab.json"), slabBlockstate);
 
         // Generate stairs blockstate
-        Map<String, Object> stairsBlockstate = new HashMap<>();
-        Map<String, Object> stairsVariants = new HashMap<>();
-        stairsVariants.put("facing=east,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner"));
-        stairsVariants.put("facing=east,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner"));
-        stairsVariants.put("facing=east,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer"));
-        stairsVariants.put("facing=east,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer"));
-        stairsVariants.put("facing=east,half=bottom,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs"));
-        stairsVariants.put("facing=east,half=top,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 90));
-        stairsVariants.put("facing=east,half=top,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 90));
-        stairsVariants.put("facing=east,half=top,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 90));
-        stairsVariants.put("facing=east,half=top,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 90));
-        stairsVariants.put("facing=east,half=top,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "x", 180, "y", 90));
-        stairsVariants.put("facing=north,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 270));
-        stairsVariants.put("facing=north,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 270));
-        stairsVariants.put("facing=north,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 270));
-        stairsVariants.put("facing=north,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 270));
-        stairsVariants.put("facing=north,half=bottom,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "y", 270));
-        stairsVariants.put("facing=north,half=top,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180));
-        stairsVariants.put("facing=north,half=top,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180));
-        stairsVariants.put("facing=north,half=top,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180));
-        stairsVariants.put("facing=north,half=top,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180));
-        stairsVariants.put("facing=north,half=top,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "x", 180));
-        stairsVariants.put("facing=south,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 90));
-        stairsVariants.put("facing=south,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 90));
-        stairsVariants.put("facing=south,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 90));
-        stairsVariants.put("facing=south,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 90));
-        stairsVariants.put("facing=south,half=bottom,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "y", 90));
-        stairsVariants.put("facing=south,half=top,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 270));
-        stairsVariants.put("facing=south,half=top,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 270));
-        stairsVariants.put("facing=south,half=top,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 270));
-        stairsVariants.put("facing=south,half=top,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 270));
-        stairsVariants.put("facing=south,half=top,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "x", 180, "y", 270));
-        stairsVariants.put("facing=west,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 180));
-        stairsVariants.put("facing=west,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "y", 180));
-        stairsVariants.put("facing=west,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 180));
-        stairsVariants.put("facing=west,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "y", 180));
-        stairsVariants.put("facing=west,half=bottom,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "y", 180));
-        stairsVariants.put("facing=west,half=top,shape=inner_left", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 180));
-        stairsVariants.put("facing=west,half=top,shape=inner_right", Map.of("model", "geco:block/" + woodName + "_stairs_inner", "x", 180, "y", 180));
-        stairsVariants.put("facing=west,half=top,shape=outer_left", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 180));
-        stairsVariants.put("facing=west,half=top,shape=outer_right", Map.of("model", "geco:block/" + woodName + "_stairs_outer", "x", 180, "y", 180));
-        stairsVariants.put("facing=west,half=top,shape=straight", Map.of("model", "geco:block/" + woodName + "_stairs", "x", 180, "y", 180));
-        stairsBlockstate.put("variants", stairsVariants);
+        Map<String, Object> stairsBlockstate = generateStairsBlockstate(woodName);
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_stairs.json"), stairsBlockstate);
 
         // Generate fence blockstate
@@ -361,6 +314,125 @@ public class GecoBlockstateGenerator {
         
         trapdoorBlockstate.put("variants", trapdoorVariants);
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_trapdoor.json"), trapdoorBlockstate);
+    }
+
+    public void generateStoneBlockstateFiles(StoneType stone) throws IOException {
+        String stoneName = stone.getPath();
+        String[] variantNames = {stoneName, "polished_" + stoneName, "polished_" + stoneName + "_bricks", "polished_" + stoneName + "_tiles", "smooth_" + stoneName};
+
+        for (String variantName : variantNames) {
+            // Generate base block blockstate
+            Map<String, Object> baseBlockstate = Map.of(
+                "variants", Map.of("", Map.of("model", "geco:block/" + variantName))
+            );
+            writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + variantName + ".json"), baseBlockstate);
+
+            // Generate slab blockstate (for stone, double uses the base block)
+            Map<String, Object> slabBlockstate = generateSlabBlockstate(variantName, variantName);
+            writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + variantName + "_slab.json"), slabBlockstate);
+
+            // Generate stairs blockstate
+            Map<String, Object> stairsBlockstate = generateStairsBlockstate(variantName);
+            writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + variantName + "_stairs.json"), stairsBlockstate);
+
+            // Generate wall blockstate
+            Map<String, Object> wallBlockstate = generateWallBlockstate(variantName);
+            writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + variantName + "_wall.json"), wallBlockstate);
+        }
+    }
+
+    // Helper methods to generate common blockstate patterns
+    private Map<String, Object> generateSlabBlockstate(String baseName, String doubleBlockName) {
+        return Map.of(
+            "variants", Map.of(
+                "type=bottom", Map.of("model", "geco:block/" + baseName + "_slab"),
+                "type=double", Map.of("model", "geco:block/" + doubleBlockName),
+                "type=top", Map.of("model", "geco:block/" + baseName + "_slab_top")
+            )
+        );
+    }
+
+    private Map<String, Object> generateStairsBlockstate(String baseName) {
+        Map<String, Object> stairsBlockstate = new HashMap<>();
+        Map<String, Object> stairsVariants = new HashMap<>();
+        
+        // Generate all combinations manually to match vanilla exactly
+        stairsVariants.put("facing=east,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner"));
+        stairsVariants.put("facing=east,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner"));
+        stairsVariants.put("facing=east,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer"));
+        stairsVariants.put("facing=east,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer"));
+        stairsVariants.put("facing=east,half=bottom,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs"));
+        stairsVariants.put("facing=east,half=top,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 90));
+        stairsVariants.put("facing=east,half=top,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 90));
+        stairsVariants.put("facing=east,half=top,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 90));
+        stairsVariants.put("facing=east,half=top,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 90));
+        stairsVariants.put("facing=east,half=top,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "x", 180, "y", 90));
+        stairsVariants.put("facing=north,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 270));
+        stairsVariants.put("facing=north,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 270));
+        stairsVariants.put("facing=north,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 270));
+        stairsVariants.put("facing=north,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 270));
+        stairsVariants.put("facing=north,half=bottom,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "y", 270));
+        stairsVariants.put("facing=north,half=top,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180));
+        stairsVariants.put("facing=north,half=top,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180));
+        stairsVariants.put("facing=north,half=top,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180));
+        stairsVariants.put("facing=north,half=top,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180));
+        stairsVariants.put("facing=north,half=top,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "x", 180));
+        stairsVariants.put("facing=south,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 90));
+        stairsVariants.put("facing=south,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 90));
+        stairsVariants.put("facing=south,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 90));
+        stairsVariants.put("facing=south,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 90));
+        stairsVariants.put("facing=south,half=bottom,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "y", 90));
+        stairsVariants.put("facing=south,half=top,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 270));
+        stairsVariants.put("facing=south,half=top,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 270));
+        stairsVariants.put("facing=south,half=top,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 270));
+        stairsVariants.put("facing=south,half=top,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 270));
+        stairsVariants.put("facing=south,half=top,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "x", 180, "y", 270));
+        stairsVariants.put("facing=west,half=bottom,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 180));
+        stairsVariants.put("facing=west,half=bottom,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "y", 180));
+        stairsVariants.put("facing=west,half=bottom,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 180));
+        stairsVariants.put("facing=west,half=bottom,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "y", 180));
+        stairsVariants.put("facing=west,half=bottom,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "y", 180));
+        stairsVariants.put("facing=west,half=top,shape=inner_left", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 180));
+        stairsVariants.put("facing=west,half=top,shape=inner_right", Map.of("model", "geco:block/" + baseName + "_stairs_inner", "x", 180, "y", 180));
+        stairsVariants.put("facing=west,half=top,shape=outer_left", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 180));
+        stairsVariants.put("facing=west,half=top,shape=outer_right", Map.of("model", "geco:block/" + baseName + "_stairs_outer", "x", 180, "y", 180));
+        stairsVariants.put("facing=west,half=top,shape=straight", Map.of("model", "geco:block/" + baseName + "_stairs", "x", 180, "y", 180));
+        
+        stairsBlockstate.put("variants", stairsVariants);
+        return stairsBlockstate;
+    }
+
+    private Map<String, Object> generateWallBlockstate(String baseName) {
+        Map<String, Object> wallBlockstate = new HashMap<>();
+        List<Map<String, Object>> wallMultipart = new java.util.ArrayList<>();
+        
+        // Post when up=true
+        wallMultipart.add(Map.of(
+            "when", Map.of("up", "true"),
+            "apply", Map.of("model", "geco:block/" + baseName + "_wall_post")
+        ));
+        
+        // Low and tall connections for each direction
+        String[] directions = {"north", "east", "south", "west"};
+        int[] yRotations = {0, 90, 180, 270};
+        
+        for (int i = 0; i < directions.length; i++) {
+            String direction = directions[i];
+            int yRot = yRotations[i];
+            
+            wallMultipart.add(Map.of(
+                "when", Map.of(direction, "low"),
+                "apply", Map.of("model", "geco:block/" + baseName + "_wall_side", "y", yRot, "uvlock", true)
+            ));
+            
+            wallMultipart.add(Map.of(
+                "when", Map.of(direction, "tall"),
+                "apply", Map.of("model", "geco:block/" + baseName + "_wall_side_tall", "y", yRot, "uvlock", true)
+            ));
+        }
+        
+        wallBlockstate.put("multipart", wallMultipart);
+        return wallBlockstate;
     }
 
     private void writeJsonFile(Path path, Object data) throws IOException {

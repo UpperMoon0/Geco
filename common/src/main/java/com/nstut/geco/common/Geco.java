@@ -6,6 +6,7 @@ import com.nstut.geco.common.registry.ModBlockSetTypes;
 import com.nstut.geco.common.registry.ModCreativeTabs;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModWoodTypes;
+import com.nstut.geco.common.registry.ModStoneTypes;
 import net.minecraft.resources.ResourceLocation;
 
 public class Geco {
@@ -14,6 +15,9 @@ public class Geco {
     public static void init() {
         // Initialize wood types first as they're needed by other registries
         ModWoodTypes.init();
+        
+        // Initialize stone types
+        ModStoneTypes.init();
         
         // Initialize block set types after wood types
         ModBlockSetTypes.init();

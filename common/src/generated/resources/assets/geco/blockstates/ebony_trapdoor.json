@@ -13,8 +13,8 @@
       "y": 90
     },
     "facing=south,half=top,open=true": {
-      "model": "geco:block/ebony_trapdoor_open",
-      "x": 180
+      "x": 180,
+      "model": "geco:block/ebony_trapdoor_open"
     },
     "facing=north,half=top,open=false": {
       "model": "geco:block/ebony_trapdoor_top"
@@ -31,14 +31,14 @@
       "model": "geco:block/ebony_trapdoor_open"
     },
     "facing=east,half=top,open=true": {
-      "y": 270,
+      "x": 180,
       "model": "geco:block/ebony_trapdoor_open",
-      "x": 180
+      "y": 270
     },
     "facing=west,half=top,open=true": {
-      "y": 90,
+      "x": 180,
       "model": "geco:block/ebony_trapdoor_open",
-      "x": 180
+      "y": 90
     },
     "facing=north,half=bottom,open=false": {
       "model": "geco:block/ebony_trapdoor_bottom"
@@ -48,9 +48,9 @@
       "y": 90
     },
     "facing=north,half=top,open=true": {
-      "y": 180,
+      "x": 180,
       "model": "geco:block/ebony_trapdoor_open",
-      "x": 180
+      "y": 180
     },
     "facing=west,half=bottom,open=true": {
       "model": "geco:block/ebony_trapdoor_open",

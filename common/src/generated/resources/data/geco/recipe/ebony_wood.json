@@ -1,13 +1,13 @@
 {
+  "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
       "item": "geco:ebony_log"
     }
   ],
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "result": {
     "count": 1,
     "id": "geco:ebony_wood"
-  }
+  },
+  "category": "misc"
 }

@@ -1,6 +1,7 @@
 package com.nstut.geco.datagen;
 
 import com.google.gson.Gson;
+import com.nstut.geco.common.stone.StoneType;
 import com.nstut.geco.common.wood.WoodType;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,7 +20,7 @@ public class GecoLootTableGenerator {
         this.gson = gson;
     }
 
-    public void generateLootTableFiles(WoodType wood) throws IOException {
+    public void generateWoodLootTableFiles(WoodType wood) throws IOException {
         String woodName = wood.getPath();
         // Generate log loot table
         Map<String, Object> logLootTable = Map.of(
@@ -182,6 +183,91 @@ public class GecoLootTableGenerator {
             ))
         );
         writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_trapdoor.json"), trapdoorLootTable);
+    }
+
+    public void generateStoneLootTableFiles(StoneType stone) throws IOException {
+        String stoneName = stone.getPath();
+        // Generate simple block loot tables (stone, polished, bricks, tiles, smooth)
+        List<String> baseStoneVariants = Arrays.asList(
+            stoneName,
+            "polished_" + stoneName,
+            "polished_" + stoneName + "_bricks",
+            "polished_" + stoneName + "_tiles",
+            "smooth_" + stoneName
+        );
+
+        for (String baseVariant : baseStoneVariants) {
+            // Generate simple block loot tables (the base block itself)
+            generateSimpleStoneLootTable(baseVariant, "");
+
+            // Generate slab loot table
+            generateStoneSlabLootTable(baseVariant);
+
+            // Generate stairs loot table
+            generateSimpleStoneLootTable(baseVariant, "_stairs");
+
+            // Generate wall loot table
+            generateSimpleStoneLootTable(baseVariant, "_wall");
+        }
+    }
+
+    private void generateStoneSlabLootTable(String baseBlockName) throws IOException {
+        Map<String, Object> slabLootTable = new HashMap<>();
+        slabLootTable.put("type", "minecraft:block");
+
+        Map<String, Object> slabPool = new HashMap<>();
+        slabPool.put("rolls", 1.0);
+
+        List<Map<String, Object>> slabEntries = new java.util.ArrayList<>();
+        Map<String, Object> slabItemEntry = new HashMap<>();
+        slabItemEntry.put("type", "minecraft:item");
+        slabItemEntry.put("name", "geco:" + baseBlockName + "_slab");
+
+        List<Map<String, Object>> slabFunctions = new java.util.ArrayList<>();
+        Map<String, Object> setCountFunction = new HashMap<>();
+        setCountFunction.put("function", "minecraft:set_count");
+
+        List<Map<String, Object>> setCountConditions = new java.util.ArrayList<>();
+        Map<String, Object> blockStatePropertyCondition = new HashMap<>();
+        blockStatePropertyCondition.put("condition", "minecraft:block_state_property");
+        blockStatePropertyCondition.put("block", "geco:" + baseBlockName + "_slab");
+        blockStatePropertyCondition.put("properties", Map.of("type", "double"));
+        setCountConditions.add(blockStatePropertyCondition);
+        setCountFunction.put("conditions", setCountConditions);
+        setCountFunction.put("count", 2);
+        slabFunctions.add(setCountFunction);
+
+        Map<String, Object> explosionDecayFunction = new HashMap<>();
+        explosionDecayFunction.put("function", "minecraft:explosion_decay");
+        slabFunctions.add(explosionDecayFunction);
+
+        slabItemEntry.put("functions", slabFunctions);
+        slabEntries.add(slabItemEntry);
+        slabPool.put("entries", slabEntries);
+
+        List<Map<String, Object>> slabConditions = new java.util.ArrayList<>();
+        slabConditions.add(Map.of("condition", "minecraft:survives_explosion"));
+        slabPool.put("conditions", slabConditions);
+
+        slabLootTable.put("pools", List.of(slabPool));
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + baseBlockName + "_slab.json"), slabLootTable);
+    }
+
+    private void generateSimpleStoneLootTable(String baseBlockName, String derivedSuffix) throws IOException {
+        Map<String, Object> lootTable = Map.of(
+            "type", "minecraft:block",
+            "pools", List.of(Map.of(
+                "rolls", 1.0,
+                "entries", List.of(Map.of(
+                    "type", "minecraft:item",
+                    "name", "geco:" + baseBlockName + derivedSuffix
+                )),
+                "conditions", List.of(Map.of(
+                    "condition", "minecraft:survives_explosion"
+                ))
+            ))
+        );
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + baseBlockName + derivedSuffix + ".json"), lootTable);
     }
 
     private void generateLeavesLootTable(String woodName) throws IOException {

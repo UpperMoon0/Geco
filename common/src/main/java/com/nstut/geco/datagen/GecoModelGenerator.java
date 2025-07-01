@@ -2,6 +2,7 @@ package com.nstut.geco.datagen;
 
 import com.google.gson.Gson;
 import com.nstut.geco.common.wood.WoodType;
+import com.nstut.geco.common.stone.StoneType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +18,7 @@ public class GecoModelGenerator {
         this.gson = gson;
     }
 
-    public void generateBlockModelFiles(WoodType wood) throws IOException {
+    public void generateWoodBlockModelFiles(WoodType wood) throws IOException {
         String woodName = wood.getPath();
         // Generate vertical log model
         Map<String, Object> logModel = new HashMap<>();
@@ -326,7 +327,7 @@ public class GecoModelGenerator {
         writeJsonFile(outputDir.resolve("assets/geco/models/block/" + woodName + "_trapdoor_top.json"), trapdoorTopModel);
     }
 
-    public void generateItemModelFiles(WoodType wood) throws IOException {
+    public void generateWoodItemModelFiles(WoodType wood) throws IOException {
         String woodName = wood.getPath();
         // Generate log item model
         Map<String, Object> logItemModel = new HashMap<>();
@@ -414,6 +415,110 @@ public class GecoModelGenerator {
         Map<String, Object> trapdoorItemModel = new HashMap<>();
         trapdoorItemModel.put("parent", "geco:block/" + woodName + "_trapdoor_bottom");
         writeJsonFile(outputDir.resolve("assets/geco/models/item/" + woodName + "_trapdoor.json"), trapdoorItemModel);
+    }
+
+    public void generateStoneBlockModelFiles(StoneType stone) throws IOException {
+        String stoneName = stone.getPath();
+        String[] variantNames = {stoneName, "polished_" + stoneName, "polished_" + stoneName + "_bricks", "polished_" + stoneName + "_tiles", "smooth_" + stoneName};
+
+        for (String variantName : variantNames) {
+            // Generate base block model
+            Map<String, Object> baseModel = new HashMap<>();
+            baseModel.put("parent", "minecraft:block/cube_all");
+            baseModel.put("textures", Map.of("all", "geco:block/" + variantName));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + ".json"), baseModel);
+
+            // Generate slab models
+            Map<String, Object> slabModel = new HashMap<>();
+            slabModel.put("parent", "minecraft:block/slab");
+            slabModel.put("textures", Map.of(
+                "bottom", "geco:block/" + variantName,
+                "top", "geco:block/" + variantName,
+                "side", "geco:block/" + variantName
+            ));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_slab.json"), slabModel);
+
+            Map<String, Object> slabTopModel = new HashMap<>();
+            slabTopModel.put("parent", "minecraft:block/slab_top");
+            slabTopModel.put("textures", Map.of(
+                "bottom", "geco:block/" + variantName,
+                "top", "geco:block/" + variantName,
+                "side", "geco:block/" + variantName
+            ));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_slab_top.json"), slabTopModel);
+
+            // Generate stairs models
+            Map<String, Object> stairsModel = new HashMap<>();
+            stairsModel.put("parent", "minecraft:block/stairs");
+            stairsModel.put("textures", Map.of(
+                "bottom", "geco:block/" + variantName,
+                "top", "geco:block/" + variantName,
+                "side", "geco:block/" + variantName
+            ));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_stairs.json"), stairsModel);
+
+            Map<String, Object> stairsInnerModel = new HashMap<>();
+            stairsInnerModel.put("parent", "minecraft:block/inner_stairs");
+            stairsInnerModel.put("textures", Map.of(
+                "bottom", "geco:block/" + variantName,
+                "top", "geco:block/" + variantName,
+                "side", "geco:block/" + variantName
+            ));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_stairs_inner.json"), stairsInnerModel);
+
+            Map<String, Object> stairsOuterModel = new HashMap<>();
+            stairsOuterModel.put("parent", "minecraft:block/outer_stairs");
+            stairsOuterModel.put("textures", Map.of(
+                "bottom", "geco:block/" + variantName,
+                "top", "geco:block/" + variantName,
+                "side", "geco:block/" + variantName
+            ));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_stairs_outer.json"), stairsOuterModel);
+
+            // Generate wall models
+            Map<String, Object> wallPostModel = new HashMap<>();
+            wallPostModel.put("parent", "minecraft:block/template_wall_post");
+            wallPostModel.put("textures", Map.of("wall", "geco:block/" + variantName));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_wall_post.json"), wallPostModel);
+
+            Map<String, Object> wallSideModel = new HashMap<>();
+            wallSideModel.put("parent", "minecraft:block/template_wall_side");
+            wallSideModel.put("textures", Map.of("wall", "geco:block/" + variantName));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_wall_side.json"), wallSideModel);
+
+            Map<String, Object> wallSideTallModel = new HashMap<>();
+            wallSideTallModel.put("parent", "minecraft:block/template_wall_side_tall");
+            wallSideTallModel.put("textures", Map.of("wall", "geco:block/" + variantName));
+            writeJsonFile(outputDir.resolve("assets/geco/models/block/" + variantName + "_wall_side_tall.json"), wallSideTallModel);
+        }
+    }
+
+    public void generateStoneItemModelFiles(StoneType stone) throws IOException {
+        String stoneName = stone.getPath();
+        String[] variantNames = {stoneName, "polished_" + stoneName, "polished_" + stoneName + "_bricks", "polished_" + stoneName + "_tiles", "smooth_" + stoneName};
+
+        for (String variantName : variantNames) {
+            // Generate base block item model
+            Map<String, Object> baseItemModel = new HashMap<>();
+            baseItemModel.put("parent", "geco:block/" + variantName);
+            writeJsonFile(outputDir.resolve("assets/geco/models/item/" + variantName + ".json"), baseItemModel);
+
+            // Generate slab item model
+            Map<String, Object> slabItemModel = new HashMap<>();
+            slabItemModel.put("parent", "geco:block/" + variantName + "_slab");
+            writeJsonFile(outputDir.resolve("assets/geco/models/item/" + variantName + "_slab.json"), slabItemModel);
+
+            // Generate stairs item model
+            Map<String, Object> stairsItemModel = new HashMap<>();
+            stairsItemModel.put("parent", "geco:block/" + variantName + "_stairs");
+            writeJsonFile(outputDir.resolve("assets/geco/models/item/" + variantName + "_stairs.json"), stairsItemModel);
+
+            // Generate wall item model
+            Map<String, Object> wallItemModel = new HashMap<>();
+            wallItemModel.put("parent", "minecraft:block/wall_inventory");
+            wallItemModel.put("textures", Map.of("wall", "geco:block/" + variantName));
+            writeJsonFile(outputDir.resolve("assets/geco/models/item/" + variantName + "_wall.json"), wallItemModel);
+        }
     }
 
     private void writeJsonFile(Path path, Object data) throws IOException {

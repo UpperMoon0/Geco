@@ -1,6 +1,8 @@
 package com.nstut.neoforge.client;
 
 import com.nstut.geco.common.registry.ModBlocks;
+import com.nstut.geco.common.registry.ModWoodTypes;
+import com.nstut.geco.common.wood.WoodType;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.neoforged.api.distmarker.Dist;
@@ -17,10 +19,15 @@ public class GecoNeoForgeClient {
         // Register blocks with appropriate render layers for transparency
         event.enqueueWork(() -> {
             // Register translucent blocks to correct render layers
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.EBONY_SAPLING.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.EBONY_LEAVES.get(), RenderType.cutoutMipped());
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.EBONY_DOOR.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.EBONY_TRAPDOOR.get(), RenderType.cutout());
+            for (WoodType woodType : ModWoodTypes.REGISTERED_WOOD_TYPES) {
+                ModBlocks.WoodBlockSet blockSet = ModBlocks.getWoodBlockSet(woodType);
+                if (blockSet != null) {
+                    ItemBlockRenderTypes.setRenderLayer(blockSet.sapling.get(), RenderType.cutout());
+                    ItemBlockRenderTypes.setRenderLayer(blockSet.leaves.get(), RenderType.cutoutMipped());
+                    ItemBlockRenderTypes.setRenderLayer(blockSet.door.get(), RenderType.cutout());
+                    ItemBlockRenderTypes.setRenderLayer(blockSet.trapdoor.get(), RenderType.cutout());
+                }
+            }
         });
     }
 }

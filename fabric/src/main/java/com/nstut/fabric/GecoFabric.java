@@ -60,7 +60,13 @@ public class GecoFabric implements ModInitializer {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
                 CreativeModeTab tab = FabricItemGroup.builder()
                     .title(net.minecraft.network.chat.Component.translatable("itemGroup.geco.geco_tab"))
-                    .icon(() -> ModItems.EBONY_LOG.get().getDefaultInstance())
+                    .icon(() -> {
+                        // Use the first available log item as icon
+                        if (!items.isEmpty()) {
+                            return items.get(0).get().getDefaultInstance();
+                        }
+                        return net.minecraft.world.item.Items.OAK_LOG.getDefaultInstance();
+                    })
                     .displayItems((parameters, output) -> {
                         // Add all provided items
                         items.forEach(itemSupplier -> {

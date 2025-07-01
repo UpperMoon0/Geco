@@ -20,22 +20,6 @@ public class ModBlocks {
     // Maps to store dynamically registered blocks
     private static final Map<WoodType, WoodBlockSet> WOOD_BLOCK_SETS = new HashMap<>();
     
-    // Backward compatibility - static references for existing code
-    public static Supplier<Block> EBONY_LOG;
-    public static Supplier<Block> STRIPPED_EBONY_LOG;
-    public static Supplier<Block> EBONY_WOOD;
-    public static Supplier<Block> STRIPPED_EBONY_WOOD;
-    public static Supplier<Block> EBONY_PLANKS;
-    public static Supplier<Block> EBONY_STAIRS;
-    public static Supplier<Block> EBONY_SLAB;
-    public static Supplier<Block> EBONY_FENCE;
-    public static Supplier<Block> EBONY_FENCE_GATE;
-    public static Supplier<Block> EBONY_DOOR;
-    public static Supplier<Block> EBONY_TRAPDOOR;
-    public static Supplier<Block> EBONY_PRESSURE_PLATE;
-    public static Supplier<Block> EBONY_BUTTON;
-    public static Supplier<Block> EBONY_LEAVES;
-    public static Supplier<Block> EBONY_SAPLING;
     
     /**
      * Container class to hold all blocks for a wood type
@@ -100,27 +84,6 @@ public class ModBlocks {
             registerWoodBlockSet(woodType);
         }
         
-        // Set backward compatibility references
-        if (ModWoodTypes.EBONY != null) {
-            WoodBlockSet ebonySet = WOOD_BLOCK_SETS.get(ModWoodTypes.EBONY);
-            if (ebonySet != null) {
-                EBONY_LOG = ebonySet.log;
-                STRIPPED_EBONY_LOG = ebonySet.strippedLog;
-                EBONY_WOOD = ebonySet.wood;
-                STRIPPED_EBONY_WOOD = ebonySet.strippedWood;
-                EBONY_PLANKS = ebonySet.planks;
-                EBONY_STAIRS = ebonySet.stairs;
-                EBONY_SLAB = ebonySet.slab;
-                EBONY_FENCE = ebonySet.fence;
-                EBONY_FENCE_GATE = ebonySet.fenceGate;
-                EBONY_DOOR = ebonySet.door;
-                EBONY_TRAPDOOR = ebonySet.trapdoor;
-                EBONY_PRESSURE_PLATE = ebonySet.pressurePlate;
-                EBONY_BUTTON = ebonySet.button;
-                EBONY_LEAVES = ebonySet.leaves;
-                EBONY_SAPLING = ebonySet.sapling;
-            }
-        }
     }
     
     /**
@@ -219,22 +182,29 @@ public class ModBlocks {
     
     /**
      * Creates a leaves block for the given wood type.
-     * For now, all wood types use EbonyLeavesBlock, but this can be expanded.
+     * Uses standard LeavesBlock with appropriate properties.
      */
     private static Block createLeavesBlock(WoodType woodType) {
-        // For now, return the ebony leaves implementation for all wood types
-        // This can be expanded to have different implementations per wood type
-        return new EbonyLeavesBlock();
+        return new LeavesBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.PLANT)
+                .strength(0.2F)
+                .randomTicks()
+                .sound(SoundType.GRASS)
+                .noOcclusion()
+                .isValidSpawn((state, level, pos, type) -> false)
+                .isSuffocating((state, level, pos) -> false)
+                .isViewBlocking((state, level, pos) -> false)
+                .ignitedByLava()
+                .pushReaction(PushReaction.DESTROY)
+                .isRedstoneConductor((state, level, pos) -> false));
     }
     
     /**
      * Creates a sapling block for the given wood type.
-     * For now, all wood types use EbonySaplingBlock, but this can be expanded.
+     * Uses GecoSaplingBlock which can handle different wood types.
      */
     private static Block createSaplingBlock(WoodType woodType) {
-        // For now, return the ebony sapling implementation for all wood types
-        // This can be expanded to have different implementations per wood type
-        return new EbonySaplingBlock();
+        return new GecoSaplingBlock(woodType);
     }
     
     /**

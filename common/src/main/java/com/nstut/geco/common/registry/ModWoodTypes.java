@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Central registry for managing WoodType instances.
@@ -26,11 +28,10 @@ public class ModWoodTypes {
     
     // Registered wood types - these will be available for reference
     public static WoodType EBONY;
-    public static WoodType CHERRY;
     
     /**
      * Registers a new WoodType with the specified ResourceLocation name.
-     * 
+     *
      * @param name The ResourceLocation identifier for the wood type
      * @return The newly created and registered WoodType instance
      */
@@ -41,8 +42,21 @@ public class ModWoodTypes {
     }
     
     /**
+     * Registers a new WoodType with the specified ResourceLocation name and blacklisted models.
+     *
+     * @param name The ResourceLocation identifier for the wood type
+     * @param blacklistedModels Set of model numbers to exclude from tree generation
+     * @return The newly created and registered WoodType instance
+     */
+    public static WoodType register(ResourceLocation name, Set<Integer> blacklistedModels) {
+        WoodType woodType = new WoodType(name, blacklistedModels);
+        WOOD_TYPES.add(woodType);
+        return woodType;
+    }
+    
+    /**
      * Registers a new WoodType with the specified namespace and path.
-     * 
+     *
      * @param namespace The namespace for the wood type (typically mod ID)
      * @param path The path/name for the wood type
      * @return The newly created and registered WoodType instance
@@ -52,8 +66,20 @@ public class ModWoodTypes {
     }
     
     /**
+     * Registers a new WoodType with the specified namespace, path, and blacklisted models.
+     *
+     * @param namespace The namespace for the wood type (typically mod ID)
+     * @param path The path/name for the wood type
+     * @param blacklistedModels Set of model numbers to exclude from tree generation
+     * @return The newly created and registered WoodType instance
+     */
+    public static WoodType register(String namespace, String path, Set<Integer> blacklistedModels) {
+        return register(ResourceLocation.fromNamespaceAndPath(namespace, path), blacklistedModels);
+    }
+    
+    /**
      * Registers a WoodType instance directly.
-     * 
+     *
      * @param woodType The WoodType instance to register
      * @return The registered WoodType instance
      */
@@ -110,7 +136,9 @@ public class ModWoodTypes {
      * This method should be called during mod initialization.
      */
     public static void init() {
-        // Register the Ebony wood type
-        EBONY = register(Geco.MOD_ID, "ebony");
+        // Register the Ebony wood type with model 5 blacklisted
+        Set<Integer> ebonyBlacklist = new HashSet<>();
+        ebonyBlacklist.add(5);
+        EBONY = register(Geco.MOD_ID, "ebony", ebonyBlacklist);
     }
 }

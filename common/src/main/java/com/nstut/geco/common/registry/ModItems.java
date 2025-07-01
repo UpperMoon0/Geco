@@ -21,22 +21,6 @@ public class ModItems {
     // Maps to store dynamically registered items
     private static final Map<WoodType, WoodItemSet> WOOD_ITEM_SETS = new HashMap<>();
     
-    // Backward compatibility - static references for existing code
-    public static Supplier<BlockItem> EBONY_LOG;
-    public static Supplier<BlockItem> STRIPPED_EBONY_LOG;
-    public static Supplier<BlockItem> EBONY_WOOD;
-    public static Supplier<BlockItem> STRIPPED_EBONY_WOOD;
-    public static Supplier<BlockItem> EBONY_LEAVES;
-    public static Supplier<BlockItem> EBONY_SAPLING;
-    public static Supplier<BlockItem> EBONY_PLANKS;
-    public static Supplier<BlockItem> EBONY_STAIRS;
-    public static Supplier<BlockItem> EBONY_SLAB;
-    public static Supplier<BlockItem> EBONY_FENCE;
-    public static Supplier<BlockItem> EBONY_FENCE_GATE;
-    public static Supplier<BlockItem> EBONY_DOOR;
-    public static Supplier<BlockItem> EBONY_TRAPDOOR;
-    public static Supplier<BlockItem> EBONY_PRESSURE_PLATE;
-    public static Supplier<BlockItem> EBONY_BUTTON;
     
     /**
      * Container class to hold all items for a wood type
@@ -101,27 +85,6 @@ public class ModItems {
             registerWoodItemSet(woodType);
         }
         
-        // Set backward compatibility references
-        if (ModWoodTypes.EBONY != null) {
-            WoodItemSet ebonySet = WOOD_ITEM_SETS.get(ModWoodTypes.EBONY);
-            if (ebonySet != null) {
-                EBONY_LOG = ebonySet.log;
-                STRIPPED_EBONY_LOG = ebonySet.strippedLog;
-                EBONY_WOOD = ebonySet.wood;
-                STRIPPED_EBONY_WOOD = ebonySet.strippedWood;
-                EBONY_LEAVES = ebonySet.leaves;
-                EBONY_SAPLING = ebonySet.sapling;
-                EBONY_PLANKS = ebonySet.planks;
-                EBONY_STAIRS = ebonySet.stairs;
-                EBONY_SLAB = ebonySet.slab;
-                EBONY_FENCE = ebonySet.fence;
-                EBONY_FENCE_GATE = ebonySet.fenceGate;
-                EBONY_DOOR = ebonySet.door;
-                EBONY_TRAPDOOR = ebonySet.trapdoor;
-                EBONY_PRESSURE_PLATE = ebonySet.pressurePlate;
-                EBONY_BUTTON = ebonySet.button;
-            }
-        }
     }
     
     /**

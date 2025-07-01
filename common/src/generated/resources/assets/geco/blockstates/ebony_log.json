@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "y": 90,
+      "model": "geco:block/ebony_log_horizontal",
+      "x": 90
+    },
+    "axis=z": {
+      "model": "geco:block/ebony_log_horizontal",
+      "x": 90
+    },
+    "axis=y": {
+      "model": "geco:block/ebony_log"
+    }
+  }
+}

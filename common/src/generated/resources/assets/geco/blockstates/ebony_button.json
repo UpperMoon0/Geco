@@ -1,0 +1,118 @@
+{
+  "variants": {
+    "face=ceiling,facing=east,powered=false": {
+      "y": 270,
+      "model": "geco:block/ebony_button",
+      "x": 90
+    },
+    "face=ceiling,facing=west,powered=true": {
+      "y": 90,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90
+    },
+    "face=ceiling,facing=south,powered=false": {
+      "model": "geco:block/ebony_button",
+      "x": 90
+    },
+    "face=wall,facing=south,powered=true": {
+      "y": 180,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=floor,facing=east,powered=false": {
+      "model": "geco:block/ebony_button",
+      "y": 90
+    },
+    "face=wall,facing=east,powered=true": {
+      "y": 90,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=floor,facing=north,powered=false": {
+      "model": "geco:block/ebony_button"
+    },
+    "face=ceiling,facing=north,powered=false": {
+      "y": 180,
+      "model": "geco:block/ebony_button",
+      "x": 90
+    },
+    "face=wall,facing=north,powered=false": {
+      "uvlock": true,
+      "model": "geco:block/ebony_button",
+      "x": 90
+    },
+    "face=floor,facing=west,powered=false": {
+      "model": "geco:block/ebony_button",
+      "y": 270
+    },
+    "face=ceiling,facing=south,powered=true": {
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90
+    },
+    "face=floor,facing=north,powered=true": {
+      "model": "geco:block/ebony_button_pressed"
+    },
+    "face=floor,facing=east,powered=true": {
+      "model": "geco:block/ebony_button_pressed",
+      "y": 90
+    },
+    "face=wall,facing=east,powered=false": {
+      "y": 90,
+      "model": "geco:block/ebony_button",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=wall,facing=south,powered=false": {
+      "y": 180,
+      "model": "geco:block/ebony_button",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=floor,facing=south,powered=false": {
+      "model": "geco:block/ebony_button",
+      "y": 180
+    },
+    "face=ceiling,facing=west,powered=false": {
+      "y": 90,
+      "model": "geco:block/ebony_button",
+      "x": 90
+    },
+    "face=floor,facing=west,powered=true": {
+      "model": "geco:block/ebony_button_pressed",
+      "y": 270
+    },
+    "face=ceiling,facing=east,powered=true": {
+      "y": 270,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90
+    },
+    "face=wall,facing=north,powered=true": {
+      "uvlock": true,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90
+    },
+    "face=floor,facing=south,powered=true": {
+      "model": "geco:block/ebony_button_pressed",
+      "y": 180
+    },
+    "face=wall,facing=west,powered=true": {
+      "y": 270,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=wall,facing=west,powered=false": {
+      "y": 270,
+      "model": "geco:block/ebony_button",
+      "x": 90,
+      "uvlock": true
+    },
+    "face=ceiling,facing=north,powered=true": {
+      "y": 180,
+      "model": "geco:block/ebony_button_pressed",
+      "x": 90
+    }
+  }
+}

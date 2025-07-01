@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class GecoDataGenerator {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final Path OUTPUT_DIR = Paths.get("generated", "resources");
+    private static final Path OUTPUT_DIR = Paths.get("src", "generated", "resources");
 
 
     public static void main(String[] args) {

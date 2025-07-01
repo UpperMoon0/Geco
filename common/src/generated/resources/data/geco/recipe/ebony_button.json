@@ -1,0 +1,12 @@
+{
+  "ingredients": [
+    {
+      "item": "geco:ebony_planks"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "result": {
+    "id": "geco:ebony_button"
+  }
+}

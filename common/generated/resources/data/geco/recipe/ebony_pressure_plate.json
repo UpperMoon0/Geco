@@ -1,0 +1,15 @@
+{
+  "pattern": [
+    "PP"
+  ],
+  "category": "misc",
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "geco:ebony_planks"
+    }
+  },
+  "result": {
+    "id": "geco:ebony_pressure_plate"
+  }
+}

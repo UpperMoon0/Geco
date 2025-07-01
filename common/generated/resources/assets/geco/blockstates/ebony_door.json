@@ -1,12 +1,15 @@
 {
   "variants": {
     "facing=north,half=lower,hinge=right,open=true": {
+      "y": 180,
       "model": "geco:block/ebony_door_bottom_right_open"
     },
     "facing=north,half=upper,hinge=right,open=true": {
+      "y": 180,
       "model": "geco:block/ebony_door_top_right_open"
     },
     "facing=south,half=upper,hinge=left,open=true": {
+      "y": 180,
       "model": "geco:block/ebony_door_top_left_open"
     },
     "facing=north,half=upper,hinge=left,open=false": {
@@ -66,7 +69,6 @@
       "model": "geco:block/ebony_door_top_right"
     },
     "facing=north,half=upper,hinge=left,open=true": {
-      "y": 180,
       "model": "geco:block/ebony_door_top_left_open"
     },
     "facing=east,half=lower,hinge=right,open=true": {
@@ -74,11 +76,9 @@
       "model": "geco:block/ebony_door_bottom_right_open"
     },
     "facing=north,half=lower,hinge=left,open=true": {
-      "y": 180,
       "model": "geco:block/ebony_door_bottom_left_open"
     },
     "facing=south,half=lower,hinge=right,open=true": {
-      "y": 180,
       "model": "geco:block/ebony_door_bottom_right_open"
     },
     "facing=south,half=lower,hinge=left,open=false": {
@@ -102,6 +102,7 @@
       "model": "geco:block/ebony_door_top_right"
     },
     "facing=south,half=lower,hinge=left,open=true": {
+      "y": 180,
       "model": "geco:block/ebony_door_bottom_left_open"
     },
     "facing=east,half=lower,hinge=left,open=true": {
@@ -109,7 +110,6 @@
       "model": "geco:block/ebony_door_bottom_left_open"
     },
     "facing=south,half=upper,hinge=right,open=true": {
-      "y": 180,
       "model": "geco:block/ebony_door_top_right_open"
     },
     "facing=west,half=lower,hinge=right,open=true": {

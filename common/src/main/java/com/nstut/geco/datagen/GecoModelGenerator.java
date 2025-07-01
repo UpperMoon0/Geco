@@ -177,13 +177,7 @@ public class GecoModelGenerator {
         ));
         writeJsonFile(outputDir.resolve("assets/geco/models/block/" + woodName + "_fence_side.json"), fenceSideModel);
 
-        // Generate fence inventory model
-        Map<String, Object> fenceInventoryModel = new HashMap<>();
-        fenceInventoryModel.put("parent", "minecraft:block/fence_inventory");
-        fenceInventoryModel.put("textures", Map.of(
-            "texture", "geco:block/" + woodName + "_planks"
-        ));
-        writeJsonFile(outputDir.resolve("assets/geco/models/block/" + woodName + "_fence_inventory.json"), fenceInventoryModel);
+        // Note: No fence inventory model needed - fence item model will reference vanilla directly
 
         // Generate fence gate models
         Map<String, Object> fenceGateModel = new HashMap<>();
@@ -366,7 +360,10 @@ public class GecoModelGenerator {
 
         // Generate sapling item model
         Map<String, Object> saplingItemModel = new HashMap<>();
-        saplingItemModel.put("parent", "geco:block/" + woodName + "_sapling");
+        saplingItemModel.put("parent", "minecraft:item/generated");
+        saplingItemModel.put("textures", Map.of(
+            "layer0", "geco:block/" + woodName + "_sapling"
+        ));
         writeJsonFile(outputDir.resolve("assets/geco/models/item/" + woodName + "_sapling.json"), saplingItemModel);
 
         // Generate slab item model
@@ -381,7 +378,10 @@ public class GecoModelGenerator {
 
         // Generate fence item model
         Map<String, Object> fenceItemModel = new HashMap<>();
-        fenceItemModel.put("parent", "geco:block/" + woodName + "_fence_inventory");
+        fenceItemModel.put("parent", "minecraft:block/fence_inventory");
+        fenceItemModel.put("textures", Map.of(
+            "texture", "geco:block/" + woodName + "_planks"
+        ));
         writeJsonFile(outputDir.resolve("assets/geco/models/item/" + woodName + "_fence.json"), fenceItemModel);
 
         // Generate fence gate item model

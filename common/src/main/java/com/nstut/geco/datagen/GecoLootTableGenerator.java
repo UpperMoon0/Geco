@@ -36,7 +36,7 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_log.json"), logLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_log.json"), logLootTable);
 
         // Generate simple block loot tables (planks, wood, stripped_log, stripped_wood, sapling, stairs, pressure_plate)
         List<String> simpleBlocks = Arrays.asList(
@@ -56,7 +56,7 @@ public class GecoLootTableGenerator {
                     ))
                 ))
             );
-            writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_" + block + ".json"), lootTable);
+            writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_" + block + ".json"), lootTable);
         }
 
         // Generate leaves loot table (complex)
@@ -101,7 +101,7 @@ public class GecoLootTableGenerator {
         slabPool.put("conditions", slabConditions);
         
         slabLootTable.put("pools", List.of(slabPool));
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_slab.json"), slabLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_slab.json"), slabLootTable);
 
         // Generate fence loot table
         Map<String, Object> fenceLootTable = Map.of(
@@ -117,7 +117,7 @@ public class GecoLootTableGenerator {
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_fence.json"), fenceLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_fence.json"), fenceLootTable);
 
         // Generate fence gate loot table
         Map<String, Object> fenceGateLootTable = Map.of(
@@ -133,7 +133,7 @@ public class GecoLootTableGenerator {
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_fence_gate.json"), fenceGateLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_fence_gate.json"), fenceGateLootTable);
 
         // Generate button loot table
         Map<String, Object> buttonLootTable = Map.of(
@@ -149,7 +149,7 @@ public class GecoLootTableGenerator {
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_button.json"), buttonLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_button.json"), buttonLootTable);
 
         // Generate door loot table
         Map<String, Object> doorLootTable = Map.of(
@@ -165,7 +165,7 @@ public class GecoLootTableGenerator {
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_door.json"), doorLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_door.json"), doorLootTable);
 
         // Generate trapdoor loot table
         Map<String, Object> trapdoorLootTable = Map.of(
@@ -181,7 +181,7 @@ public class GecoLootTableGenerator {
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_trapdoor.json"), trapdoorLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_trapdoor.json"), trapdoorLootTable);
     }
 
     private void generateLeavesLootTable(String woodName) throws IOException {
@@ -310,7 +310,7 @@ public class GecoLootTableGenerator {
         pools.add(secondPool);
         
         leavesLootTable.put("pools", pools);
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_leaves.json"), leavesLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_table/blocks/" + woodName + "_leaves.json"), leavesLootTable);
     }
 
     private void writeJsonFile(Path path, Object data) throws IOException {

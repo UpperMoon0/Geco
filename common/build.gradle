@@ -2,6 +2,15 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+// Include generated resources in source sets
+sourceSets {
+    main {
+        resources {
+            srcDirs += 'generated/resources'
+        }
+    }
+}
+
 // loom block for datagen
 loom {
     // Enable data generation
@@ -10,7 +19,7 @@ loom {
             inherit server
             name "Data Generation"
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("generated/resources")}"
             vmArg "-Dfabric-api.datagen.modid=geco"
             
             runDir "build/datagen"

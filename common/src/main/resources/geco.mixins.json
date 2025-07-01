@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "package": "com.nstut.geco.common.mixins",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "geco.refmap.json",
   "mixins": [
   ],
   "client": [],

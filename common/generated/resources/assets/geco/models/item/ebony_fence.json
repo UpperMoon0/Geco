@@ -1,3 +1,6 @@
 {
-  "parent": "geco:block/ebony_fence_inventory"
+  "parent": "minecraft:block/fence_inventory",
+  "textures": {
+    "texture": "geco:block/ebony_planks"
+  }
 }

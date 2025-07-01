@@ -1,0 +1,16 @@
+{
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "category": "misc",
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "geco:ebony_planks"
+    }
+  },
+  "result": {
+    "id": "geco:ebony_trapdoor"
+  }
+}

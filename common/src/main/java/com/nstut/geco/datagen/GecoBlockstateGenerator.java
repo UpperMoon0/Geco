@@ -97,19 +97,38 @@ public class GecoBlockstateGenerator {
         );
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/stripped_" + woodName + "_wood.json"), strippedWoodBlockstate);
 
-        // Generate simple blockstates (planks, leaves, sapling, etc.)
-        List<String> simpleBlocks = Arrays.asList(
-            "planks", "leaves", "sapling"
+        // Generate planks blockstate
+        Map<String, Object> planksBlockstate = Map.of(
+            "variants", Map.of(
+                "", Map.of("model", "geco:block/" + woodName + "_planks")
+            )
         );
+        writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_planks.json"), planksBlockstate);
+
+        // Generate leaves blockstate with all properties
+        Map<String, Object> leavesBlockstate = new HashMap<>();
+        Map<String, Object> leavesVariants = new HashMap<>();
         
-        for (String block : simpleBlocks) {
-            Map<String, Object> blockstate = Map.of(
-                "variants", Map.of(
-                    "", Map.of("model", "geco:block/" + woodName + "_" + block)
-                )
-            );
-            writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_" + block + ".json"), blockstate);
+        // Generate all combinations of distance (1-7), persistent (true/false), waterlogged (true/false)
+        for (int distance = 1; distance <= 7; distance++) {
+            for (boolean persistent : new boolean[]{false, true}) {
+                for (boolean waterlogged : new boolean[]{false, true}) {
+                    String key = String.format("distance=%d,persistent=%b,waterlogged=%b", distance, persistent, waterlogged);
+                    leavesVariants.put(key, Map.of("model", "geco:block/" + woodName + "_leaves"));
+                }
+            }
         }
+        leavesBlockstate.put("variants", leavesVariants);
+        writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_leaves.json"), leavesBlockstate);
+
+        // Generate sapling blockstate with stage property
+        Map<String, Object> saplingBlockstate = Map.of(
+            "variants", Map.of(
+                "stage=0", Map.of("model", "geco:block/" + woodName + "_sapling"),
+                "stage=1", Map.of("model", "geco:block/" + woodName + "_sapling")
+            )
+        );
+        writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_sapling.json"), saplingBlockstate);
 
         // Generate slab blockstate
         Map<String, Object> slabBlockstate = Map.of(
@@ -250,9 +269,11 @@ public class GecoBlockstateGenerator {
         pressurePlateBlockstate.put("variants", pressurePlateVariants);
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_pressure_plate.json"), pressurePlateBlockstate);
 
-        // Generate door blockstate
+        // Generate door blockstate (matching reference exactly)
         Map<String, Object> doorBlockstate = new HashMap<>();
         Map<String, Object> doorVariants = new HashMap<>();
+        
+        // East facing
         doorVariants.put("facing=east,half=lower,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_left"));
         doorVariants.put("facing=east,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open", "y", 90));
         doorVariants.put("facing=east,half=lower,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_right"));
@@ -261,22 +282,28 @@ public class GecoBlockstateGenerator {
         doorVariants.put("facing=east,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open", "y", 90));
         doorVariants.put("facing=east,half=upper,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_right"));
         doorVariants.put("facing=east,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open", "y", 270));
+        
+        // North facing
         doorVariants.put("facing=north,half=lower,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_left", "y", 270));
-        doorVariants.put("facing=north,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open", "y", 180));
+        doorVariants.put("facing=north,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open"));
         doorVariants.put("facing=north,half=lower,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_right", "y", 270));
-        doorVariants.put("facing=north,half=lower,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_right_open"));
+        doorVariants.put("facing=north,half=lower,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_right_open", "y", 180));
         doorVariants.put("facing=north,half=upper,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_left", "y", 270));
-        doorVariants.put("facing=north,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open", "y", 180));
+        doorVariants.put("facing=north,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open"));
         doorVariants.put("facing=north,half=upper,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_right", "y", 270));
-        doorVariants.put("facing=north,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open"));
+        doorVariants.put("facing=north,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open", "y", 180));
+        
+        // South facing
         doorVariants.put("facing=south,half=lower,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_left", "y", 90));
-        doorVariants.put("facing=south,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open"));
+        doorVariants.put("facing=south,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open", "y", 180));
         doorVariants.put("facing=south,half=lower,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_right", "y", 90));
-        doorVariants.put("facing=south,half=lower,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_right_open", "y", 180));
+        doorVariants.put("facing=south,half=lower,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_right_open"));
         doorVariants.put("facing=south,half=upper,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_left", "y", 90));
-        doorVariants.put("facing=south,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open"));
+        doorVariants.put("facing=south,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open", "y", 180));
         doorVariants.put("facing=south,half=upper,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_right", "y", 90));
-        doorVariants.put("facing=south,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open", "y", 180));
+        doorVariants.put("facing=south,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open"));
+        
+        // West facing
         doorVariants.put("facing=west,half=lower,hinge=left,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_left", "y", 180));
         doorVariants.put("facing=west,half=lower,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_bottom_left_open", "y", 270));
         doorVariants.put("facing=west,half=lower,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_bottom_right", "y", 180));
@@ -285,28 +312,54 @@ public class GecoBlockstateGenerator {
         doorVariants.put("facing=west,half=upper,hinge=left,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_left_open", "y", 270));
         doorVariants.put("facing=west,half=upper,hinge=right,open=false", Map.of("model", "geco:block/" + woodName + "_door_top_right", "y", 180));
         doorVariants.put("facing=west,half=upper,hinge=right,open=true", Map.of("model", "geco:block/" + woodName + "_door_top_right_open", "y", 90));
+        
         doorBlockstate.put("variants", doorVariants);
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_door.json"), doorBlockstate);
 
-        // Generate trapdoor blockstate
+        // Generate trapdoor blockstate (simplified, matching reference)
         Map<String, Object> trapdoorBlockstate = new HashMap<>();
         Map<String, Object> trapdoorVariants = new HashMap<>();
-        trapdoorVariants.put("facing=east,half=bottom,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom"));
-        trapdoorVariants.put("facing=east,half=bottom,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open"));
-        trapdoorVariants.put("facing=east,half=top,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_top"));
-        trapdoorVariants.put("facing=east,half=top,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180));
-        trapdoorVariants.put("facing=north,half=bottom,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 270));
-        trapdoorVariants.put("facing=north,half=bottom,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 270));
-        trapdoorVariants.put("facing=north,half=top,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 270));
-        trapdoorVariants.put("facing=north,half=top,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 270));
-        trapdoorVariants.put("facing=south,half=bottom,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 90));
-        trapdoorVariants.put("facing=south,half=bottom,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 90));
-        trapdoorVariants.put("facing=south,half=top,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 90));
-        trapdoorVariants.put("facing=south,half=top,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 90));
-        trapdoorVariants.put("facing=west,half=bottom,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 180));
-        trapdoorVariants.put("facing=west,half=bottom,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 180));
-        trapdoorVariants.put("facing=west,half=top,open=false", Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 180));
-        trapdoorVariants.put("facing=west,half=top,open=true", Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 180));
+        
+        // North facing
+        trapdoorVariants.put("facing=north,half=bottom,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom"));
+        trapdoorVariants.put("facing=north,half=bottom,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open"));
+        trapdoorVariants.put("facing=north,half=top,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_top"));
+        trapdoorVariants.put("facing=north,half=top,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 180));
+        
+        // East facing
+        trapdoorVariants.put("facing=east,half=bottom,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 90));
+        trapdoorVariants.put("facing=east,half=bottom,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 90));
+        trapdoorVariants.put("facing=east,half=top,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 90));
+        trapdoorVariants.put("facing=east,half=top,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 270));
+        
+        // South facing
+        trapdoorVariants.put("facing=south,half=bottom,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 180));
+        trapdoorVariants.put("facing=south,half=bottom,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 180));
+        trapdoorVariants.put("facing=south,half=top,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 180));
+        trapdoorVariants.put("facing=south,half=top,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180));
+        
+        // West facing
+        trapdoorVariants.put("facing=west,half=bottom,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_bottom", "y", 270));
+        trapdoorVariants.put("facing=west,half=bottom,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "y", 270));
+        trapdoorVariants.put("facing=west,half=top,open=false",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_top", "y", 270));
+        trapdoorVariants.put("facing=west,half=top,open=true",
+            Map.of("model", "geco:block/" + woodName + "_trapdoor_open", "x", 180, "y", 90));
+        
         trapdoorBlockstate.put("variants", trapdoorVariants);
         writeJsonFile(outputDir.resolve("assets/geco/blockstates/" + woodName + "_trapdoor.json"), trapdoorBlockstate);
     }

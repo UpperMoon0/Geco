@@ -22,174 +22,182 @@ public class GecoRecipeGenerator {
         // Generate planks recipe
         Map<String, Object> planksRecipe = Map.of(
             "type", "minecraft:crafting_shapeless",
-            "category", "building",
+            "category", "misc",
             "ingredients", List.of(Map.of(
                 "tag", "geco:" + woodName + "_logs"
             )),
             "result", Map.of(
-                "item", "geco:" + woodName + "_planks",
+                "id", "geco:" + woodName + "_planks",
                 "count", 4
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_planks.json"), planksRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_planks.json"), planksRecipe);
 
         // Generate wood recipe
         Map<String, Object> woodRecipe = Map.of(
             "type", "minecraft:crafting_shapeless",
-            "category", "building",
+            "category", "misc",
             "ingredients", List.of(Map.of(
                 "item", "geco:" + woodName + "_log"
             )),
             "result", Map.of(
-                "item", "geco:" + woodName + "_wood",
+                "id", "geco:" + woodName + "_wood",
                 "count", 1
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_wood.json"), woodRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_wood.json"), woodRecipe);
 
         // Generate stripped wood recipe
         Map<String, Object> strippedWoodRecipe = Map.of(
             "type", "minecraft:crafting_shapeless",
-            "category", "building",
+            "category", "misc",
             "ingredients", List.of(Map.of(
                 "item", "geco:stripped_" + woodName + "_log"
             )),
             "result", Map.of(
-                "item", "geco:stripped_" + woodName + "_wood",
+                "id", "geco:stripped_" + woodName + "_wood",
                 "count", 1
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/stripped_" + woodName + "_wood.json"), strippedWoodRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/stripped_" + woodName + "_wood.json"), strippedWoodRecipe);
 
         // Generate slab recipe
         Map<String, Object> slabRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "###"
+                "PPP"
             ),
             "key", Map.of(
-                "#", Map.of("item", "geco:" + woodName + "_planks")
+                "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_slab",
+                "id", "geco:" + woodName + "_slab",
                 "count", 6
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_slab.json"), slabRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_slab.json"), slabRecipe);
 
         // Generate stairs recipe
         Map<String, Object> stairsRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "#  ",
-                "## ",
-                "###"
+                "P  ",
+                "PP ",
+                "PPP"
             ),
             "key", Map.of(
-                "#", Map.of("item", "geco:" + woodName + "_planks")
+                "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_stairs",
+                "id", "geco:" + woodName + "_stairs",
                 "count", 4
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_stairs.json"), stairsRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_stairs.json"), stairsRecipe);
 
         // Generate fence recipe
         Map<String, Object> fenceRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "W#W",
-                "W#W"
+                "PSP",
+                "PSP"
             ),
             "key", Map.of(
-                "W", Map.of("item", "geco:" + woodName + "_planks"),
-                "#", Map.of("item", "minecraft:stick")
+                "P", Map.of("item", "geco:" + woodName + "_planks"),
+                "S", Map.of("item", "minecraft:stick")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_fence",
+                "id", "geco:" + woodName + "_fence",
                 "count", 3
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_fence.json"), fenceRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_fence.json"), fenceRecipe);
 
         // Generate fence gate recipe
         Map<String, Object> fenceGateRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "#W#",
-                "#W#"
+                "SPS",
+                "SPS"
             ),
             "key", Map.of(
-                "W", Map.of("item", "geco:" + woodName + "_planks"),
-                "#", Map.of("item", "minecraft:stick")
+                "P", Map.of("item", "geco:" + woodName + "_planks"),
+                "S", Map.of("item", "minecraft:stick")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_fence_gate"
+                "id", "geco:" + woodName + "_fence_gate"
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_fence_gate.json"), fenceGateRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_fence_gate.json"), fenceGateRecipe);
 
         // Generate button recipe
         Map<String, Object> buttonRecipe = Map.of(
             "type", "minecraft:crafting_shapeless",
+            "category", "misc",
             "ingredients", List.of(Map.of(
                 "item", "geco:" + woodName + "_planks"
             )),
             "result", Map.of(
-                "item", "geco:" + woodName + "_button"
+                "id", "geco:" + woodName + "_button"
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_button.json"), buttonRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_button.json"), buttonRecipe);
 
         // Generate pressure plate recipe
         Map<String, Object> pressurePlateRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "##"
+                "PP"
             ),
             "key", Map.of(
-                "#", Map.of("item", "geco:" + woodName + "_planks")
+                "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_pressure_plate"
+                "id", "geco:" + woodName + "_pressure_plate"
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_pressure_plate.json"), pressurePlateRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_pressure_plate.json"), pressurePlateRecipe);
 
         // Generate door recipe
         Map<String, Object> doorRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "##",
-                "##",
-                "##"
+                "PP",
+                "PP",
+                "PP"
             ),
             "key", Map.of(
-                "#", Map.of("item", "geco:" + woodName + "_planks")
+                "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_door",
+                "id", "geco:" + woodName + "_door",
                 "count", 3
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_door.json"), doorRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_door.json"), doorRecipe);
 
         // Generate trapdoor recipe
         Map<String, Object> trapdoorRecipe = Map.of(
             "type", "minecraft:crafting_shaped",
+            "category", "misc",
             "pattern", List.of(
-                "###",
-                "###"
+                "PPP",
+                "PPP"
             ),
             "key", Map.of(
-                "#", Map.of("item", "geco:" + woodName + "_planks")
+                "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "item", "geco:" + woodName + "_trapdoor"
+                "id", "geco:" + woodName + "_trapdoor"
             )
         );
-        writeJsonFile(outputDir.resolve("data/geco/recipes/" + woodName + "_trapdoor.json"), trapdoorRecipe);
+        writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_trapdoor.json"), trapdoorRecipe);
     }
 
     private void writeJsonFile(Path path, Object data) throws IOException {

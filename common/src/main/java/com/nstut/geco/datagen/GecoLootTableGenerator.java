@@ -1,6 +1,7 @@
 package com.nstut.geco.datagen;
 
 import com.google.gson.Gson;
+import com.nstut.geco.common.wood.WoodType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +19,8 @@ public class GecoLootTableGenerator {
         this.gson = gson;
     }
 
-    public void generateLootTableFiles(GecoDataGenerator.WoodType wood) throws IOException {
+    public void generateLootTableFiles(WoodType wood) throws IOException {
+        String woodName = wood.getPath();
         // Generate log loot table
         Map<String, Object> logLootTable = Map.of(
             "type", "minecraft:block",
@@ -29,12 +31,12 @@ public class GecoLootTableGenerator {
                 )),
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_log"
+                    "name", "geco:" + woodName + "_log"
                 )),
                 "rolls", 1.0
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_log.json"), logLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_log.json"), logLootTable);
 
         // Generate simple block loot tables (planks, wood, stripped_log, stripped_wood, sapling, stairs, pressure_plate)
         List<String> simpleBlocks = Arrays.asList(
@@ -47,18 +49,18 @@ public class GecoLootTableGenerator {
                     "rolls", 1.0,
                     "entries", List.of(Map.of(
                         "type", "minecraft:item",
-                        "name", "geco:" + wood.name() + "_" + block
+                        "name", "geco:" + woodName + "_" + block
                     )),
                     "conditions", List.of(Map.of(
                         "condition", "minecraft:survives_explosion"
                     ))
                 ))
             );
-            writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_" + block + ".json"), lootTable);
+            writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_" + block + ".json"), lootTable);
         }
 
         // Generate leaves loot table (complex)
-        generateLeavesLootTable(wood);
+        generateLeavesLootTable(woodName);
 
         // Generate slab loot table
         Map<String, Object> slabLootTable = new HashMap<>();
@@ -70,7 +72,7 @@ public class GecoLootTableGenerator {
         List<Map<String, Object>> slabEntries = new java.util.ArrayList<>();
         Map<String, Object> slabItemEntry = new HashMap<>();
         slabItemEntry.put("type", "minecraft:item");
-        slabItemEntry.put("name", "geco:" + wood.name() + "_slab");
+        slabItemEntry.put("name", "geco:" + woodName + "_slab");
         
         List<Map<String, Object>> slabFunctions = new java.util.ArrayList<>();
         Map<String, Object> setCountFunction = new HashMap<>();
@@ -79,7 +81,7 @@ public class GecoLootTableGenerator {
         List<Map<String, Object>> setCountConditions = new java.util.ArrayList<>();
         Map<String, Object> blockStatePropertyCondition = new HashMap<>();
         blockStatePropertyCondition.put("condition", "minecraft:block_state_property");
-        blockStatePropertyCondition.put("block", "geco:" + wood.name() + "_slab");
+        blockStatePropertyCondition.put("block", "geco:" + woodName + "_slab");
         blockStatePropertyCondition.put("properties", Map.of("type", "double"));
         setCountConditions.add(blockStatePropertyCondition);
         setCountFunction.put("conditions", setCountConditions);
@@ -99,7 +101,7 @@ public class GecoLootTableGenerator {
         slabPool.put("conditions", slabConditions);
         
         slabLootTable.put("pools", List.of(slabPool));
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_slab.json"), slabLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_slab.json"), slabLootTable);
 
         // Generate fence loot table
         Map<String, Object> fenceLootTable = Map.of(
@@ -108,14 +110,14 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0,
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_fence"
+                    "name", "geco:" + woodName + "_fence"
                 )),
                 "conditions", List.of(Map.of(
                     "condition", "minecraft:survives_explosion"
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_fence.json"), fenceLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_fence.json"), fenceLootTable);
 
         // Generate fence gate loot table
         Map<String, Object> fenceGateLootTable = Map.of(
@@ -124,14 +126,14 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0,
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_fence_gate"
+                    "name", "geco:" + woodName + "_fence_gate"
                 )),
                 "conditions", List.of(Map.of(
                     "condition", "minecraft:survives_explosion"
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_fence_gate.json"), fenceGateLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_fence_gate.json"), fenceGateLootTable);
 
         // Generate button loot table
         Map<String, Object> buttonLootTable = Map.of(
@@ -140,14 +142,14 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0,
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_button"
+                    "name", "geco:" + woodName + "_button"
                 )),
                 "conditions", List.of(Map.of(
                     "condition", "minecraft:survives_explosion"
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_button.json"), buttonLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_button.json"), buttonLootTable);
 
         // Generate door loot table
         Map<String, Object> doorLootTable = Map.of(
@@ -156,14 +158,14 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0,
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_door"
+                    "name", "geco:" + woodName + "_door"
                 )),
                 "conditions", List.of(Map.of(
                     "condition", "minecraft:survives_explosion"
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_door.json"), doorLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_door.json"), doorLootTable);
 
         // Generate trapdoor loot table
         Map<String, Object> trapdoorLootTable = Map.of(
@@ -172,21 +174,21 @@ public class GecoLootTableGenerator {
                 "rolls", 1.0,
                 "entries", List.of(Map.of(
                     "type", "minecraft:item",
-                    "name", "geco:" + wood.name() + "_trapdoor"
+                    "name", "geco:" + woodName + "_trapdoor"
                 )),
                 "conditions", List.of(Map.of(
                     "condition", "minecraft:survives_explosion"
                 ))
             ))
         );
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_trapdoor.json"), trapdoorLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_trapdoor.json"), trapdoorLootTable);
     }
 
-    private void generateLeavesLootTable(GecoDataGenerator.WoodType wood) throws IOException {
+    private void generateLeavesLootTable(String woodName) throws IOException {
         // Create the complex leaves loot table matching the manual version
         Map<String, Object> leavesLootTable = new HashMap<>();
         leavesLootTable.put("type", "minecraft:block");
-        leavesLootTable.put("random_sequence", "geco:blocks/" + wood.name() + "_leaves");
+        leavesLootTable.put("random_sequence", "geco:blocks/" + woodName + "_leaves");
         
         List<Map<String, Object>> pools = new java.util.ArrayList<>();
         
@@ -204,7 +206,7 @@ public class GecoLootTableGenerator {
         // Leaves with shears or silk touch
         Map<String, Object> leavesWithTools = new HashMap<>();
         leavesWithTools.put("type", "minecraft:item");
-        leavesWithTools.put("name", "geco:" + wood.name() + "_leaves");
+        leavesWithTools.put("name", "geco:" + woodName + "_leaves");
         
         List<Map<String, Object>> leavesConditions = new java.util.ArrayList<>();
         Map<String, Object> anyOfCondition = new HashMap<>();
@@ -239,7 +241,7 @@ public class GecoLootTableGenerator {
         // Saplings with fortune
         Map<String, Object> saplingDrop = new HashMap<>();
         saplingDrop.put("type", "minecraft:item");
-        saplingDrop.put("name", "geco:" + wood.name() + "_sapling");
+        saplingDrop.put("name", "geco:" + woodName + "_sapling");
         
         List<Map<String, Object>> saplingConditions = new java.util.ArrayList<>();
         saplingConditions.add(Map.of("condition", "minecraft:survives_explosion"));
@@ -308,7 +310,7 @@ public class GecoLootTableGenerator {
         pools.add(secondPool);
         
         leavesLootTable.put("pools", pools);
-        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + wood.name() + "_leaves.json"), leavesLootTable);
+        writeJsonFile(outputDir.resolve("data/geco/loot_tables/blocks/" + woodName + "_leaves.json"), leavesLootTable);
     }
 
     private void writeJsonFile(Path path, Object data) throws IOException {

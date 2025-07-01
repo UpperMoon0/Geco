@@ -74,7 +74,7 @@ subprojects {
 }
 
 // Centralized data generation task
-task runDataGen {
+task runDatagen {
     group = 'data'
     description = 'Runs centralized data generation for Geco'
     

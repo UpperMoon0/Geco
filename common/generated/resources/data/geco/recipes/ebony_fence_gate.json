@@ -1,8 +1,4 @@
 {
-  "pattern": [
-    "#W#",
-    "#W#"
-  ],
   "key": {
     "W": {
       "item": "geco:ebony_planks"
@@ -14,5 +10,9 @@
   "result": {
     "item": "geco:ebony_fence_gate"
   },
-  "type": "minecraft:crafting_shaped"
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ]
 }

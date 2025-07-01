@@ -1,5 +1,4 @@
 {
-  "type": "minecraft:crafting_shapeless",
   "result": {
     "item": "geco:ebony_button"
   },
@@ -7,5 +6,6 @@
     {
       "item": "geco:ebony_planks"
     }
-  ]
+  ],
+  "type": "minecraft:crafting_shapeless"
 }

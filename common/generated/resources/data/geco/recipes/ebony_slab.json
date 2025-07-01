@@ -1,7 +1,4 @@
 {
-  "pattern": [
-    "###"
-  ],
   "key": {
     "#": {
       "item": "geco:ebony_planks"
@@ -11,5 +8,8 @@
     "item": "geco:ebony_slab",
     "count": 6
   },
-  "type": "minecraft:crafting_shaped"
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ]
 }

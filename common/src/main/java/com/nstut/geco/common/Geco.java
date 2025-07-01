@@ -12,10 +12,19 @@ public class Geco {
     public static final String MOD_ID = "geco";
     
     public static void init() {
-        ModBlocks.init();
-        ModItems.init();
-        ModBlockSetTypes.init();
+        // Initialize wood types first as they're needed by other registries
         ModWoodTypes.init();
+        
+        // Initialize block set types after wood types
+        ModBlockSetTypes.init();
+        
+        // Initialize blocks after wood types and block set types
+        ModBlocks.init();
+        
+        // Initialize items after blocks
+        ModItems.init();
+        
+        // Initialize remaining registries
         ModCreativeTabs.init();
         ModBlockEntities.init();
     }

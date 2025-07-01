@@ -8,9 +8,9 @@
       "model": "geco:block/ebony_log"
     },
     "axis=x": {
-      "x": 90,
       "y": 90,
-      "model": "geco:block/ebony_log_horizontal"
+      "model": "geco:block/ebony_log_horizontal",
+      "x": 90
     }
   }
 }

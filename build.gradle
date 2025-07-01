@@ -73,9 +73,63 @@ subprojects {
     }
 }
 
-// Centralized data generation tasks - using Fabric's datagen for all platforms
+// Centralized data generation task
 task runDataGen {
     group = 'data'
-    description = 'Runs centralized data generation using Fabric datagen'
-    dependsOn ':fabric:runDatagen'
+    description = 'Runs centralized data generation for Geco'
+    
+    dependsOn ':common:classes'
+    
+    doFirst {
+        // Clear generated resources directory
+        delete "${project(':common').projectDir}/generated/resources"
+        // Delete all files listed in generated_resource_list.md from src/main/resources to avoid duplicates
+        def generatedResourceListFile = file("generated_resource_list.md")
+        if (generatedResourceListFile.exists()) {
+            def filesToDelete = generatedResourceListFile.readLines().findAll { it.startsWith('- ') }.collect { it.substring(2).trim() }
+            filesToDelete.each { relativePath ->
+                def fileToDelete = file("${project(':common').projectDir}/src/main/resources/${relativePath}")
+                if (fileToDelete.exists()) {
+                    delete fileToDelete
+                    logger.lifecycle("Deleted duplicate file: ${fileToDelete.relativePath}")
+                }
+            }
+        }
+    }
+    
+    // Run the custom data generator
+    doLast {
+        javaexec {
+            main = 'com.nstut.geco.datagen.GecoDataGenerator'
+            classpath = project(':common').sourceSets.main.runtimeClasspath
+            workingDir = project(':common').projectDir
+        }
+
+        // Verify generated files
+        def generatedResourceListFile = file("generated_resource_list.md")
+        if (generatedResourceListFile.exists()) {
+            def expectedFiles = generatedResourceListFile.readLines().findAll { it.startsWith('- ') }.collect { it.substring(2).trim() }
+            def generatedDir = file("${project(':common').projectDir}/generated/resources")
+            def actualFiles = []
+            generatedDir.eachFileRecurse { file ->
+                if (file.isFile()) {
+                    actualFiles.add(file.path.substring(generatedDir.path.length() + 1))
+                }
+            }
+
+            def missingFiles = expectedFiles.minus(actualFiles)
+            def unexpectedFiles = actualFiles.minus(expectedFiles)
+
+            if (!missingFiles.isEmpty()) {
+                logger.error("ERROR: The following expected generated files are missing: ${missingFiles.join(', ')}")
+                throw new GradleException("Missing generated files.")
+            }
+            if (!unexpectedFiles.isEmpty()) {
+                logger.warn("WARNING: The following unexpected files were generated: ${unexpectedFiles.join(', ')}")
+            }
+            logger.lifecycle("Data generation verification complete. All expected files were generated.")
+        } else {
+            logger.warn("WARNING: generated_resource_list.md not found. Skipping generated file verification.")
+        }
+    }
 }

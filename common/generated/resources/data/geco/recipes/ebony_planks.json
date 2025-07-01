@@ -1,0 +1,13 @@
+{
+  "category": "building",
+  "result": {
+    "item": "geco:ebony_planks",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "tag": "geco:ebony_logs"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

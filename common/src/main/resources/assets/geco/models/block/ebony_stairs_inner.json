@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "geco:block/ebony_planks",
-    "top": "geco:block/ebony_planks",
-    "side": "geco:block/ebony_planks"
-  }
-}

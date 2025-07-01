@@ -1,0 +1,13 @@
+{
+  "category": "building",
+  "result": {
+    "item": "geco:stripped_ebony_wood",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "geco:stripped_ebony_log"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

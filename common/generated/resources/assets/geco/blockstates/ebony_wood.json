@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "geco:block/ebony_wood_horizontal",
+      "x": 90
+    },
+    "axis=y": {
+      "model": "geco:block/ebony_wood"
+    },
+    "axis=x": {
+      "x": 90,
+      "y": 90,
+      "model": "geco:block/ebony_wood_horizontal"
+    }
+  }
+}

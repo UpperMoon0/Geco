@@ -1,0 +1,19 @@
+{
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "name": "geco:ebony_stripped_wood",
+          "type": "minecraft:item"
+        }
+      ]
+    }
+  ],
+  "type": "minecraft:block"
+}

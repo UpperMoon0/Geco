@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#geco:ebony_logs",
+    "geco:ebony_sapling",
+    "geco:ebony_planks",
+    "geco:ebony_stairs",
+    "geco:ebony_slab",
+    "geco:ebony_fence",
+    "geco:ebony_fence_gate",
+    "geco:ebony_door",
+    "geco:ebony_trapdoor",
+    "geco:ebony_pressure_plate"
+  ],
+  "replace": false
+}

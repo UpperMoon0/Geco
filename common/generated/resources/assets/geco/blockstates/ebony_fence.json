@@ -1,0 +1,48 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "geco:block/ebony_fence_post"
+      }
+    },
+    {
+      "apply": {
+        "model": "geco:block/ebony_fence_side",
+        "uvlock": true
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "uvlock": true,
+        "y": 90,
+        "model": "geco:block/ebony_fence_side"
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "uvlock": true,
+        "y": 180,
+        "model": "geco:block/ebony_fence_side"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "uvlock": true,
+        "y": 270,
+        "model": "geco:block/ebony_fence_side"
+      },
+      "when": {
+        "west": "true"
+      }
+    }
+  ]
+}

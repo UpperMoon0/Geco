@@ -1,0 +1,17 @@
+{
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "geco:ebony_planks"
+    }
+  },
+  "result": {
+    "item": "geco:ebony_door",
+    "count": 3
+  },
+  "type": "minecraft:crafting_shaped"
+}

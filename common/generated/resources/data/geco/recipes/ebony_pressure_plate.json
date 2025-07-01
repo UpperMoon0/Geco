@@ -1,0 +1,14 @@
+{
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "geco:ebony_planks"
+    }
+  },
+  "result": {
+    "item": "geco:ebony_pressure_plate"
+  },
+  "type": "minecraft:crafting_shaped"
+}

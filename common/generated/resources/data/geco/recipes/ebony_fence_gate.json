@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "W": {
+      "item": "geco:ebony_planks"
+    },
+    "#": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "geco:ebony_fence_gate"
+  },
+  "type": "minecraft:crafting_shaped"
+}

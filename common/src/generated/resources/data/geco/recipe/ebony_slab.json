@@ -1,16 +1,16 @@
 {
-  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
     "BBB"
   ],
   "result": {
-    "count": 6,
-    "id": "geco:ebony_slab"
+    "id": "geco:ebony_slab",
+    "count": 6
   },
   "key": {
     "B": {
       "item": "geco:ebony_planks"
     }
-  }
+  },
+  "type": "minecraft:crafting_shaped"
 }

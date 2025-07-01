@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=double": {
-      "model": "geco:block/polished_multicolor_marble_tiles"
-    },
     "type=top": {
       "model": "geco:block/polished_multicolor_marble_tiles_slab_top"
     },
     "type=bottom": {
       "model": "geco:block/polished_multicolor_marble_tiles_slab"
+    },
+    "type=double": {
+      "model": "geco:block/polished_multicolor_marble_tiles"
     }
   }
 }

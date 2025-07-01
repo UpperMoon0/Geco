@@ -1,5 +1,4 @@
 {
-  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
     "PPP",
@@ -12,5 +11,6 @@
     "P": {
       "item": "geco:ebony_planks"
     }
-  }
+  },
+  "type": "minecraft:crafting_shaped"
 }

@@ -1,17 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
   "category": "building",
   "pattern": [
     "BBB",
     "BBB"
   ],
   "result": {
-    "count": 6,
-    "id": "geco:smooth_multicolor_marble_wall"
+    "id": "geco:smooth_multicolor_marble_wall",
+    "count": 6
   },
   "key": {
     "B": {
       "item": "geco:smooth_multicolor_marble"
     }
-  }
+  },
+  "type": "minecraft:crafting_shaped"
 }

@@ -287,7 +287,7 @@ public class GecoRecipeGenerator {
         return Map.of(
             "type", "minecraft:crafting_shaped",
             "category", "building",
-            "pattern", List.of("B B", "B B"),
+            "pattern", List.of("BBB", "B B", "BBB"),
             "key", Map.of("B", Map.of("item", "geco:" + ingredient)),
             "result", Map.of("id", "geco:" + result, "count", 8)
         );

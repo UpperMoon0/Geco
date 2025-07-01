@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "geco:block/ebony_log",
-    "end": "geco:block/ebony_log_top"
+    "end": "geco:block/ebony_log_top",
+    "side": "geco:block/ebony_log"
   }
 }

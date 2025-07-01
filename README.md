@@ -1,6 +1,10 @@
 # Geco Mod
 
-This is a Minecraft mod that adds new decorative blocks and materials to the game, including various types of marble and ebony wood.
+Visit on CurseForge: https://www.curseforge.com/minecraft/mc-mods/geco
+
+This mod begins a journey to enrich Minecraft's natural world. Discover new geological formations and botanical diversity. Currently introducing the Ebony Tree, along with its unique wood and associated blocks, offering new building and crafting possibilities for your world.
+
+![Blocks](assets/blocks.png)
 
 ## Features
 
@@ -28,7 +32,3 @@ This will compile the mod and generate the JAR files in the `build/libs/` direct
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
-
-## License
-
-(Add license information here, e.g., MIT, Apache 2.0, etc.)

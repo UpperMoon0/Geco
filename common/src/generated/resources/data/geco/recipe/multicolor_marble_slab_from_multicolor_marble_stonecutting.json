@@ -1,10 +1,10 @@
 {
-  "type": "minecraft:stonecutting",
   "ingredient": {
     "item": "geco:multicolor_marble"
   },
   "result": {
-    "count": 2,
-    "id": "geco:multicolor_marble_slab"
-  }
+    "id": "geco:multicolor_marble_slab",
+    "count": 2
+  },
+  "type": "minecraft:stonecutting"
 }

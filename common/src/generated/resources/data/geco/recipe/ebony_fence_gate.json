@@ -1,5 +1,4 @@
 {
-  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
     "SPS",
@@ -9,11 +8,12 @@
     "id": "geco:ebony_fence_gate"
   },
   "key": {
-    "P": {
-      "item": "geco:ebony_planks"
-    },
     "S": {
       "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "geco:ebony_planks"
     }
-  }
+  },
+  "type": "minecraft:crafting_shaped"
 }

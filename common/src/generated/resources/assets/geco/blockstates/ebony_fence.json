@@ -10,8 +10,8 @@
         "north": "true"
       },
       "apply": {
-        "uvlock": true,
-        "model": "geco:block/ebony_fence_side"
+        "model": "geco:block/ebony_fence_side",
+        "uvlock": true
       }
     },
     {

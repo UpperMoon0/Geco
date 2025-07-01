@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=double": {
-      "model": "geco:block/smooth_cream_marble"
-    },
     "type=top": {
       "model": "geco:block/smooth_cream_marble_slab_top"
     },
     "type=bottom": {
       "model": "geco:block/smooth_cream_marble_slab"
+    },
+    "type=double": {
+      "model": "geco:block/smooth_cream_marble"
     }
   }
 }

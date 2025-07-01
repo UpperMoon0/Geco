@@ -23,10 +23,10 @@
                         "predicates": {
                           "minecraft:enchantments": [
                             {
-                              "enchantments": "minecraft:silk_touch",
                               "levels": {
                                 "min": 1
-                              }
+                              },
+                              "enchantments": "minecraft:silk_touch"
                             }
                           ]
                         }
@@ -71,9 +71,9 @@
               "add": false,
               "function": "minecraft:set_count",
               "count": {
-                "type": "minecraft:uniform",
                 "min": 1,
-                "max": 2
+                "max": 2,
+                "type": "minecraft:uniform"
               }
             },
             {
@@ -115,10 +115,10 @@
                   "predicates": {
                     "minecraft:enchantments": [
                       {
-                        "enchantments": "minecraft:silk_touch",
                         "levels": {
                           "min": 1
-                        }
+                        },
+                        "enchantments": "minecraft:silk_touch"
                       }
                     ]
                   }

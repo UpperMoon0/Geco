@@ -1,20 +1,20 @@
 {
-  "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
     "PSP",
     "PSP"
   ],
   "result": {
-    "count": 3,
-    "id": "geco:ebony_fence"
+    "id": "geco:ebony_fence",
+    "count": 3
   },
   "key": {
-    "P": {
-      "item": "geco:ebony_planks"
-    },
     "S": {
       "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "geco:ebony_planks"
     }
-  }
+  },
+  "type": "minecraft:crafting_shaped"
 }

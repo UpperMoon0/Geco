@@ -1,0 +1,16 @@
+{
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:smooth_multicolor_marble_slab",
+    "count": 6
+  },
+  "key": {
+    "B": {
+      "item": "geco:smooth_multicolor_marble"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

@@ -1,0 +1,16 @@
+{
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:cream_marble_slab",
+    "count": 6
+  },
+  "key": {
+    "B": {
+      "item": "geco:cream_marble"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

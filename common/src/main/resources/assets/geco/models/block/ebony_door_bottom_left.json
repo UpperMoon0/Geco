@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_left",
-  "textures": {
-    "bottom": "geco:block/ebony_door_bottom",
-    "top": "geco:block/ebony_door_top"
-  }
-}

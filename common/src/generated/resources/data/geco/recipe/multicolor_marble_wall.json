@@ -1,0 +1,17 @@
+{
+  "category": "building",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:multicolor_marble_wall",
+    "count": 6
+  },
+  "key": {
+    "B": {
+      "item": "geco:multicolor_marble"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

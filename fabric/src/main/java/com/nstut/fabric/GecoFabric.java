@@ -1,19 +1,12 @@
 package com.nstut.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
@@ -67,7 +60,13 @@ public class GecoFabric implements ModInitializer {
                 ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, name);
                 CreativeModeTab tab = FabricItemGroup.builder()
                     .title(net.minecraft.network.chat.Component.translatable("itemGroup.geco.geco_tab"))
-                    .icon(() -> ModItems.EBONY_LOG.get().getDefaultInstance())
+                    .icon(() -> {
+                        // Use the first available log item as icon
+                        if (!items.isEmpty()) {
+                            return items.get(0).get().getDefaultInstance();
+                        }
+                        return net.minecraft.world.item.Items.OAK_LOG.getDefaultInstance();
+                    })
                     .displayItems((parameters, output) -> {
                         // Add all provided items
                         items.forEach(itemSupplier -> {

@@ -1,0 +1,18 @@
+{
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:cream_marble_stairs",
+    "count": 4
+  },
+  "key": {
+    "B": {
+      "item": "geco:cream_marble"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

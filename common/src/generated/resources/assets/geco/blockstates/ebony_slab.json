@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "geco:block/ebony_slab_top"
+    },
+    "type=bottom": {
+      "model": "geco:block/ebony_slab"
+    },
+    "type=double": {
+      "model": "geco:block/ebony_planks"
+    }
+  }
+}

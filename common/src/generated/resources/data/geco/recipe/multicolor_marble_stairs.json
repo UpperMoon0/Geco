@@ -1,0 +1,18 @@
+{
+  "category": "building",
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:multicolor_marble_stairs",
+    "count": 4
+  },
+  "key": {
+    "B": {
+      "item": "geco:multicolor_marble"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

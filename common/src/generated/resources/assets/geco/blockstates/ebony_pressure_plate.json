@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=true": {
+      "model": "geco:block/ebony_pressure_plate_down"
+    },
+    "powered=false": {
+      "model": "geco:block/ebony_pressure_plate"
+    }
+  }
+}

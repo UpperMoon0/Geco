@@ -1,0 +1,17 @@
+{
+  "category": "building",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:polished_cream_marble_bricks_wall",
+    "count": 6
+  },
+  "key": {
+    "B": {
+      "item": "geco:polished_cream_marble_bricks"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

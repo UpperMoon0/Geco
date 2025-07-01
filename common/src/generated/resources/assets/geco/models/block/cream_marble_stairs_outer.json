@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "geco:block/cream_marble",
+    "bottom": "geco:block/cream_marble",
+    "top": "geco:block/cream_marble"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "result": {
+    "id": "geco:smooth_cream_marble",
+    "count": 1
+  },
+  "experience": 0.1,
+  "type": "minecraft:smelting",
+  "category": "building",
+  "cookingtime": 200,
+  "ingredient": {
+    "item": "geco:cream_marble"
+  }
+}

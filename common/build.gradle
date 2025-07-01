@@ -1,24 +1,7 @@
 architectury {
     common rootProject.enabled_platforms.split(',')
 }
-
-// loom block for datagen
-loom {
-    // Enable data generation
-    runs {
-        datagen {
-            inherit server
-            name "Data Generation"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=geco"
-            
-            runDir "build/datagen"
-        }
-    }
-}
-
-// Include generated resources in the source sets
+// Include generated resources in source sets
 sourceSets {
     main {
         resources {
@@ -27,7 +10,12 @@ sourceSets {
     }
 }
 
-dependencies {  
+// loom block for datagen
+loom {
+
+}
+
+dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.

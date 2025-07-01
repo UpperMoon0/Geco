@@ -1,0 +1,16 @@
+{
+  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
+  "result": {
+    "id": "geco:polished_multicolor_marble_tiles_slab",
+    "count": 6
+  },
+  "key": {
+    "B": {
+      "item": "geco:polished_multicolor_marble_tiles"
+    }
+  },
+  "type": "minecraft:crafting_shaped"
+}

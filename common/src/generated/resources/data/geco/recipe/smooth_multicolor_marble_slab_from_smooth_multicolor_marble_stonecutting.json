@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "geco:smooth_multicolor_marble"
+  },
+  "result": {
+    "id": "geco:smooth_multicolor_marble_slab",
+    "count": 2
+  },
+  "type": "minecraft:stonecutting"
+}

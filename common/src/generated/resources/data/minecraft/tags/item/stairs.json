@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "geco:cream_marble_stairs",
+    "geco:polished_cream_marble_stairs",
+    "geco:polished_cream_marble_bricks_stairs",
+    "geco:polished_cream_marble_tiles_stairs",
+    "geco:smooth_cream_marble_stairs",
+    "geco:multicolor_marble_stairs",
+    "geco:polished_multicolor_marble_stairs",
+    "geco:polished_multicolor_marble_bricks_stairs",
+    "geco:polished_multicolor_marble_tiles_stairs",
+    "geco:smooth_multicolor_marble_stairs"
+  ]
+}

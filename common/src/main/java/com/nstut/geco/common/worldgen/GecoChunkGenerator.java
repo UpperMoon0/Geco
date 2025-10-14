@@ -51,59 +51,84 @@ public class GecoChunkGenerator extends ChunkGenerator {
 
     @Override
     public void buildSurface(WorldGenRegion level, net.minecraft.world.level.StructureManager structureManager, RandomState randomState, ChunkAccess chunk) {
-        // Generate marble veins instead of random replacement
+        // Generate marble formations more realistically - large continuous bodies rather than small veins
         RandomSource random = RandomSource.create(chunk.getPos().x * 341873128712L + chunk.getPos().z * 132897987541L);
         int replacements = 0;
 
-        // Generate multicolor marble veins
-        replacements += generateMarbleVein(level, chunk, random, "geco:multicolor_marble", 0.02f); // 2% chance per chunk
+        // Generate multicolor marble formations (larger, more continuous)
+        replacements += generateMarbleFormation(level, chunk, random, "geco:multicolor_marble", 0.015f); // 1.5% chance per chunk
 
-        // Generate cream marble veins
-        replacements += generateMarbleVein(level, chunk, random, "geco:cream_marble", 0.02f); // 2% chance per chunk
+        // Generate cream marble formations (larger, more continuous)
+        replacements += generateMarbleFormation(level, chunk, random, "geco:cream_marble", 0.015f); // 1.5% chance per chunk
     }
 
-    private int generateMarbleVein(WorldGenRegion level, ChunkAccess chunk, RandomSource random, String marbleBlockId, float veinChance) {
+    private int generateMarbleFormation(WorldGenRegion level, ChunkAccess chunk, RandomSource random, String marbleBlockId, float formationChance) {
         int replacements = 0;
 
-        // Check if we should generate a vein in this chunk
-        if (random.nextFloat() >= veinChance) {
-            return 0; // No vein in this chunk
+        // Check if we should generate a formation in this chunk
+        if (random.nextFloat() >= formationChance) {
+            return 0; // No formation in this chunk
         }
 
-        // Generate vein center position (somewhere in this chunk or adjacent)
-        int veinCenterX = chunk.getPos().getMinBlockX() + random.nextInt(16);
-        int veinCenterZ = chunk.getPos().getMinBlockZ() + random.nextInt(16);
-        int veinCenterY = 20 + random.nextInt(40); // Veins between y=20 and y=60
+        // Generate formation center position (somewhere in this chunk or adjacent)
+        int formationCenterX = chunk.getPos().getMinBlockX() + random.nextInt(16);
+        int formationCenterZ = chunk.getPos().getMinBlockZ() + random.nextInt(16);
+        int formationCenterY = 15 + random.nextInt(35); // Formations between y=15 and y=50
 
-        // Vein size parameters
-        int maxVeinSize = 8 + random.nextInt(12); // 8-20 blocks per vein
-        float veinDensity = 0.3f + random.nextFloat() * 0.4f; // 30-70% density
+        // Formation size parameters - much larger for realistic marble deposits
+        int maxFormationSize = 15 + random.nextInt(25); // 15-40 blocks per formation (larger than veins)
+        float formationDensity = 0.4f + random.nextFloat() * 0.3f; // 40-70% density (more continuous)
 
-        // Debug log for vein generation
-        Geco.LOGGER.debug("GecoChunkGenerator: Generating {} vein at ({}, {}, {}) with size {}", marbleBlockId, veinCenterX, veinCenterY, veinCenterZ, maxVeinSize);
+        // Debug log for formation generation
+        Geco.LOGGER.debug("GecoChunkGenerator: Generating {} formation at ({}, {}, {}) with size {}", marbleBlockId, formationCenterX, formationCenterY, formationCenterZ, maxFormationSize);
 
         try {
+            // Split the marbleBlockId into namespace and path
+            String[] parts = marbleBlockId.split(":");
+            String namespace = parts.length > 1 ? parts[0] : "geco";
+            String path = parts.length > 1 ? parts[1] : marbleBlockId;
+
             BlockState marbleState = net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(
-                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(marbleBlockId)
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(namespace, path)
             ).defaultBlockState();
 
-            // Generate vein blocks in a 3D sphere-like pattern around the center
-            for (int x = -maxVeinSize; x <= maxVeinSize; x++) {
-                for (int y = -maxVeinSize; y <= maxVeinSize; y++) {
-                    for (int z = -maxVeinSize; z <= maxVeinSize; z++) {
-                        // Calculate distance from vein center
-                        double distance = Math.sqrt(x*x + y*y + z*z);
+            // Generate formation blocks in a more continuous, layered pattern (like real marble)
+            // Use multiple layers with varying thickness for more realistic appearance
+            int layers = 3 + random.nextInt(4); // 3-6 layers
 
-                        // Only place blocks within vein radius and with density chance
-                        if (distance <= maxVeinSize && random.nextFloat() < veinDensity) {
-                            BlockPos pos = new BlockPos(veinCenterX + x, veinCenterY + y, veinCenterZ + z);
+            for (int layer = 0; layer < layers; layer++) {
+                // Each layer has its own center slightly offset from the main center
+                int layerOffsetX = random.nextInt(7) - 3; // -3 to +3 offset
+                int layerOffsetZ = random.nextInt(7) - 3;
+                int layerOffsetY = (layer - layers/2) * (2 + random.nextInt(3)); // Vertical stacking
 
-                            // Check if position is within chunk bounds and is stone
-                            if (level.getBounds().isInside(pos)) {
-                                BlockState currentState = level.getBlockState(pos);
-                                if (currentState.is(Blocks.STONE)) {
-                                    level.setBlock(pos, marbleState, 2);
-                                    replacements++;
+                int layerCenterX = formationCenterX + layerOffsetX;
+                int layerCenterY = formationCenterY + layerOffsetY;
+                int layerCenterZ = formationCenterZ + layerOffsetZ;
+
+                // Each layer has slightly different size
+                int layerSize = maxFormationSize - random.nextInt(5);
+
+                // Generate blocks in this layer with a flatter, more sheet-like distribution
+                for (int x = -layerSize; x <= layerSize; x++) {
+                    for (int y = -layerSize/3; y <= layerSize/3; y++) { // Thinner vertically for sheet-like appearance
+                        for (int z = -layerSize; z <= layerSize; z++) {
+                            // Calculate distance from layer center (more elliptical for sheet-like formations)
+                            double distance = Math.sqrt(x*x + (y*3)* (y*3) + z*z); // y distance weighted more for flatter shape
+
+                            // Only place blocks within formation radius and with density chance
+                            if (distance <= layerSize && random.nextFloat() < formationDensity) {
+                                BlockPos pos = new BlockPos(layerCenterX + x, layerCenterY + y, layerCenterZ + z);
+
+                                // Check if position is within chunk bounds and is stone
+                                if (chunk.getPos().getMinBlockX() <= pos.getX() && pos.getX() < chunk.getPos().getMaxBlockX() &&
+                                    chunk.getPos().getMinBlockZ() <= pos.getZ() && pos.getZ() < chunk.getPos().getMaxBlockZ() &&
+                                    pos.getY() >= level.getMinBuildHeight() && pos.getY() < level.getMaxBuildHeight()) {
+                                    BlockState currentState = level.getBlockState(pos);
+                                    if (currentState.is(Blocks.STONE)) {
+                                        level.setBlock(pos, marbleState, 2);
+                                        replacements++;
+                                    }
                                 }
                             }
                         }
@@ -111,8 +136,8 @@ public class GecoChunkGenerator extends ChunkGenerator {
                 }
             }
 
-            // Debug log for vein completion
-            Geco.LOGGER.debug("GecoChunkGenerator: Generated {} blocks for {} vein", replacements, marbleBlockId);
+            // Debug log for formation completion
+            Geco.LOGGER.debug("GecoChunkGenerator: Generated {} blocks for {} formation", replacements, marbleBlockId);
 
         } catch (Exception e) {
             Geco.LOGGER.warn("GecoChunkGenerator: Failed to get marble block {}: {}", marbleBlockId, e.getMessage());

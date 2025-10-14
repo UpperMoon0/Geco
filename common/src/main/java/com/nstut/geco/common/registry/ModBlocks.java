@@ -242,6 +242,9 @@ public class ModBlocks {
      * @param stoneType The stone type to register blocks for
      */
     private static void registerStoneBlockSet(StoneType stoneType) {
+        if (STONE_BLOCK_SETS.containsKey(stoneType)) {
+            return; // Already registered
+        }
         String stoneName = stoneType.getPath();
         
         // Register base variant (no prefix)

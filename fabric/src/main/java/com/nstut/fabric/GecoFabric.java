@@ -2,15 +2,18 @@ package com.nstut.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
+import com.nstut.geco.common.worldgen.GecoChunkGenerator;
 import java.util.function.Supplier;
 
 public class GecoFabric implements ModInitializer {
@@ -18,11 +21,14 @@ public class GecoFabric implements ModInitializer {
     public void onInitialize() {
         // Set up registry helpers before calling init
         setupRegistryHelpers();
-        
+
+        // Register chunk generator
+        registerChunkGenerator();
+
         // Now safe to call init
         Geco.init();
     }
-    
+
     private void setupRegistryHelpers() {
         // Set up block registry helper
         ModBlocks.REGISTRY_HELPER = new ModBlocks.BlockRegistryHelper() {
@@ -33,7 +39,7 @@ public class GecoFabric implements ModInitializer {
                 return () -> registeredBlock;
             }
         };
-        
+
         // Set up item registry helper
         ModItems.REGISTRY_HELPER = new ModItems.ItemRegistryHelper() {
             @Override
@@ -42,7 +48,7 @@ public class GecoFabric implements ModInitializer {
                 T registeredItem = net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.ITEM, id, item.get());
                 return () -> registeredItem;
             }
-            
+
             @SuppressWarnings("unchecked")
             @Override
             public <T extends BlockItem> Supplier<T> registerBlockItem(String name, Supplier<?> block) {
@@ -52,7 +58,7 @@ public class GecoFabric implements ModInitializer {
                 return () -> registeredItem;
             }
         };
-        
+
         // Set up creative tab registry helper
         ModCreativeTabs.REGISTRY_HELPER = new ModCreativeTabs.CreativeTabRegistryHelper() {
             @Override
@@ -74,9 +80,18 @@ public class GecoFabric implements ModInitializer {
                         });
                     })
                     .build();
-                
+
                 net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
             }
         };
+    }
+
+    private void registerChunkGenerator() {
+        // Register the custom chunk generator
+        net.minecraft.core.Registry.register(
+            net.minecraft.core.registries.BuiltInRegistries.CHUNK_GENERATOR,
+            ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "overworld"),
+            GecoChunkGenerator.CODEC
+        );
     }
 }

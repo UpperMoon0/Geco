@@ -32,9 +32,6 @@ public class GecoChunkGenerator extends NoiseBasedChunkGenerator {
         NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(GecoChunkGenerator::getSettings)
     ).apply(instance, GecoChunkGenerator::new));
 
-    static {
-        com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: Static initializer called - CODEC registered");
-    }
 
     public GecoChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
         super(biomeSource, settings);
@@ -47,17 +44,11 @@ public class GecoChunkGenerator extends NoiseBasedChunkGenerator {
 
     @Override
     public void applyBiomeDecoration(net.minecraft.world.level.WorldGenLevel level, ChunkAccess chunk, net.minecraft.world.level.StructureManager structureManager) {
-        // DEBUG: Log that our chunk generator is being used
-        com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: applyBiomeDecoration called for chunk {}", chunk.getPos());
-
         // Call parent for normal decoration
         super.applyBiomeDecoration(level, chunk, structureManager);
 
         // Add our custom marble vein generation (fully code-driven, no JSON dependencies)
         generateMarbleVeins(level, chunk);
-
-        // DEBUG: Add visible test marble blocks near spawn
-        addTestMarbles(level, chunk);
 
         // Force chunk to be marked as modified
         chunk.setUnsaved(true);
@@ -75,49 +66,54 @@ public class GecoChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     private void generateMarbleVeins(WorldGenLevel level, ChunkAccess chunk) {
-        // DEBUG: Log marble generation
-        com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: Generating marble veins for chunk {}", chunk.getPos());
-
-        // Simple marble vein generation logic
+        // Generate rare, large marble veins - each type in separate veins
         var random = level.getRandom();
         var chunkPos = chunk.getPos();
 
-        // Generate 3-8 large marble chunks per chunk (reduced count but much larger size)
-        int veinCount = 3 + random.nextInt(6);
-        com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: Generating {} large marble chunks", veinCount);
+        // Much rarer generation - only 1 vein per chunk, but very large (30x30x30)
+        // Each vein contains only one type of marble
+        if (random.nextFloat() < 0.02f) { // 2% chance per chunk for any marble vein
+            // Choose which marble type for this vein
+            boolean isCreamMarble = random.nextBoolean();
 
-        for (int i = 0; i < veinCount; i++) {
             // Random position within chunk
             int x = chunkPos.getMinBlockX() + random.nextInt(16);
             int z = chunkPos.getMinBlockZ() + random.nextInt(16);
-            int y = -60 + random.nextInt(121); // Between y=-60 and y=60 (slightly reduced range)
+            int y = -60 + random.nextInt(121); // Between y=-60 and y=60
 
-            // Generate a large cluster of marble blocks
-            generateMarbleCluster(level, new BlockPos(x, y, z), new java.util.Random(random.nextLong()));
+            // Generate a massive spherical vein of single marble type
+            generateMarbleVein(level, new BlockPos(x, y, z), new java.util.Random(random.nextLong()), isCreamMarble);
         }
     }
 
-    private void generateMarbleCluster(WorldGenLevel level, BlockPos center, java.util.Random random) {
-        // Generate a large 7x7x7 cluster with some randomness (much bigger than 3x3x3)
-        for (int dx = -3; dx <= 3; dx++) {
-            for (int dy = -3; dy <= 3; dy++) {
-                for (int dz = -3; dz <= 3; dz++) {
-                    // Higher chance to place marble in center, lower at edges
-                    float distanceFromCenter = (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
-                    float placeChance = Math.max(0.3f, 0.8f - distanceFromCenter * 0.1f); // 80% at center, down to 30% at edges
+    private void generateMarbleVein(WorldGenLevel level, BlockPos center, java.util.Random random, boolean isCreamMarble) {
+        // Generate a massive 30x30x30 spherical vein with single marble type
+        int radius = 15; // 30 blocks diameter
 
-                    if (random.nextFloat() < placeChance) {
-                        BlockPos pos = center.offset(dx, dy, dz);
+        // Choose the marble block type for this entire vein
+        var marbleBlock = isCreamMarble ?
+            com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.CREAM_MARBLE).base.get() :
+            com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.MULTICOLOR_MARBLE).base.get();
 
-                        // Only replace stone-like blocks
-                        var currentState = level.getBlockState(pos);
-                        if (isStone(currentState) || isDirt(currentState) || currentState.isAir()) {
-                            // Choose between cream and multi-color marble
-                            var marbleBlock = random.nextBoolean() ?
-                                com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.CREAM_MARBLE).base.get() :
-                                com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.MULTICOLOR_MARBLE).base.get();
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                for (int dz = -radius; dz <= radius; dz++) {
+                    // Calculate spherical distance from center
+                    double distanceFromCenter = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
-                            level.setBlock(pos, marbleBlock.defaultBlockState(), 2);
+                    // Only place blocks within the sphere (distance <= radius)
+                    if (distanceFromCenter <= radius) {
+                        // Higher density in center, lower at edges (but still solid sphere)
+                        float density = Math.max(0.4f, 0.9f - (float)distanceFromCenter * 0.02f); // 90% at center, down to 40% at edges
+
+                        if (random.nextFloat() < density) {
+                            BlockPos pos = center.offset(dx, dy, dz);
+
+                            // Only replace stone, dirt, gravel, and deepslate - NOT air, water, or lava
+                            var currentState = level.getBlockState(pos);
+                            if (canReplaceForMarble(currentState)) {
+                                level.setBlock(pos, marbleBlock.defaultBlockState(), 2);
+                            }
                         }
                     }
                 }
@@ -125,44 +121,20 @@ public class GecoChunkGenerator extends NoiseBasedChunkGenerator {
         }
     }
 
-    private boolean isStone(net.minecraft.world.level.block.state.BlockState state) {
-        return state.is(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES) ||
-               state.is(net.minecraft.tags.BlockTags.BASE_STONE_OVERWORLD);
+    private boolean canReplaceForMarble(net.minecraft.world.level.block.state.BlockState state) {
+        // Can replace stone, dirt, gravel, deepslate, diorite, andesite, and granite - but NOT air, water, or lava
+        return (state.is(net.minecraft.tags.BlockTags.STONE_ORE_REPLACEABLES) ||
+                state.is(net.minecraft.tags.BlockTags.BASE_STONE_OVERWORLD) ||
+                state.is(net.minecraft.tags.BlockTags.DIRT) ||
+                state.is(net.minecraft.world.level.block.Blocks.GRAVEL) ||
+                state.is(net.minecraft.world.level.block.Blocks.DEEPSLATE) ||
+                state.is(net.minecraft.world.level.block.Blocks.DIORITE) ||
+                state.is(net.minecraft.world.level.block.Blocks.ANDESITE) ||
+                state.is(net.minecraft.world.level.block.Blocks.GRANITE)) &&
+               !state.isAir() &&
+               !state.is(net.minecraft.world.level.block.Blocks.WATER) &&
+               !state.is(net.minecraft.world.level.block.Blocks.LAVA);
     }
 
-    private boolean isDirt(net.minecraft.world.level.block.state.BlockState state) {
-        return state.is(net.minecraft.tags.BlockTags.DIRT);
-    }
-
-    private void addTestMarbles(net.minecraft.world.level.WorldGenLevel level, ChunkAccess chunk) {
-        var chunkPos = chunk.getPos();
-
-        // DEBUG: Log test marble generation
-        com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: Adding test marbles for chunk {}", chunkPos);
-
-        // Only add test marbles near spawn (chunk 0,0)
-        if (Math.abs(chunkPos.x) > 2 || Math.abs(chunkPos.z) > 2) {
-            return;
-        }
-
-        // Add visible test marble blocks at y=100 (surface level)
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                BlockPos surfacePos = new BlockPos(
-                    chunkPos.getMinBlockX() + x,
-                    100,
-                    chunkPos.getMinBlockZ() + z
-                );
-
-                // Place alternating cream and multi-color marble
-                var marbleBlock = ((x + z) % 2 == 0) ?
-                    com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.CREAM_MARBLE).base.get() :
-                    com.nstut.geco.common.registry.ModBlocks.getStoneBlockSet(com.nstut.geco.common.registry.ModStoneTypes.MULTICOLOR_MARBLE).base.get();
-
-                level.setBlock(surfacePos, marbleBlock.defaultBlockState(), 2);
-                com.nstut.geco.common.Geco.LOGGER.info("GecoChunkGenerator: Placed test marble at {}", surfacePos);
-            }
-        }
-    }
 
 }

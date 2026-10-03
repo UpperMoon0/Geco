@@ -1,52 +1,81 @@
-# Geco Mod
+# Geco
 
-Visit on CurseForge: https://www.curseforge.com/minecraft/mc-mods/geco
+Geco enriches Minecraft's natural world with handmade ebony trees and rare marble formations, bringing new materials to exploration and building while preserving vanilla terrain generation.
 
-This mod begins a journey to enrich Minecraft's natural world. Discover new geological formations and botanical diversity. Currently introducing the Ebony Tree, along with its unique wood and associated blocks, offering new building and crafting possibilities for your world.
+**Minecraft 1.21.1 · Fabric & NeoForge · Java 21**
 
-![Blocks](assets/blocks.png)
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/geco) · [Discord](https://discord.gg/4vD9WuT2As) · [Report an issue](https://github.com/UpperMoon0/Geco/issues)
+
+![Geco building blocks](assets/blocks.png)
 
 ## Features
 
-*   **Cream Marble**: A new stone type with various decorative blocks like bricks, polished, smooth, and tiles, along with their respective slabs, stairs, and walls.
-*   **Multicolor Marble**: Another new stone type with similar decorative block variations as Cream Marble.
-*   **Ebony Wood**: A new wood type, including logs, stripped logs, wood, stripped wood, planks, slabs, stairs, fences, fence gates, doors, trapdoors, buttons, and pressure plates.
+- **Ebony trees:** Several handmade tree shapes generate in savanna biomes. Collect saplings to grow your own trees.
+- **Ebony wood:** Logs, wood, stripped variants, planks, stairs, slabs, fences, fence gates, doors, trapdoors, buttons, and pressure plates, plus leaves and saplings.
+- **Cream Marble and Multicolor Marble:** Rare Overworld deposits with natural, polished, polished brick, polished tile, and smooth finishes. Every finish includes slabs, stairs, and walls.
 
-## Building the Project
-
-This project uses Gradle. To build the mod, navigate to the root directory of the project in your terminal and run:
-
-```bash
-./gradlew build
-```
-
-This will compile the mod and generate the JAR files in the `build/libs/` directory for each supported loader (Fabric and NeoForge).
+Geco adds its features to normal Minecraft terrain on both loaders. In existing worlds, explore newly generated chunks to find natural ebony trees and marble deposits.
 
 ## Installation
 
-1.  **Download the Mod**: Obtain the appropriate JAR file for your desired Minecraft version and mod loader (Fabric or NeoForge) from the `build/libs/` directory after building, or from the official release page.
-2.  **Install Mod Loader**: Ensure you have the correct version of Fabric Loader or NeoForge installed for your Minecraft client.
-3.  **Place the Mod**: Put the downloaded `.jar` file into your Minecraft `mods` folder.
-4.  **Launch Game**: Start Minecraft with the installed mod loader profile.
+1. Install Fabric Loader or NeoForge for **Minecraft 1.21.1**, using **Java 21**.
+2. Download the matching Geco file from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/geco).
+3. Place Geco and its required dependencies in your `mods` folder:
+   - **Both loaders:** Architectury API 13.0.8 or newer for Minecraft 1.21.1.
+   - **Fabric:** Fabric API for Minecraft 1.21.1; Fabric Loader 0.16.14 or newer.
+   - **NeoForge:** NeoForge 21.1.172 or newer within the 21.1 series.
+4. Launch the game using your chosen loader profile.
 
-## Contributing
+For a dedicated server, install the matching mod and dependencies on the server as well as on clients.
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+## Building from Source
 
-## World generation and handmade trees
+Use JDK 21 and the included Gradle wrapper from the repository root.
 
-Geco adds rare large marble formations through configured and placed features.
-Vanilla terrain generation is preserved on both loaders.
+Linux/macOS:
 
-Ebony saplings and natural savanna trees paste the same original NBT schematics
-(models 1-4). Model 5 remains excluded. Growth checks occupied cells and preserves
-the sapling when placement is obstructed or a write fails.
+```sh
+bash gradlew build
+```
 
-See [vanilla references, validation and upgrade notes](docs/vanilla-reference-and-validation.md).
+Windows PowerShell:
 
-## Tests and releases
+```powershell
+.\gradlew.bat build
+```
 
-Run `bash gradlew testFast build` for layered JVM tests, coverage and both loader JARs.
-See [testing and release configuration](docs/testing-and-releases.md) for resource checks, runtime tests and CurseForge publishing to project **1296676**.
+The loader-specific production JARs are written to:
 
-Install Architectury API alongside Geco on both loaders, and Fabric API on Fabric.
+- `fabric/build/libs/geco-fabric-<version>.jar`
+- `neoforge/build/libs/geco-neoforge-<version>.jar`
+
+Use these JARs for installation. The `common` module and artifacts marked `dev`, `dev-shadow`, or `sources` are development outputs.
+
+## Development & Validation
+
+Run `bash gradlew testFast build` (or `.\gradlew.bat testFast build` on Windows) for the JVM tests, critical coverage checks, and both loader builds.
+
+Resource and packaged-JAR checks:
+
+```sh
+python -m unittest discover -s scripts -p 'test_*.py'
+python scripts/check_resources.py --jars
+```
+
+Client development launches are available through `:fabric:runClient` and `:neoforge:runClient`.
+
+Natural ebony trees and saplings use the same handmade templates. Placement checks protect occupied cells, fluids, and block entities; obstructed growth preserves the sapling.
+
+Worlds from older unreleased builds can load their legacy generator as vanilla noise terrain. Previously generated empty chunks are not rebuilt automatically. See the [world-generation validation and upgrade notes](docs/vanilla-reference-and-validation.md) for details.
+
+See [testing and release configuration](docs/testing-and-releases.md) for Python requirements, loader runtime tests, CI coverage, and CurseForge publication. Version-specific release notes live in [changelogs](changelogs/), and the player-facing CurseForge description is maintained in [CURSEFORGE.md](CURSEFORGE.md).
+
+## Contributing & Support
+
+Suggestions, bug reports, and pull requests are welcome. Join the [Discord community](https://discord.gg/4vD9WuT2As) or [open a GitHub issue](https://github.com/UpperMoon0/Geco/issues).
+
+For bug reports, include your Minecraft version, loader, Geco version, relevant logs, and steps to reproduce the problem.
+
+## License
+
+Geco is licensed under the [MIT License](LICENSE).

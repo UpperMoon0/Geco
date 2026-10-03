@@ -58,7 +58,7 @@ jacocoTestReport {
     reports { xml.required = true; html.required = true }
 }
 processResources {
-    from(rootProject.file('assets/icon.jpg')) { into 'assets/geco' }
+    from(rootProject.file('assets/icon.png')) { into 'assets/geco' }
 }
 
 

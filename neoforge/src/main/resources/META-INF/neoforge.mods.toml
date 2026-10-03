@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/UpperMoon0/Geco/issues"
+license = "MIT"
 
 [[mods]]
 modId = "${mod_id}"
@@ -9,19 +9,19 @@ version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "${mod_authors}"
 description = "${mod_description}"
-#logoFile = ""
+logoFile = "assets/geco/icon.jpg"
 
 [[dependencies.geco]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.1,)"
+versionRange = "[21.1.172,21.2)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.geco]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.1,)"
+versionRange = "[1.21.1,1.21.2)"
 ordering = "NONE"
 side = "BOTH"
 

@@ -1,9 +1,7 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "rolls": 1.0,
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
@@ -11,10 +9,12 @@
       ],
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "geco:ebony_log"
+          "name": "geco:ebony_log",
+          "type": "minecraft:item"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "type": "minecraft:block"
 }

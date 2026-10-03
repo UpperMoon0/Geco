@@ -32,3 +32,21 @@ This will compile the mod and generate the JAR files in the `build/libs/` direct
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## World generation and handmade trees
+
+Geco adds rare large marble formations through configured and placed features.
+Vanilla terrain generation is preserved on both loaders.
+
+Ebony saplings and natural savanna trees paste the same original NBT schematics
+(models 1-4). Model 5 remains excluded. Growth checks occupied cells and preserves
+the sapling when placement is obstructed or a write fails.
+
+See [vanilla references, validation and upgrade notes](docs/vanilla-reference-and-validation.md).
+
+## Tests and releases
+
+Run `bash gradlew testFast build` for layered JVM tests, coverage and both loader JARs.
+See [testing and release configuration](docs/testing-and-releases.md) for resource checks, runtime tests and CurseForge publishing to project **1296676**.
+
+Install Architectury API alongside Geco on both loaders, and Fabric API on Fabric.

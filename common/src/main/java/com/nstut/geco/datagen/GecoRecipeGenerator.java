@@ -167,7 +167,8 @@ public class GecoRecipeGenerator {
                 "P", Map.of("item", "geco:" + woodName + "_planks")
             ),
             "result", Map.of(
-                "id", "geco:" + woodName + "_trapdoor"
+                "id", "geco:" + woodName + "_trapdoor",
+                "count", 2
             )
         );
         writeJsonFile(outputDir.resolve("data/geco/recipe/" + woodName + "_trapdoor.json"), trapdoorRecipe);
@@ -295,6 +296,6 @@ public class GecoRecipeGenerator {
 
     private void writeJsonFile(Path path, Object data) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, gson.toJson(data));
+        CanonicalJson.write(path, data, gson);
     }
 }

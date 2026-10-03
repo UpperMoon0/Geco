@@ -523,6 +523,6 @@ public class GecoModelGenerator {
 
     private void writeJsonFile(Path path, Object data) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, gson.toJson(data));
+        CanonicalJson.write(path, data, gson);
     }
 }

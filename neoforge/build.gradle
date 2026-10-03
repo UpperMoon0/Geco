@@ -44,7 +44,7 @@ dependencies {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
     }
     shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
-    
+
     // Ensure common classes are available in development
     implementation(project(':common')) {
         exclude group: 'net.fabricmc', module: 'fabric-loader'
@@ -82,4 +82,23 @@ shadowJar {
 
 remapJar {
     inputFile.set shadowJar.archiveFile
+}
+// Isolated development-server directory used by the automated smoke harness.
+loom {
+    runs {
+        server {
+            runDir 'build/smoke-server'
+            programArg '--nogui'
+        }
+    }
+}
+if (project.hasProperty('gecoSmokeServer')) {
+    // Place the same shared code/resources in the exploded NeoForge mod module.
+    // The production shadow JAR already combines them; the IDE wrapper normally does this at runtime.
+    sourceSets.main.java.srcDirs += project(':common').sourceSets.main.java.srcDirs
+    sourceSets.main.resources.srcDirs += project(':common').sourceSets.main.resources.srcDirs
+    tasks.named('runServer') {
+        standardInput = System.in
+        doFirst { mainClass.set('net.fabricmc.devlaunchinjector.Main') }
+    }
 }

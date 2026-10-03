@@ -11,6 +11,13 @@ import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
+import com.nstut.geco.common.worldgen.*;
+import com.nstut.geco.common.registry.ModWoodTypes;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import java.util.function.Supplier;
 
 public class GecoFabric implements ModInitializer {
@@ -18,11 +25,24 @@ public class GecoFabric implements ModInitializer {
     public void onInitialize() {
         // Set up registry helpers before calling init
         setupRegistryHelpers();
-        
+
+        registerWorldgen();
+
         // Now safe to call init
         Geco.init();
+        for (var wood : ModWoodTypes.REGISTERED_WOOD_TYPES) {
+            var blocks = ModBlocks.getWoodBlockSet(wood);
+            StrippableBlockRegistry.register(blocks.log.get(), blocks.strippedLog.get());
+            StrippableBlockRegistry.register(blocks.wood.get(), blocks.strippedWood.get());
+        }
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD),
+                GenerationStep.Decoration.UNDERGROUND_ORES, GecoWorldgen.CREAM_MARBLE);
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD),
+                GenerationStep.Decoration.UNDERGROUND_ORES, GecoWorldgen.MULTICOLOR_MARBLE);
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),
+                GenerationStep.Decoration.VEGETAL_DECORATION, GecoWorldgen.EBONY_TREES);
     }
-    
+
     private void setupRegistryHelpers() {
         // Set up block registry helper
         ModBlocks.REGISTRY_HELPER = new ModBlocks.BlockRegistryHelper() {
@@ -33,7 +53,7 @@ public class GecoFabric implements ModInitializer {
                 return () -> registeredBlock;
             }
         };
-        
+
         // Set up item registry helper
         ModItems.REGISTRY_HELPER = new ModItems.ItemRegistryHelper() {
             @Override
@@ -42,7 +62,7 @@ public class GecoFabric implements ModInitializer {
                 T registeredItem = net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.ITEM, id, item.get());
                 return () -> registeredItem;
             }
-            
+
             @SuppressWarnings("unchecked")
             @Override
             public <T extends BlockItem> Supplier<T> registerBlockItem(String name, Supplier<?> block) {
@@ -52,7 +72,7 @@ public class GecoFabric implements ModInitializer {
                 return () -> registeredItem;
             }
         };
-        
+
         // Set up creative tab registry helper
         ModCreativeTabs.REGISTRY_HELPER = new ModCreativeTabs.CreativeTabRegistryHelper() {
             @Override
@@ -74,9 +94,17 @@ public class GecoFabric implements ModInitializer {
                         });
                     })
                     .build();
-                
+
                 net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CREATIVE_MODE_TAB, id, tab);
             }
         };
+    }
+
+    private void registerWorldgen() {
+        var features = net.minecraft.core.registries.BuiltInRegistries.FEATURE;
+        net.minecraft.core.Registry.register(features, Geco.id("marble"), new MarbleFeature());
+        net.minecraft.core.Registry.register(features, Geco.id("ebony_template_tree"), new TemplateTreeFeature());
+        net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CHUNK_GENERATOR,
+                Geco.id("overworld"), GecoWorldgen.LEGACY_OVERWORLD);
     }
 }

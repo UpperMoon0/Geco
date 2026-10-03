@@ -1,6 +1,5 @@
 package com.nstut.geco.common.registry;
 
-import com.nstut.geco.common.Geco;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;

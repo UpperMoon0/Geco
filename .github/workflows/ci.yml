@@ -1,0 +1,108 @@
+name: Validate Geco
+
+on:
+  pull_request:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geco-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: Layer 1 - tooling and resource contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p 'test_*.py' -v
+      - run: python scripts/check_resources.py
+
+  build-and-data:
+    name: Layers 2-3 - JVM tests, coverage and production JARs
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Unit tests, vanilla contracts, coverage and both production builds
+        run: bash gradlew testFast build --build-cache --console=plain
+      - name: Verify complete production packages
+        run: python scripts/check_resources.py --jars
+      - name: Verify checked-in resources and independent datagen determinism
+        run: |
+          set -euo pipefail
+          bash gradlew runDatagen --console=plain
+          git diff --exit-code -- common/src/generated/resources
+          test -z "$(git ls-files --others --exclude-standard common/src/generated/resources)"
+          find common/src/generated/resources -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/geco-first.sha256
+          bash gradlew runDatagen --console=plain
+          find common/src/generated/resources -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/geco-second.sha256
+          cmp /tmp/geco-first.sha256 /tmp/geco-second.sha256
+      - name: Stage exact validated release bytes
+        run: python scripts/release.py package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geco-release-candidate
+          path: build/release/*
+          if-no-files-found: error
+          overwrite: true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: geco-jvm-test-evidence
+          path: |
+            common/build/test-results/
+            common/build/reports/tests/
+            common/build/reports/jacoco/
+          if-no-files-found: warn
+          overwrite: true
+
+  server-smoke:
+    name: Layer 4 - ${{ matrix.loader }} server lifecycle
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        loader: [fabric, neoforge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r scripts/smoke-requirements.txt
+      - name: Harness regressions
+        run: python -m unittest discover -s scripts -p 'test_smoke.py' -v
+      - name: Terrain, schematic growth, loot, reload and save compatibility
+        run: python scripts/smoke_server.py ${{ matrix.loader }} --restart
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.loader }}-smoke-evidence
+          path: |
+            ${{ matrix.loader }}/build/smoke-server*.log
+            ${{ matrix.loader }}/build/smoke-server/logs/
+            ${{ matrix.loader }}/build/smoke-server/crash-reports/
+          if-no-files-found: warn
+          overwrite: true

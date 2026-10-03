@@ -3,8 +3,8 @@
     "item": "geco:smooth_multicolor_marble"
   },
   "result": {
-    "id": "geco:smooth_multicolor_marble_stairs",
-    "count": 1
+    "count": 1,
+    "id": "geco:smooth_multicolor_marble_stairs"
   },
   "type": "minecraft:stonecutting"
 }

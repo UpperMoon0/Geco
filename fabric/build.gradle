@@ -46,7 +46,7 @@ processResources {
 
     filesMatching('fabric.mod.json') {
         expand(
-            mod_version: rootProject.mod_version, 
+            mod_version: rootProject.mod_version,
             mod_id : rootProject.mod_id,
             mod_name: rootProject.mod_name,
             mod_description: rootProject.mod_description,
@@ -74,5 +74,22 @@ loom {
             vmArg "-Dfabric-api.datagen.modid=geco"
             runDir "build/datagen"
         }
+    }
+}
+// Isolated development-server directory used by the automated smoke harness.
+loom {
+    runs {
+        server {
+            runDir 'build/smoke-server'
+            programArg '--nogui'
+        }
+    }
+}
+if (project.hasProperty('gecoSmokeServer')) {
+    // Mirror the production shadow JAR's resources without the IDE hot-reload wrapper.
+    sourceSets.main.resources.srcDirs += project(':common').sourceSets.main.resources.srcDirs
+    tasks.named('runServer') {
+        standardInput = System.in
+        doFirst { mainClass.set('net.fabricmc.devlaunchinjector.Main') }
     }
 }

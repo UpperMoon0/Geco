@@ -1,17 +1,17 @@
 {
   "category": "building",
+  "key": {
+    "B": {
+      "item": "geco:polished_multicolor_marble"
+    }
+  },
   "pattern": [
     "BB",
     "BB"
   ],
   "result": {
-    "id": "geco:polished_multicolor_marble_bricks",
-    "count": 4
-  },
-  "key": {
-    "B": {
-      "item": "geco:polished_multicolor_marble"
-    }
+    "count": 4,
+    "id": "geco:polished_multicolor_marble_bricks"
   },
   "type": "minecraft:crafting_shaped"
 }

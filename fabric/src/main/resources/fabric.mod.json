@@ -1,37 +1,36 @@
 {
-  "schemaVersion": 1,
-  "id": "${mod_id}",
-  "version": "${mod_version}",
-  "name": "${mod_name}",
-  "description": "${mod_description}",
   "authors": [
     "${mod_authors}"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/UpperMoon0/Geco",
+    "issues": "https://github.com/UpperMoon0/Geco/issues",
+    "sources": "https://github.com/UpperMoon0/Geco"
   },
-  "license": "CC0-1.0",
-  "icon": "assets/geco/icon.png",
-  "environment": "*",
+  "depends": {
+    "architectury": ">=13.0.8",
+    "fabric-api": "*",
+    "fabricloader": ">=0.16.14",
+    "java": ">=21",
+    "minecraft": "1.21.1"
+  },
+  "description": "${mod_description}",
   "entrypoints": {
-    "main": [
-      "com.nstut.fabric.GecoFabric"
-    ],
     "client": [
       "com.nstut.fabric.client.GecoFabricClient"
+    ],
+    "main": [
+      "com.nstut.fabric.GecoFabric"
     ]
   },
+  "environment": "*",
+  "icon": "assets/geco/icon.jpg",
+  "id": "${mod_id}",
+  "license": "MIT",
   "mixins": [
     "geco.mixins.json"
   ],
-  "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "~1.21.1",
-    "java": ">=21",
-    "architectury": ">=13.0.8"
-  },
-  "suggests": {
-    "another-mod": "*"
-  }
+  "name": "${mod_name}",
+  "schemaVersion": 1,
+  "version": "${mod_version}"
 }

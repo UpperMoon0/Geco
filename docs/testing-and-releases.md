@@ -15,6 +15,7 @@ Geco targets Minecraft 1.21.1, Java 21, Fabric and NeoForge.
 Use Python 3.12+ and install scripts/smoke-requirements.txt for runtime tests. The harness's region-decoding and restart tests run in that layer; the dependency-free layer skips those five tests when NumPy/nbtlib are absent.
 
 The testFast Gradle task runs the two disjoint JVM suites once, generates JaCoCo HTML/XML, and enforces **90% line / 80% branch coverage per class** for:
+
 - PlacementTransaction, TemplateTreePlacement, MarbleFeature
 - CanonicalJson and blockstate/model/recipe/loot/tag generators
 
@@ -22,7 +23,7 @@ The gate covers these nine critical classes. The full common-code report remains
 
 Datagen package coverage measured on this change: **99.4% lines / 97.6% branches**. The complete generator compares all **421** checked-in files and repeats in the same temporary directory to catch duplicate tag membership. CI additionally runs datagen in independent JVMs and compares the complete path set and hashes.
 
-Cheap contracts pass before the build; the build passes before loader launches. PRs and dev pushes run validation. Main pushes use the release workflow's reusable validation, avoiding duplicate runs. Releases download the validated JAR artifact instead of rebuilding it. Gradle caches are retained; no routine clean or repeated terrain generation is used. Bonemeal pulses stop when growth is observed, with a bounded maximum.
+Cheap contracts gate all expensive work. JVM/package validation and both loader launches then run in parallel to minimize elapsed time; publishing waits for every layer. PRs and dev pushes run validation. Main pushes use the release workflow's reusable validation, avoiding duplicate runs. Releases download the validated JAR artifact instead of rebuilding it. Gradle caches are retained; no routine clean or repeated terrain generation is used. Bonemeal pulses stop when growth is observed, with a bounded maximum.
 
 The server harness uses loader development launches against shared production sources/resources; remapped release JARs are separately inspected. It does not claim a graphical client, shader or third-party modpack test.
 
@@ -31,12 +32,14 @@ The server harness uses loader development launches against shared production so
 CurseForge project: **1296676**. Add repository Actions secret **CURSEFORGE_API_TOKEN** with an author upload token for this project. Missing credentials fail before tag reservation. Never commit tokens.
 
 Required dependencies:
+
 - Fabric: Architectury API (419699) and Fabric API (306612).
 - NeoForge: Architectury API (419699).
 
 The publishing action is pinned to Kira-NT/mc-publish commit 52307b03863581dec6b652b83e597aec02ebb075 (v3.3). Both files specify Minecraft 1.21.1, Java 21, their loader, client/server environment and release type.
 
 To release:
+
 1. Bump mod_version to a stable MAJOR.MINOR.PATCH version and add changelogs/vVERSION.md.
 2. Merge the reviewed change into main. The workflow validates that exact commit.
 3. Validation stages only the two production JARs, manifest.json and SHA256SUMS. The manifest binds hashes to the commit, version and project.
@@ -51,6 +54,7 @@ A CurseForge upload and GitHub receipt cannot be atomic. Automatic upload retrie
 ## Reference projects
 
 Patterns inspected:
+
 - [Endless validation](https://github.com/UpperMoon0/Endless/blob/d79524e689f9e0a588e1a7d0b5685e945c16697a/.github/workflows/validate.yml) and release: cheap harness/metadata tests separated from common tests and loader builds.
 - [Celestial Nail release](https://github.com/UpperMoon0/Celestial-Nail/blob/a567fe6bc4fac7baaab714205c08d23aad8ea3db/.github/workflows/release.yml) and validation: exact-commit validation, artifact inspection, checksums/provenance and immutable tags.
 

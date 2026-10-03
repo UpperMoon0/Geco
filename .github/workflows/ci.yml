@@ -74,7 +74,7 @@ jobs:
 
   server-smoke:
     name: Layer 4 - ${{ matrix.loader }} server lifecycle
-    needs: build-and-data
+    needs: contracts
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:

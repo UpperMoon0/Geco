@@ -1,91 +1,91 @@
 {
   "multipart": [
     {
-      "when": {
-        "up": "true"
-      },
       "apply": {
         "model": "geco:block/polished_multicolor_marble_tiles_wall_post"
+      },
+      "when": {
+        "up": "true"
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
+        "uvlock": true,
+        "y": 0
+      },
       "when": {
         "north": "low"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
-        "y": 0,
-        "uvlock": true
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
+        "uvlock": true,
+        "y": 0
+      },
       "when": {
         "north": "tall"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
-        "y": 0,
-        "uvlock": true
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
+        "uvlock": true,
+        "y": 90
+      },
       "when": {
         "east": "low"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
-        "y": 90,
-        "uvlock": true
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
+        "uvlock": true,
+        "y": 90
+      },
       "when": {
         "east": "tall"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
-        "y": 90,
-        "uvlock": true
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
+        "uvlock": true,
+        "y": 180
+      },
       "when": {
         "south": "low"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
-        "y": 180,
-        "uvlock": true
       }
     },
     {
+      "apply": {
+        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
+        "uvlock": true,
+        "y": 180
+      },
       "when": {
         "south": "tall"
-      },
-      "apply": {
-        "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
-        "y": 180,
-        "uvlock": true
       }
     },
     {
-      "when": {
-        "west": "low"
-      },
       "apply": {
         "model": "geco:block/polished_multicolor_marble_tiles_wall_side",
-        "y": 270,
-        "uvlock": true
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "low"
       }
     },
     {
-      "when": {
-        "west": "tall"
-      },
       "apply": {
         "model": "geco:block/polished_multicolor_marble_tiles_wall_side_tall",
-        "y": 270,
-        "uvlock": true
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "tall"
       }
     }
   ]

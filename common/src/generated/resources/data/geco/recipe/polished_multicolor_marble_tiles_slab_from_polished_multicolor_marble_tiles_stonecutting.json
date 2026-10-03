@@ -3,8 +3,8 @@
     "item": "geco:polished_multicolor_marble_tiles"
   },
   "result": {
-    "id": "geco:polished_multicolor_marble_tiles_slab",
-    "count": 2
+    "count": 2,
+    "id": "geco:polished_multicolor_marble_tiles_slab"
   },
   "type": "minecraft:stonecutting"
 }

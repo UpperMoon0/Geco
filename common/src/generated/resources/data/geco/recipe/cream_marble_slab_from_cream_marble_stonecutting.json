@@ -3,8 +3,8 @@
     "item": "geco:cream_marble"
   },
   "result": {
-    "id": "geco:cream_marble_slab",
-    "count": 2
+    "count": 2,
+    "id": "geco:cream_marble_slab"
   },
   "type": "minecraft:stonecutting"
 }

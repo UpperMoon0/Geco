@@ -19,17 +19,17 @@ public class GecoDataGenerator {
     private static final Path OUTPUT_DIR = Paths.get("src", "generated", "resources");
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Starting Geco data generation...");
-        
-        try {
+
+        {
             // Initialize ModWoodTypes and ModStoneTypes to register all types
             ModWoodTypes.init();
             ModStoneTypes.init();
-            
+
             // Create output directories
             Files.createDirectories(OUTPUT_DIR);
-            
+
             // Get all registered types dynamically
             List<WoodType> woodTypes = ModWoodTypes.REGISTERED_WOOD_TYPES;
             List<StoneType> stoneTypes = ModStoneTypes.REGISTERED_STONE_TYPES;
@@ -37,7 +37,7 @@ public class GecoDataGenerator {
                 woodTypes.stream().map(w -> w.getPath()).toList());
             System.out.println("Generating data for " + stoneTypes.size() + " stone types: " +
                 stoneTypes.stream().map(s -> s.getPath()).toList());
-            
+
             // Generate files for each type
             GecoBlockstateGenerator blockstateGenerator = new GecoBlockstateGenerator(OUTPUT_DIR, GSON);
             GecoModelGenerator modelGenerator = new GecoModelGenerator(OUTPUT_DIR, GSON);
@@ -56,7 +56,7 @@ public class GecoDataGenerator {
                 tagGenerator.generateWoodTagFiles(wood);
                 tagGenerator.generateMinecraftTagFiles(wood);
             }
-            
+
             // Generate files for each stone type
             for (StoneType stone : stoneTypes) {
                 System.out.println("Generating data for stone type: " + stone.getPath());
@@ -68,23 +68,20 @@ public class GecoDataGenerator {
                 tagGenerator.generateStoneMinecraftTagFiles(stone);
                 lootTableGenerator.generateStoneLootTableFiles(stone);
             }
-            
+
             // Generate language file
             generateLanguageFile(woodTypes, stoneTypes);
-            
+
             System.out.println("Data generation completed successfully!");
-        } catch (IOException e) {
-            System.err.println("Error during data generation: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
     private static void generateLanguageFile(List<WoodType> woodTypes, List<StoneType> stoneTypes) throws IOException {
         Map<String, String> langEntries = new HashMap<>();
-        
+
         // Add common entries
         langEntries.put("itemGroup.geco.geco_tab", "Geco Mod");
-        
+
         // Add wood-specific entries
         for (WoodType wood : woodTypes) {
             String woodName = wood.getPath();
@@ -105,46 +102,46 @@ public class GecoDataGenerator {
             langEntries.put("block.geco." + woodName + "_door", capitalized + " Door");
             langEntries.put("block.geco." + woodName + "_trapdoor", capitalized + " Trapdoor");
         }
-        
+
         // Add stone-specific entries
         for (StoneType stone : stoneTypes) {
             String stoneName = stone.getPath();
             String capitalized = capitalizeWords(stoneName.replace("_", " "));
-            
+
             // Base variant
             langEntries.put("block.geco." + stoneName, capitalized);
             langEntries.put("block.geco." + stoneName + "_slab", capitalized + " Slab");
             langEntries.put("block.geco." + stoneName + "_stairs", capitalized + " Stairs");
             langEntries.put("block.geco." + stoneName + "_wall", capitalized + " Wall");
-            
+
             // Polished variant
             langEntries.put("block.geco.polished_" + stoneName, "Polished " + capitalized);
             langEntries.put("block.geco.polished_" + stoneName + "_slab", "Polished " + capitalized + " Slab");
             langEntries.put("block.geco.polished_" + stoneName + "_stairs", "Polished " + capitalized + " Stairs");
             langEntries.put("block.geco.polished_" + stoneName + "_wall", "Polished " + capitalized + " Wall");
-            
+
             // Polished bricks variant
             langEntries.put("block.geco.polished_" + stoneName + "_bricks", "Polished " + capitalized + " Bricks");
             langEntries.put("block.geco.polished_" + stoneName + "_bricks_slab", "Polished " + capitalized + " Brick Slab");
             langEntries.put("block.geco.polished_" + stoneName + "_bricks_stairs", "Polished " + capitalized + " Brick Stairs");
             langEntries.put("block.geco.polished_" + stoneName + "_bricks_wall", "Polished " + capitalized + " Brick Wall");
-            
+
             // Polished tiles variant
             langEntries.put("block.geco.polished_" + stoneName + "_tiles", "Polished " + capitalized + " Tiles");
             langEntries.put("block.geco.polished_" + stoneName + "_tiles_slab", "Polished " + capitalized + " Tile Slab");
             langEntries.put("block.geco.polished_" + stoneName + "_tiles_stairs", "Polished " + capitalized + " Tile Stairs");
             langEntries.put("block.geco.polished_" + stoneName + "_tiles_wall", "Polished " + capitalized + " Tile Wall");
-            
+
             // Smooth variant
             langEntries.put("block.geco.smooth_" + stoneName, "Smooth " + capitalized);
             langEntries.put("block.geco.smooth_" + stoneName + "_slab", "Smooth " + capitalized + " Slab");
             langEntries.put("block.geco.smooth_" + stoneName + "_stairs", "Smooth " + capitalized + " Stairs");
             langEntries.put("block.geco.smooth_" + stoneName + "_wall", "Smooth " + capitalized + " Wall");
         }
-        
+
         writeJsonFile(OUTPUT_DIR.resolve("assets/geco/lang/en_us.json"), langEntries);
     }
-    
+
     private static String capitalizeWords(String input) {
         if (input == null || input.isEmpty()) return input;
         String[] words = input.split(" ");
@@ -162,6 +159,6 @@ public class GecoDataGenerator {
 
     private static void writeJsonFile(Path path, Object data) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, GSON.toJson(data));
+        CanonicalJson.write(path, data, GSON);
     }
 }

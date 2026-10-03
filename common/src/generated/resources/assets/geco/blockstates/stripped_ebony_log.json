@@ -2,8 +2,8 @@
   "variants": {
     "axis=x": {
       "model": "geco:block/stripped_ebony_log_horizontal",
-      "y": 90,
-      "x": 90
+      "x": 90,
+      "y": 90
     },
     "axis=y": {
       "model": "geco:block/stripped_ebony_log"

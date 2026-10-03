@@ -1,0 +1,27 @@
+{
+  "feature": "geco:cream_marble",
+  "placement": [
+    {
+      "chance": 100,
+      "type": "minecraft:rarity_filter"
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "height": {
+        "max_inclusive": {
+          "absolute": 60
+        },
+        "min_inclusive": {
+          "absolute": -60
+        },
+        "type": "minecraft:uniform"
+      },
+      "type": "minecraft:height_range"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

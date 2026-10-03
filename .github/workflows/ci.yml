@@ -1,0 +1,66 @@
+name: Validate Geco
+
+on:
+  pull_request:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geco-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - name: Build and regression tests
+        run: bash gradlew clean build --console=plain
+      - name: Verify checked-in generated resources
+        run: |
+          bash gradlew runDatagen --console=plain
+          git diff --exit-code -- common/src/generated/resources
+          test -z "$(git ls-files --others --exclude-standard common/src/generated/resources)"
+      - name: Verify independent datagen runs are deterministic
+        run: |
+          find common/src/generated/resources -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/geco-first.sha256
+          bash gradlew runDatagen --console=plain
+          sha256sum --check /tmp/geco-first.sha256
+  server-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        loader: [fabric, neoforge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install nbtlib==2.0.4
+      - name: Verify dedicated-server terrain, tree templates and marble
+        timeout-minutes: 20
+        run: python scripts/smoke_server.py ${{ matrix.loader }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ${{ matrix.loader }}-smoke-logs
+          path: |
+            ${{ matrix.loader }}/build/smoke-server.log
+            ${{ matrix.loader }}/build/smoke-server/logs/
+            ${{ matrix.loader }}/build/smoke-server/crash-reports/

@@ -1,19 +1,28 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "geco:ebony_door"
-        }
-      ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
       ],
+      "entries": [
+        {
+          "conditions": [
+            {
+              "block": "geco:ebony_door",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "geco:ebony_door",
+          "type": "minecraft:item"
+        }
+      ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "type": "minecraft:block"
 }

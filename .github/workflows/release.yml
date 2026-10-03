@@ -3,10 +3,16 @@ name: Build and Release Mod
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
+  validate:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
   build-and-release:
+    needs: validate
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,12 +23,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle' 
+          cache: 'gradle'
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -51,11 +57,11 @@ jobs:
 
             **Artifacts:**
             - Fabric Mod JAR
-            - Forge Mod JAR
+            - NeoForge Mod JAR
           draft: false
           prerelease: false
           files: |
-            neoforge/build/libs/geco-neoforge-*.jar
-            fabric/build/libs/geco-fabric-*.jar
+            neoforge/build/libs/geco-neoforge-${{ steps.get_version.outputs.mod_version }}.jar
+            fabric/build/libs/geco-fabric-${{ steps.get_version.outputs.mod_version }}.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,6 @@
+{
+  "biomes": "#minecraft:is_savanna",
+  "features": "geco:ebony_trees",
+  "step": "vegetal_decoration",
+  "type": "neoforge:add_features"
+}

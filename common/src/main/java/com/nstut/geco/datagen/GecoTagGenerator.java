@@ -79,6 +79,10 @@ public class GecoTagGenerator {
                 "geco:" + woodName + "_pressure_plate"
         ));
 
+        appendToJsonFile(outputDir.resolve("data/minecraft/tags/block/mineable/hoe.json"), List.of("geco:" + woodName + "_leaves"));
+        appendToJsonFile(outputDir.resolve("data/minecraft/tags/block/saplings.json"), List.of("geco:" + woodName + "_sapling"));
+        appendToJsonFile(outputDir.resolve("data/minecraft/tags/item/saplings.json"), List.of("geco:" + woodName + "_sapling"));
+
         // Item Tags
         appendToJsonFile(outputDir.resolve("data/minecraft/tags/item/fence_gates.json"), List.of("geco:" + woodName + "_fence_gate"));
         appendToJsonFile(outputDir.resolve("data/minecraft/tags/item/fences.json"), List.of("geco:" + woodName + "_fence"));
@@ -159,7 +163,7 @@ public class GecoTagGenerator {
 
     private void writeJsonFile(Path path, Object data) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, gson.toJson(data));
+        CanonicalJson.write(path, data, gson);
     }
 
     private void appendToJsonFile(Path path, List<String> newValues) throws IOException {
@@ -169,11 +173,8 @@ public class GecoTagGenerator {
         if (Files.exists(path)) {
             try {
                 existingData = gson.fromJson(Files.readString(path), new TypeToken<Map<String, Object>>() {}.getType());
-            } catch (Exception e) {
-                System.err.println("Error reading existing tag file " + path + ": " + e.getMessage());
-                existingData = new LinkedHashMap<>();
-                existingData.put("replace", false);
-                existingData.put("values", new ArrayList<>());
+            } catch (RuntimeException e) {
+                throw new IOException("Invalid existing tag file " + path, e);
             }
         } else {
             existingData = new LinkedHashMap<>();
@@ -192,13 +193,13 @@ public class GecoTagGenerator {
                 }
             }
         }
-        
+
         for (String newValue : newValues) {
             if (!values.contains(newValue)) {
                 values.add(newValue);
             }
         }
         existingData.put("values", values);
-        Files.writeString(path, gson.toJson(existingData));
+        CanonicalJson.write(path, existingData, gson);
     }
 }

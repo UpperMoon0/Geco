@@ -2,18 +2,22 @@ package com.nstut.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import com.nstut.geco.common.Geco;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModItems;
 import com.nstut.geco.common.registry.ModCreativeTabs;
-import com.nstut.geco.common.worldgen.GecoChunkGenerator;
+import com.nstut.geco.common.worldgen.*;
+import com.nstut.geco.common.registry.ModWoodTypes;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import java.util.function.Supplier;
 
 public class GecoFabric implements ModInitializer {
@@ -22,11 +26,21 @@ public class GecoFabric implements ModInitializer {
         // Set up registry helpers before calling init
         setupRegistryHelpers();
 
-        // Register chunk generator
-        registerChunkGenerator();
+        registerWorldgen();
 
         // Now safe to call init
         Geco.init();
+        for (var wood : ModWoodTypes.REGISTERED_WOOD_TYPES) {
+            var blocks = ModBlocks.getWoodBlockSet(wood);
+            StrippableBlockRegistry.register(blocks.log.get(), blocks.strippedLog.get());
+            StrippableBlockRegistry.register(blocks.wood.get(), blocks.strippedWood.get());
+        }
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD),
+                GenerationStep.Decoration.UNDERGROUND_ORES, GecoWorldgen.CREAM_MARBLE);
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_OVERWORLD),
+                GenerationStep.Decoration.UNDERGROUND_ORES, GecoWorldgen.MULTICOLOR_MARBLE);
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),
+                GenerationStep.Decoration.VEGETAL_DECORATION, GecoWorldgen.EBONY_TREES);
     }
 
     private void setupRegistryHelpers() {
@@ -86,12 +100,11 @@ public class GecoFabric implements ModInitializer {
         };
     }
 
-    private void registerChunkGenerator() {
-        // Register the custom chunk generator
-        net.minecraft.core.Registry.register(
-            net.minecraft.core.registries.BuiltInRegistries.CHUNK_GENERATOR,
-            ResourceLocation.fromNamespaceAndPath(Geco.MOD_ID, "overworld"),
-            GecoChunkGenerator.CODEC
-        );
+    private void registerWorldgen() {
+        var features = net.minecraft.core.registries.BuiltInRegistries.FEATURE;
+        net.minecraft.core.Registry.register(features, Geco.id("marble"), new MarbleFeature());
+        net.minecraft.core.Registry.register(features, Geco.id("ebony_template_tree"), new TemplateTreeFeature());
+        net.minecraft.core.Registry.register(net.minecraft.core.registries.BuiltInRegistries.CHUNK_GENERATOR,
+                Geco.id("overworld"), GecoWorldgen.LEGACY_OVERWORLD);
     }
 }

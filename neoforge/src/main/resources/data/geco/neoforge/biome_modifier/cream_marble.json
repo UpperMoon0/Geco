@@ -1,0 +1,6 @@
+{
+  "biomes": "#minecraft:is_overworld",
+  "features": "geco:cream_marble",
+  "step": "underground_ores",
+  "type": "neoforge:add_features"
+}

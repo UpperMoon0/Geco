@@ -1,6 +1,5 @@
 package com.nstut.geco.common;
 
-import com.nstut.geco.common.registry.ModBlockEntities;
 import com.nstut.geco.common.registry.ModBlocks;
 import com.nstut.geco.common.registry.ModBlockSetTypes;
 import com.nstut.geco.common.registry.ModCreativeTabs;
@@ -35,7 +34,6 @@ public class Geco {
 
         // Initialize remaining registries
         ModCreativeTabs.init();
-        ModBlockEntities.init();
 
         LOGGER.info("Geco: Common initialization complete");
     }

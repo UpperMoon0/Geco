@@ -3,8 +3,8 @@
     "item": "geco:polished_cream_marble"
   },
   "result": {
-    "id": "geco:polished_cream_marble_stairs",
-    "count": 1
+    "count": 1,
+    "id": "geco:polished_cream_marble_stairs"
   },
   "type": "minecraft:stonecutting"
 }

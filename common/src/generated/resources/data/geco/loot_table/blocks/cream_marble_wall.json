@@ -1,19 +1,19 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "geco:cream_marble_wall"
-        }
-      ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
       ],
+      "entries": [
+        {
+          "name": "geco:cream_marble_wall",
+          "type": "minecraft:item"
+        }
+      ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "type": "minecraft:block"
 }

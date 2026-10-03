@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "geco:ebony_planks"
@@ -8,5 +8,5 @@
   "result": {
     "id": "geco:ebony_button"
   },
-  "category": "misc"
+  "type": "minecraft:crafting_shapeless"
 }

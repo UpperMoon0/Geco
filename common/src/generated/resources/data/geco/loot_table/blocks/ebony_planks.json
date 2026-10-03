@@ -1,19 +1,19 @@
 {
-  "type": "minecraft:block",
   "pools": [
     {
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "geco:ebony_planks"
-        }
-      ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
       ],
+      "entries": [
+        {
+          "name": "geco:ebony_planks",
+          "type": "minecraft:item"
+        }
+      ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "type": "minecraft:block"
 }

@@ -1,18 +1,18 @@
 {
   "category": "misc",
+  "key": {
+    "P": {
+      "item": "geco:ebony_planks"
+    }
+  },
   "pattern": [
     "PP",
     "PP",
     "PP"
   ],
   "result": {
-    "id": "geco:ebony_door",
-    "count": 3
-  },
-  "key": {
-    "P": {
-      "item": "geco:ebony_planks"
-    }
+    "count": 3,
+    "id": "geco:ebony_door"
   },
   "type": "minecraft:crafting_shaped"
 }

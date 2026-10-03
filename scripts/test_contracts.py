@@ -115,7 +115,7 @@ class PackageContracts(unittest.TestCase):
         self.resources["com/nstut/geco/common/worldgen/TemplateTreePlacement.class"] = b"fixture"
         self.resources["com/nstut/fabric/GecoFabric.class"] = b"fixture"
         self.resources["fabric.mod.json"] = json.dumps({
-            "id": "geco", "version": "0.3.0", "license": "MIT",
+            "id": "geco", "version": "0.2.0", "license": "MIT",
             "depends": {"minecraft": "1.21.1", "fabric-api": "*", "fabricloader": "*",
                         "architectury": "*", "java": ">=21"},
             "entrypoints": {"main": ["com.nstut.fabric.GecoFabric"]}}).encode()
@@ -129,7 +129,7 @@ class PackageContracts(unittest.TestCase):
         return path
 
     def test_valid_fabric_package(self):
-        checks.check_jar(self.write(), "fabric", "0.3.0")
+        checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_wrong_version(self):
         with self.assertRaisesRegex(ValueError, "identity"):
@@ -138,39 +138,39 @@ class PackageContracts(unittest.TestCase):
     def test_unresolved_placeholder(self):
         self.resources["extra.json"] = bytes([123, 34, 36, 123, 120, 125, 34, 58, 49, 125])
         with self.assertRaisesRegex(ValueError, "placeholder"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_shared_code_missing(self):
         del self.resources["com/nstut/geco/common/worldgen/TemplateTreePlacement.class"]
         with self.assertRaisesRegex(ValueError, "Shared code"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_missing_license(self):
         del self.resources["geco_LICENSE"]
         with self.assertRaisesRegex(ValueError, "license"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_dead_generator_shipped(self):
         self.resources["com/nstut/GecoChunkGenerator.class"] = b"fixture"
         with self.assertRaisesRegex(ValueError, "Dead generator"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_wrong_loader_metadata(self):
         self.resources["META-INF/neoforge.mods.toml"] = b'license="MIT"'
         with self.assertRaisesRegex(ValueError, "NeoForge metadata in Fabric"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_missing_icon(self):
         metadata = json.loads(self.resources["fabric.mod.json"])
         metadata["icon"] = "missing.png"
         self.resources["fabric.mod.json"] = json.dumps(metadata).encode()
         with self.assertRaisesRegex(ValueError, "icon"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_missing_entrypoint(self):
         del self.resources["com/nstut/fabric/GecoFabric.class"]
         with self.assertRaisesRegex(ValueError, "entrypoint"):
-            checks.check_jar(self.write(), "fabric", "0.3.0")
+            checks.check_jar(self.write(), "fabric", "0.2.0")
 
     def test_duplicate_zip_entry(self):
         path = self.write()
@@ -178,7 +178,7 @@ class PackageContracts(unittest.TestCase):
             with self.assertWarns(UserWarning):
                 jar.writestr("geco_LICENSE", b"duplicate")
         with self.assertRaisesRegex(ValueError, "duplicate ZIP"):
-            checks.check_jar(path, "fabric", "0.3.0")
+            checks.check_jar(path, "fabric", "0.2.0")
 
 
 class ReleaseContracts(unittest.TestCase):
@@ -188,7 +188,7 @@ class ReleaseContracts(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.directory = pathlib.Path(self.temp.name)
         self.addCleanup(self.temp.cleanup)
-        patch = mock.patch.object(release, "identity", return_value=("0.3.0", self.COMMIT, "v0.3.0"))
+        patch = mock.patch.object(release, "identity", return_value=("0.2.0", self.COMMIT, "v0.2.0"))
         patch.start()
         self.addCleanup(patch.stop)
         # These tests exercise provenance and checksums; PackageContracts exercises ZIP contents separately.
@@ -197,11 +197,11 @@ class ReleaseContracts(unittest.TestCase):
         self.addCleanup(patch.stop)
         self.files = {}
         for loader in release.LOADERS:
-            name = f"geco-{loader}-0.3.0.jar"
+            name = f"geco-{loader}-0.2.0.jar"
             path = self.directory / name
             path.write_bytes(loader.encode())
             self.files[name] = {"loader": loader, "sha256": release.digest(path)}
-        self.manifest = {"schema": 1, "project_id": 1296676, "version": "0.3.0",
+        self.manifest = {"schema": 1, "project_id": 1296676, "version": "0.2.0",
                          "minecraft": "1.21.1", "commit": self.COMMIT, "files": self.files}
         self.write_manifest()
         (self.directory / "SHA256SUMS").write_text(
@@ -214,7 +214,7 @@ class ReleaseContracts(unittest.TestCase):
         release.verify(self.directory)
 
     def test_tampered_jar(self):
-        (self.directory / "geco-fabric-0.3.0.jar").write_bytes(b"modified")
+        (self.directory / "geco-fabric-0.2.0.jar").write_bytes(b"modified")
         with self.assertRaisesRegex(ValueError, "checksum mismatch"):
             release.verify(self.directory)
 
@@ -237,12 +237,12 @@ class ReleaseContracts(unittest.TestCase):
             release.verify(self.directory)
 
     def test_sources_jar_not_publishable(self):
-        (self.directory / "geco-fabric-0.3.0-sources.jar").write_bytes(b"sources")
+        (self.directory / "geco-fabric-0.2.0-sources.jar").write_bytes(b"sources")
         with self.assertRaisesRegex(ValueError, "Unexpected/missing JAR"):
             release.verify(self.directory)
 
     def test_missing_loader(self):
-        (self.directory / "geco-neoforge-0.3.0.jar").unlink()
+        (self.directory / "geco-neoforge-0.2.0.jar").unlink()
         with self.assertRaisesRegex(ValueError, "Unexpected/missing JAR"):
             release.verify(self.directory)
 
@@ -253,7 +253,7 @@ class ReleaseContracts(unittest.TestCase):
             release.verify(self.directory)
 
     def test_wrong_loader(self):
-        self.manifest["files"]["geco-fabric-0.3.0.jar"]["loader"] = "neoforge"
+        self.manifest["files"]["geco-fabric-0.2.0.jar"]["loader"] = "neoforge"
         self.write_manifest()
         with self.assertRaisesRegex(ValueError, "Wrong loader"):
             release.verify(self.directory)
@@ -266,26 +266,26 @@ class ReleaseContracts(unittest.TestCase):
     def test_guard_accepts_missing_or_same_commit_tag(self):
         for value in (None, self.COMMIT):
             with mock.patch.object(release, "git", return_value=value):
-                release.guard_tag("v0.3.0", self.COMMIT)
+                release.guard_tag("v0.2.0", self.COMMIT)
 
     def test_guard_rejects_tag_collision(self):
         with mock.patch.object(release, "git", return_value="b" * 40):
             with self.assertRaisesRegex(ValueError, "another commit"):
-                release.guard_tag("v0.3.0", self.COMMIT)
+                release.guard_tag("v0.2.0", self.COMMIT)
 
     def test_safe_stable_version_parser(self):
-        self.assertEqual("0.3.0", release.properties("mod_version = 0.3.0\nminecraft_version=1.21.1")["mod_version"])
-        for version in ("", "v0.3.0", "0.3.0;evil", "../bad", "01.3.0", "0.3.0-beta"):
+        self.assertEqual("0.2.0", release.properties("mod_version = 0.2.0\nminecraft_version=1.21.1")["mod_version"])
+        for version in ("", "v0.2.0", "0.2.0;evil", "../bad", "01.2.0", "0.2.0-beta"):
             with self.subTest(version=version), self.assertRaises(ValueError):
                 release.properties(f"mod_version={version}\nminecraft_version=1.21.1")
 
     def test_duplicate_property(self):
         with self.assertRaisesRegex(ValueError, "Duplicate property"):
-            release.properties("mod_version=0.3.0\nmod_version=0.3.1\nminecraft_version=1.21.1")
+            release.properties("mod_version=0.2.0\nmod_version=0.2.1\nminecraft_version=1.21.1")
 
     def test_receipt_matches_loader_commit_hash_and_file_id(self):
         receipt = {"project_id": 1296676, "commit": self.COMMIT, "loader": "fabric",
-                   "file_id": "1234567", "sha256": self.files["geco-fabric-0.3.0.jar"]["sha256"]}
+                   "file_id": "1234567", "sha256": self.files["geco-fabric-0.2.0.jar"]["sha256"]}
         release.validate_receipt(receipt, "fabric", self.directory)
         for key, value in (("project_id", 1), ("commit", "b" * 40), ("loader", "neoforge"),
                            ("sha256", "0" * 64), ("file_id", ""), ("file_id", "0")):

@@ -1,4 +1,4 @@
-# Geco 0.3.0 correctness repair
+# Geco 0.2.0 correctness repair
 
 Reference: MC-Modding-Src commit `2e782f8ea29b04094efc76b5a59f51a7174013ee`, Minecraft 1.21.1 directory.
 

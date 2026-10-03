@@ -125,4 +125,66 @@ class TemplateTreePlacementTest {
         assertFalse(TemplateTreePlacement.placeTemplate(world.level(), SAPLING, new StructureTemplate(), SAPLING_STATE));
         assertEquals(SAPLING_STATE, world.read(SAPLING));
     }
+
+    static StructureTemplate raw(String text) throws Exception {
+        var data = TagParser.parseTag(text);
+        return new StructureTemplate() {
+            @Override public net.minecraft.nbt.CompoundTag save(net.minecraft.nbt.CompoundTag target) {
+                return target.merge(data);
+            }
+        };
+    }
+    static String validRaw() {
+        return "{palette:[{Name:'minecraft:oak_log',Properties:{axis:'y'}}],"
+                + "blocks:[{pos:[0,0,0],state:0}],entities:[]}";
+    }
+    void assertRejected(String data) throws Exception {
+        TestWorld world = new TestWorld();
+        assertFalse(TemplateTreePlacement.placeTemplate(world.level(), SAPLING, raw(data), SAPLING_STATE));
+        assertEquals(SAPLING_STATE, world.read(SAPLING));
+        assertTrue(world.notifications.isEmpty());
+    }
+    @Test void rejectsEntitiesBeforeMutation() throws Exception {
+        assertRejected(validRaw().replace("entities:[]", "entities:[{pos:[0.0d,0.0d,0.0d]}]"));
+    }
+    @Test void rejectsMultiplePalettes() throws Exception {
+        assertRejected(validRaw().replace("palette:", "palettes:[[]],palette:"));
+    }
+    @Test void rejectsOutOfRangePaletteIndex() throws Exception {
+        assertRejected(validRaw().replace("state:0", "state:1"));
+        assertRejected(validRaw().replace("state:0", "state:-1"));
+    }
+    @Test void rejectsMalformedCoordinates() throws Exception {
+        assertRejected(validRaw().replace("pos:[0,0,0]", "pos:[0,0]"));
+    }
+    @Test void rejectsTemplatesWithoutALogAnchor() throws Exception {
+        assertRejected(validRaw().replace("oak_log", "stone").replace(",Properties:{axis:'y'}", ""));
+    }
+    @Test void rejectsTemplateBlockEntityPayload() throws Exception {
+        assertRejected(validRaw().replace("state:0", "state:0,nbt:{id:'minecraft:chest'}"));
+    }
+    @Test void rejectsTemplateBlockEntityStates() throws Exception {
+        assertRejected(validRaw().replace("palette:[", "palette:[{Name:'minecraft:chest'},")
+                .replace("state:0", "state:1},{pos:[0,1,0],state:0"));
+    }
+    @Test void ignoresAirAndStructureVoidCellsWithoutErasingObstacles() throws Exception {
+        TestWorld world = new TestWorld();
+        world.blocks.put(LEAF, Blocks.STONE.defaultBlockState());
+        String data = validRaw().replace("palette:[", "palette:[{Name:'minecraft:air'},{Name:'minecraft:structure_void'},")
+                .replace("state:0", "state:2},{pos:[1,2,0],state:0},{pos:[2,2,0],state:1");
+        assertTrue(TemplateTreePlacement.placeTemplate(world.level(), SAPLING, raw(data), SAPLING_STATE));
+        assertEquals(Blocks.STONE.defaultBlockState(), world.read(LEAF));
+    }
+    @Test void permitsReplacingLeavesAndReplaceablePlants() throws Exception {
+        for (var existing : List.of(Blocks.OAK_LEAVES.defaultBlockState(), Blocks.SHORT_GRASS.defaultBlockState())) {
+            TestWorld world = new TestWorld(); world.blocks.put(LEAF, existing);
+            assertTrue(TemplateTreePlacement.placeTemplate(world.level(), SAPLING, template(), SAPLING_STATE));
+            assertTrue(world.read(LEAF).is(Blocks.OAK_LEAVES));
+        }
+    }
+    @Test void allBlacklistedTemplatesProduceNoChoices() {
+        var wood = new com.nstut.geco.common.wood.WoodType(
+                net.minecraft.resources.ResourceLocation.parse("geco:ebony"), Set.of(1, 2, 3, 4));
+        assertTrue(TemplateTreePlacement.templates(wood).isEmpty());
+    }
 }

@@ -29,7 +29,64 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
 }
+// Pure transactions run without bootstrapping Minecraft; contracts use vanilla classes/assets.
+apply plugin: 'jacoco'
+jacoco { toolVersion = '0.8.13' }
+
+tasks.register('unitTest', Test) {
+    description = 'Fast pure Java transaction tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform { includeTags 'unit' }
+    maxHeapSize = '256m'
+}
 test {
-    useJUnitPlatform()
+    useJUnitPlatform { excludeTags 'unit' }
     maxHeapSize = '1G'
+    shouldRunAfter tasks.named('unitTest')
+}
+tasks.register('contractTest') {
+    description = 'Minecraft-backed logic and vanilla resource contracts.'
+    group = 'verification'
+    dependsOn tasks.named('test')
+}
+check.dependsOn tasks.named('unitTest')
+jacocoTestReport {
+    dependsOn tasks.named('unitTest'), tasks.named('test')
+    executionData fileTree(layout.buildDirectory.dir('jacoco')) { include '*.exec' }
+    reports { xml.required = true; html.required = true }
+}
+processResources {
+    from(rootProject.file('assets/icon.jpg')) { into 'assets/geco' }
+}
+
+
+tasks.register('criticalCoverage', JacocoCoverageVerification) {
+    dependsOn tasks.named('unitTest'), tasks.named('test')
+    executionData fileTree(layout.buildDirectory.dir('jacoco')) { include '*.exec' }
+    sourceSets sourceSets.main
+    violationRules {
+        rule {
+            element = 'CLASS'
+            includes = [
+                'com.nstut.geco.common.worldgen.PlacementTransaction',
+                'com.nstut.geco.common.worldgen.TemplateTreePlacement',
+                'com.nstut.geco.common.worldgen.MarbleFeature',
+                'com.nstut.geco.datagen.GecoBlockstateGenerator',
+                'com.nstut.geco.datagen.GecoModelGenerator',
+                'com.nstut.geco.datagen.GecoRecipeGenerator',
+                'com.nstut.geco.datagen.GecoLootTableGenerator',
+                'com.nstut.geco.datagen.GecoTagGenerator',
+                'com.nstut.geco.datagen.CanonicalJson'
+            ]
+            limit { counter = 'LINE'; minimum = 0.90 }
+            limit { counter = 'BRANCH'; minimum = 0.80 }
+        }
+    }
+}
+check.dependsOn tasks.named('criticalCoverage')
+
+tasks.withType(Test).configureEach {
+    jacoco { includes = ['com.nstut.*'] }
 }

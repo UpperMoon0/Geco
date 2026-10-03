@@ -43,3 +43,10 @@ Ebony saplings and natural savanna trees paste the same original NBT schematics
 the sapling when placement is obstructed or a write fails.
 
 See [vanilla references, validation and upgrade notes](docs/vanilla-reference-and-validation.md).
+
+## Tests and releases
+
+Run `bash gradlew testFast build` for layered JVM tests, coverage and both loader JARs.
+See [testing and release configuration](docs/testing-and-releases.md) for resource checks, runtime tests and CurseForge publishing to project **1296676**.
+
+Install Architectury API alongside Geco on both loaders, and Fabric API on Fabric.

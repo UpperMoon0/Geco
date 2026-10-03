@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static com.nstut.geco.common.worldgen.PlacementTransaction.*;
 
+@org.junit.jupiter.api.Tag("unit")
 class PlacementTransactionTest {
     private static final List<Change<String, String>> CHANGES = List.of(
             new Change<>("trunk", "sapling", "log"), new Change<>("branch", "air", "leaves"));
@@ -80,5 +81,26 @@ class PlacementTransactionTest {
         };
         assertThrows(IllegalStateException.class, () -> apply(world, CHANGES));
         assertEquals("sapling", states.get("trunk"));
+    }
+
+    @Test void keepsOriginalFailureAndAllRollbackFailuresWhileStillRestoringSapling() {
+        Map<String, String> states = new HashMap<>(Map.of("trunk", "sapling", "branch", "air"));
+        World<String, String> world = new World<>() {
+            public String read(String pos) { return states.get(pos); }
+            public boolean write(String pos, String state) {
+                if (pos.equals("branch") && state.equals("air"))
+                    throw new IllegalStateException("branch restoration failed");
+                states.put(pos, state);
+                if (pos.equals("branch")) throw new IllegalArgumentException("placement failed");
+                if (state.equals("sapling")) throw new IllegalStateException("notification failed after restoration");
+                return true;
+            }
+        };
+        var failure = assertThrows(IllegalArgumentException.class, () -> apply(world, CHANGES));
+        assertEquals("placement failed", failure.getMessage());
+        assertEquals("sapling", states.get("trunk"));
+        assertEquals(1, failure.getSuppressed().length);
+        assertEquals("branch restoration failed", failure.getSuppressed()[0].getMessage());
+        assertEquals(1, failure.getSuppressed()[0].getSuppressed().length);
     }
 }

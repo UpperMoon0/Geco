@@ -21,62 +21,57 @@ public class GecoDataGenerator {
 
     public static void main(String[] args) throws IOException {
         System.out.println("Starting Geco data generation...");
-
-        {
-            // Initialize ModWoodTypes and ModStoneTypes to register all types
-            ModWoodTypes.init();
-            ModStoneTypes.init();
-
-            // Create output directories
-            Files.createDirectories(OUTPUT_DIR);
-
-            // Get all registered types dynamically
-            List<WoodType> woodTypes = ModWoodTypes.REGISTERED_WOOD_TYPES;
-            List<StoneType> stoneTypes = ModStoneTypes.REGISTERED_STONE_TYPES;
-            System.out.println("Generating data for " + woodTypes.size() + " wood types: " +
-                woodTypes.stream().map(w -> w.getPath()).toList());
-            System.out.println("Generating data for " + stoneTypes.size() + " stone types: " +
-                stoneTypes.stream().map(s -> s.getPath()).toList());
-
-            // Generate files for each type
-            GecoBlockstateGenerator blockstateGenerator = new GecoBlockstateGenerator(OUTPUT_DIR, GSON);
-            GecoModelGenerator modelGenerator = new GecoModelGenerator(OUTPUT_DIR, GSON);
-            GecoRecipeGenerator recipeGenerator = new GecoRecipeGenerator(OUTPUT_DIR, GSON);
-            GecoLootTableGenerator lootTableGenerator = new GecoLootTableGenerator(OUTPUT_DIR, GSON);
-            GecoTagGenerator tagGenerator = new GecoTagGenerator(OUTPUT_DIR, GSON);
-
-            // Generate files for each wood type
-            for (WoodType wood : woodTypes) {
-                System.out.println("Generating data for wood type: " + wood.getPath());
-                blockstateGenerator.generateWoodBlockstateFiles(wood);
-                modelGenerator.generateWoodBlockModelFiles(wood);
-                modelGenerator.generateWoodItemModelFiles(wood);
-                recipeGenerator.generateWoodRecipeFiles(wood);
-                lootTableGenerator.generateWoodLootTableFiles(wood);
-                tagGenerator.generateWoodTagFiles(wood);
-                tagGenerator.generateMinecraftTagFiles(wood);
-            }
-
-            // Generate files for each stone type
-            for (StoneType stone : stoneTypes) {
-                System.out.println("Generating data for stone type: " + stone.getPath());
-                blockstateGenerator.generateStoneBlockstateFiles(stone);
-                modelGenerator.generateStoneBlockModelFiles(stone);
-                modelGenerator.generateStoneItemModelFiles(stone);
-                recipeGenerator.generateStoneRecipeFiles(stone);
-                tagGenerator.generateStoneTagFiles(stone);
-                tagGenerator.generateStoneMinecraftTagFiles(stone);
-                lootTableGenerator.generateStoneLootTableFiles(stone);
-            }
-
-            // Generate language file
-            generateLanguageFile(woodTypes, stoneTypes);
-
-            System.out.println("Data generation completed successfully!");
-        }
+        ModWoodTypes.init();
+        ModStoneTypes.init();
+        generate(OUTPUT_DIR, ModWoodTypes.REGISTERED_WOOD_TYPES, ModStoneTypes.REGISTERED_STONE_TYPES);
     }
 
-    private static void generateLanguageFile(List<WoodType> woodTypes, List<StoneType> stoneTypes) throws IOException {
+    /** Runs the complete generator in an explicit directory, including regression-test temporary directories. */
+    public static void generate(Path outputDir, List<WoodType> woodTypes, List<StoneType> stoneTypes) throws IOException {
+        Files.createDirectories(outputDir);
+        System.out.println("Generating data for " + woodTypes.size() + " wood types: " +
+            woodTypes.stream().map(w -> w.getPath()).toList());
+        System.out.println("Generating data for " + stoneTypes.size() + " stone types: " +
+            stoneTypes.stream().map(s -> s.getPath()).toList());
+
+        // Generate files for each type
+        GecoBlockstateGenerator blockstateGenerator = new GecoBlockstateGenerator(outputDir, GSON);
+        GecoModelGenerator modelGenerator = new GecoModelGenerator(outputDir, GSON);
+        GecoRecipeGenerator recipeGenerator = new GecoRecipeGenerator(outputDir, GSON);
+        GecoLootTableGenerator lootTableGenerator = new GecoLootTableGenerator(outputDir, GSON);
+        GecoTagGenerator tagGenerator = new GecoTagGenerator(outputDir, GSON);
+
+        // Generate files for each wood type
+        for (WoodType wood : woodTypes) {
+            System.out.println("Generating data for wood type: " + wood.getPath());
+            blockstateGenerator.generateWoodBlockstateFiles(wood);
+            modelGenerator.generateWoodBlockModelFiles(wood);
+            modelGenerator.generateWoodItemModelFiles(wood);
+            recipeGenerator.generateWoodRecipeFiles(wood);
+            lootTableGenerator.generateWoodLootTableFiles(wood);
+            tagGenerator.generateWoodTagFiles(wood);
+            tagGenerator.generateMinecraftTagFiles(wood);
+        }
+
+        // Generate files for each stone type
+        for (StoneType stone : stoneTypes) {
+            System.out.println("Generating data for stone type: " + stone.getPath());
+            blockstateGenerator.generateStoneBlockstateFiles(stone);
+            modelGenerator.generateStoneBlockModelFiles(stone);
+            modelGenerator.generateStoneItemModelFiles(stone);
+            recipeGenerator.generateStoneRecipeFiles(stone);
+            tagGenerator.generateStoneTagFiles(stone);
+            tagGenerator.generateStoneMinecraftTagFiles(stone);
+            lootTableGenerator.generateStoneLootTableFiles(stone);
+        }
+
+        // Generate language file
+        generateLanguageFile(outputDir, woodTypes, stoneTypes);
+
+        System.out.println("Data generation completed successfully!");
+    }
+
+    private static void generateLanguageFile(Path outputDir, List<WoodType> woodTypes, List<StoneType> stoneTypes) throws IOException {
         Map<String, String> langEntries = new HashMap<>();
 
         // Add common entries
@@ -139,7 +134,7 @@ public class GecoDataGenerator {
             langEntries.put("block.geco.smooth_" + stoneName + "_wall", "Smooth " + capitalized + " Wall");
         }
 
-        writeJsonFile(OUTPUT_DIR.resolve("assets/geco/lang/en_us.json"), langEntries);
+        writeJsonFile(outputDir.resolve("assets/geco/lang/en_us.json"), langEntries);
     }
 
     private static String capitalizeWords(String input) {

@@ -94,4 +94,44 @@ class GecoDataGeneratorTest {
         assertEquals(java.util.List.of("geco:ebony_tree_m1", "geco:ebony_tree_m2", "geco:ebony_tree_m3", "geco:ebony_tree_m4"),
                 TemplateTreePlacement.templates(ebony).stream().map(Object::toString).toList());
     }
+
+    java.util.Map<String, String> snapshot(Path root) throws Exception {
+        try (var paths = Files.walk(root)) {
+            var result = new java.util.TreeMap<String, String>();
+            for (var path : paths.filter(Files::isRegularFile).toList())
+                result.put(root.relativize(path).toString(), Files.readString(path));
+            return result;
+        }
+    }
+    @Test void entireGeneratorMatchesEveryCheckedInFileAndIsIdempotent() throws Exception {
+        var stones = java.util.List.of(
+                new StoneType(ResourceLocation.parse("geco:cream_marble")),
+                new StoneType(ResourceLocation.parse("geco:multicolor_marble")));
+        GecoDataGenerator.generate(output, java.util.List.of(ebony), stones);
+        var first = snapshot(output);
+        assertEquals(421, first.size());
+        assertEquals(snapshot(Path.of("src/generated/resources")), first);
+        GecoDataGenerator.generate(output, java.util.List.of(ebony), stones);
+        assertEquals(first, snapshot(output));
+    }
+    @Test void malformedExistingTagsFailWithoutSilentlyLosingMembers() throws Exception {
+        Path path = output.resolve("data/minecraft/tags/block/doors.json");
+        Files.createDirectories(path.getParent());
+        for (String data : java.util.List.of("{", "null", "{}", "{\"values\":null}", "{\"values\":[7]}")) {
+            Files.writeString(path, data);
+            assertThrows(java.io.IOException.class,
+                    () -> new GecoTagGenerator(output, gson).generateMinecraftTagFiles(ebony), data);
+            assertEquals(data, Files.readString(path));
+        }
+    }
+    @Test void existingTagMembersArePreservedAndNewMembersAreNotDuplicated() throws Exception {
+        Path path = output.resolve("data/minecraft/tags/block/doors.json");
+        Files.createDirectories(path.getParent());
+        Files.writeString(path, "{\"replace\":false,\"values\":[\"minecraft:oak_door\",\"geco:ebony_door\"]}");
+        var generator = new GecoTagGenerator(output, gson);
+        generator.generateMinecraftTagFiles(ebony);
+        generator.generateMinecraftTagFiles(ebony);
+        assertEquals(JsonParser.parseString("[\"minecraft:oak_door\",\"geco:ebony_door\"]"),
+                read("data/minecraft/tags/block/doors.json").get("values"));
+    }
 }

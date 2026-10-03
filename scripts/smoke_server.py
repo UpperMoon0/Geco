@@ -108,7 +108,7 @@ def assert_tree(blocks, root):
     raise AssertionError(f"Tree at {root} does not match any allowed NBT schematic")
 
 
-def run(loader, timeout):
+def run(loader, timeout, restart=False):
     run_dir = ROOT / loader / "build/smoke-server"
     # Delete only the isolated test directory, never any user's normal server directory.
     assert run_dir.resolve().parent == (ROOT / loader / "build").resolve()
@@ -119,8 +119,8 @@ def run(loader, timeout):
     (run_dir / "server.properties").write_text(
         "level-seed=42\nonline-mode=false\nserver-port=0\nview-distance=2\nsimulation-distance=2\n"
         "spawn-protection=0\nmax-tick-time=120000\n")
-    command = ["bash", str(ROOT / "gradlew"), f":{loader}:runServer", "--console=plain", "--no-daemon", "-PgecoSmokeServer"]
-    process = subprocess.Popen(command, cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+    launch_command = ["bash", str(ROOT / "gradlew"), f":{loader}:runServer", "--console=plain", "--no-daemon", "-PgecoSmokeServer"]
+    process = subprocess.Popen(launch_command, cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, text=True, bufsize=1, start_new_session=True)
     lines = []
     pending = queue.Queue()
@@ -158,6 +158,8 @@ def run(loader, timeout):
     try:
         wait_for(r'Done \(', timeout)
         print(f"{loader}: dedicated server ready", flush=True)
+        send("reload")
+        wait_for(r"Loaded \d+ recipes", 60)
         send("gamerule randomTickSpeed 0")
         send("forceload add 0 0 63 63")
         deadline = time.monotonic() + 120
@@ -171,6 +173,18 @@ def run(loader, timeout):
                     raise
         for command in [
             "fill 8 199 8 56 199 24 minecraft:dirt",
+            "setblock 8 200 24 minecraft:chest",
+            "setblock 8 200 8 geco:ebony_door[half=lower]",
+            "setblock 8 201 8 geco:ebony_door[half=upper]",
+            "loot replace block 8 200 24 container.0 mine 8 200 8 minecraft:diamond_axe",
+            "loot replace block 8 200 24 container.1 mine 8 201 8 minecraft:diamond_axe",
+            "setblock 8 200 12 geco:ebony_slab[type=double]",
+            "loot replace block 8 200 24 container.2 mine 8 200 12 minecraft:diamond_axe",
+            "setblock 8 200 16 geco:stripped_ebony_log[axis=x]",
+            "loot replace block 8 200 24 container.3 mine 8 200 16 minecraft:diamond_axe",
+            "setblock 8 200 20 geco:cream_marble_slab[type=double]",
+            "loot replace block 8 200 24 container.4 mine 8 200 20 minecraft:diamond_pickaxe",
+
             "place feature geco:ebony_trees 16 200 16",
             "fill 33 45 33 63 75 63 minecraft:stone",
             "setblock 48 60 48 minecraft:chest",
@@ -186,13 +200,20 @@ def run(loader, timeout):
         ]:
             send(command)
         # Dispenser bonemeal goes through SaplingBlock.performBonemeal/advanceTree on each loader.
-        for _ in range(30):
+        for pulse in range(30):
             send("setblock 31 200 15 minecraft:redstone_block")
             send("setblock 47 200 15 minecraft:redstone_block")
             time.sleep(0.4)
             send("setblock 31 200 15 minecraft:air")
             send("setblock 47 200 15 minecraft:air")
             time.sleep(0.2)
+            if pulse % 4 == 3:
+                send("execute if block 32 200 16 geco:ebony_log run say GECO_GROWN")
+                try:
+                    wait_for("GECO_GROWN", 1)
+                    break
+                except AssertionError:
+                    pass
         send("save-all flush")
         wait_for(r'Saved the game', 60)
         send("stop")
@@ -214,6 +235,13 @@ def run(loader, timeout):
     text = "".join(lines)
     for error in ["Couldn't parse loot table", "Unknown registry key", "Failed to load registries", "Exception in server tick loop"]:
         assert error not in text, f"{loader}: {error}; inspect {log}"
+    verify_world(loader, run_dir)
+    if restart:
+        restart_legacy(loader, run_dir, launch_command, timeout)
+        verify_world(loader, run_dir)
+
+
+def verify_world(loader, run_dir):
     blocks, natural_stone = world_blocks(run_dir / "world")
     assert natural_stone > 10000, f"Overworld terrain is empty: only {natural_stone} natural stone cells"
     assert_tree(blocks, (16, 200, 16))
@@ -224,12 +252,82 @@ def run(loader, timeout):
     counts = collections.Counter(state[0] for state in blocks.values())
     for name in ["geco:cream_marble", "geco:multicolor_marble"]:
         assert counts[name] > 5000, f"{name} did not form a large deposit: {counts[name]}"
-    print(f"{loader}: terrain, exact natural/sapling schematics, blocked growth, marble and protected cells passed", flush=True)
+    loot = {}
+    for chunk in read_chunks(run_dir / "world"):
+        for entity in chunk.get("block_entities", []):
+            if tuple(int(entity[axis]) for axis in ("x", "y", "z")) == (8, 200, 24):
+                loot = {int(item["Slot"]): (str(item["id"]), int(item["count"])) for item in entity.get("Items", [])}
+    assert loot == {0: ("geco:ebony_door", 1), 2: ("geco:ebony_slab", 2),
+                    3: ("geco:stripped_ebony_log", 1), 4: ("geco:cream_marble_slab", 2)}, f"Wrong runtime loot: {loot}"
+    print(f"{loader}: terrain, exact schematics, blocked growth, marble, protected cells and runtime loot passed", flush=True)
+
+
+def restart_legacy(loader, run_dir, launch_command, timeout):
+    """Reopen the same saved world via the legacy codec, then verify it migrates to vanilla noise."""
+    level_path = run_dir / "world/level.dat"
+    level = nbtlib.load(level_path)
+    generator = level["Data"]["WorldGenSettings"]["dimensions"]["minecraft:overworld"]["generator"]
+    assert str(generator["type"]) == "minecraft:noise", "New worlds must save vanilla noise"
+    generator["type"] = nbtlib.String("geco:overworld")
+    level.save()
+    log = ROOT / loader / "build/smoke-server-restart.log"
+    pending = queue.Queue()
+    with log.open("w") as out:
+        process = subprocess.Popen(launch_command, cwd=ROOT, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT, text=True, bufsize=1, start_new_session=True)
+        def reader():
+            for line in process.stdout:
+                out.write(line)
+                out.flush()
+                pending.put(line)
+            pending.put(None)
+        thread = threading.Thread(target=reader, daemon=True)
+        thread.start()
+        def wait(pattern, seconds):
+            deadline = time.monotonic() + seconds
+            while time.monotonic() < deadline:
+                try:
+                    line = pending.get(timeout=1)
+                except queue.Empty:
+                    continue
+                if line is None:
+                    break
+                if re.search(pattern, line):
+                    return
+            raise AssertionError(f"Missing restart marker {pattern!r}; inspect {log}")
+        def send(text):
+            process.stdin.write(text + "\n")
+            process.stdin.flush()
+        try:
+            wait(r"Done \(", timeout)
+            send("execute if block 48 200 16 geco:ebony_sapling if block 48 60 48 minecraft:chest if block 47 60 48 minecraft:water run say GECO_REOPEN_OK")
+            wait("GECO_REOPEN_OK", 120)
+            send("reload")
+            wait(r"Loaded \d+ recipes", 60)
+            send("save-all flush")
+            wait("Saved the game", 60)
+            send("stop")
+            process.stdin.close()
+            process.wait(timeout=90)
+            assert process.returncode == 0, f"Restart failed; inspect {log}"
+        finally:
+            if process.poll() is None:
+                os.killpg(process.pid, signal.SIGTERM)
+                try:
+                    process.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    os.killpg(process.pid, signal.SIGKILL)
+                    process.wait(timeout=10)
+            thread.join(timeout=5)
+    data = nbtlib.load(level_path)
+    assert str(data["Data"]["WorldGenSettings"]["dimensions"]["minecraft:overworld"]["generator"]["type"]) == "minecraft:noise"
+    print(f"{loader}: legacy save reopened, reloaded, preserved blocks and migrated codec passed", flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("loader", choices=["fabric", "neoforge"])
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument("--restart", action="store_true", help="Reopen the same world using its legacy generator codec")
     args = parser.parse_args()
-    run(args.loader, args.timeout)
+    run(args.loader, args.timeout, args.restart)

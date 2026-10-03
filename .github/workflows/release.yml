@@ -1,67 +1,127 @@
-name: Build and Release Mod
+name: Validate and release main
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Serialize version/tag reservation and publishing. Never cancel an in-flight upload.
+concurrency:
+  group: geco-release
+  cancel-in-progress: false
 
 jobs:
-  validate:
-    uses: ./.github/workflows/ci.yml
-    permissions:
-      contents: read
-
-  build-and-release:
-    needs: validate
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
+  plan:
+    name: Version and immutable tag preflight
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      release: ${{ steps.plan.outputs.release }}
+      version: ${{ steps.plan.outputs.version }}
+      tag: ${{ steps.plan.outputs.tag }}
+      changelog: ${{ steps.plan.outputs.changelog }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+          persist-credentials: false
+      - uses: actions/setup-python@v5
         with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'gradle'
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Get Mod Version
-        id: get_version
-        run: |
-          mod_version_line=$(grep -E 'mod_version\s*=\s*' gradle.properties)
-          mod_version=$(echo "$mod_version_line" | cut -d '=' -f 2 | xargs)
-          echo "mod_version=$mod_version" >> $GITHUB_OUTPUT
-
-      - name: Generate Release Tag
-        id: tag_generator
-        run: echo "tag_name=v${{ steps.get_version.outputs.mod_version }}" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.tag_generator.outputs.tag_name }}
-          name: "Geco ${{ steps.tag_generator.outputs.tag_name }}"
-          body: |
-            Automatic release triggered by commit ${{ github.sha }} to the main branch.
-
-            **Artifacts:**
-            - Fabric Mod JAR
-            - NeoForge Mod JAR
-          draft: false
-          prerelease: false
-          files: |
-            neoforge/build/libs/geco-neoforge-${{ steps.get_version.outputs.mod_version }}.jar
-            fabric/build/libs/geco-fabric-${{ steps.get_version.outputs.mod_version }}.jar
+          python-version: '3.12'
+      - id: plan
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: python scripts/release.py plan
+
+  validate:
+    name: Validate exact main commit
+    needs: plan
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    name: Publish validated Fabric and NeoForge files
+    needs: [plan, validate]
+    if: needs.plan.outputs.release == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: geco-release-candidate
+          path: artifacts
+      - name: Require publishing credential
+        env:
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+        run: |
+          test -n "$CURSEFORGE_API_TOKEN" || { echo 'Set repository secret CURSEFORGE_API_TOKEN.' >&2; exit 1; }
+      - name: Verify bytes, reserve version, and resume recorded uploads
+        id: prepare
+        run: python scripts/release.py prepare --directory artifacts
+      - name: Publish Fabric
+        id: fabric
+        if: steps.prepare.outputs.fabric_published != 'true'
+        uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3
+        with:
+          curseforge-id: 1296676
+          curseforge-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          files: artifacts/geco-fabric-${{ needs.plan.outputs.version }}.jar
+          name: Geco ${{ needs.plan.outputs.version }} - Fabric 1.21.1
+          version: ${{ needs.plan.outputs.version }}-fabric-1.21.1
+          version-type: release
+          changelog-file: ${{ needs.plan.outputs.changelog }}
+          loaders: fabric
+          game-versions: 1.21.1
+          game-version-filter: none
+          environment: client | server
+          java: '21'
+          curseforge-dependencies: |
+            419699(required)
+            306612(required)
+          retry-attempts: 1
+          fail-mode: fail
+      - name: Record successful Fabric upload
+        if: steps.fabric.outcome == 'success'
+        env:
+          CURSEFORGE_FILE_ID: ${{ steps.fabric.outputs.curseforge-version }}
+        run: python scripts/release.py receipt --directory artifacts --loader fabric
+      - name: Publish NeoForge
+        id: neoforge
+        if: steps.prepare.outputs.neoforge_published != 'true'
+        uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3
+        with:
+          curseforge-id: 1296676
+          curseforge-token: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          files: artifacts/geco-neoforge-${{ needs.plan.outputs.version }}.jar
+          name: Geco ${{ needs.plan.outputs.version }} - NeoForge 1.21.1
+          version: ${{ needs.plan.outputs.version }}-neoforge-1.21.1
+          version-type: release
+          changelog-file: ${{ needs.plan.outputs.changelog }}
+          loaders: neoforge
+          game-versions: 1.21.1
+          game-version-filter: none
+          environment: client | server
+          java: '21'
+          curseforge-dependencies: 419699(required)
+          retry-attempts: 1
+          fail-mode: fail
+      - name: Record successful NeoForge upload
+        if: steps.neoforge.outcome == 'success'
+        env:
+          CURSEFORGE_FILE_ID: ${{ steps.neoforge.outputs.curseforge-version }}
+        run: python scripts/release.py receipt --directory artifacts --loader neoforge
+      - name: Publish GitHub release after both CurseForge checkpoints
+        run: python scripts/release.py finalize --directory artifacts

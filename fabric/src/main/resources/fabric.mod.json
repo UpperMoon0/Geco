@@ -24,7 +24,7 @@
     ]
   },
   "environment": "*",
-  "icon": "assets/geco/icon.png",
+  "icon": "assets/geco/icon.jpg",
   "id": "${mod_id}",
   "license": "MIT",
   "mixins": [

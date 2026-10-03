@@ -56,6 +56,8 @@ subprojects {
 
     tasks.withType(Jar).configureEach {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
         from(rootProject.file('LICENSE')) {
             rename { rootProject.archives_base_name + '_LICENSE' }
         }
@@ -101,5 +103,19 @@ task runDatagen {
         }
 
         logger.lifecycle("Data generation completed successfully!")
+    }
+}
+
+// One command for fast layers; loader smoke tests stay outside Gradle's normal build.
+tasks.register('testFast') {
+    group = 'verification'
+    description = 'Pure unit tests followed by Minecraft-backed contracts and coverage.'
+    dependsOn ':common:unitTest', ':common:contractTest', ':common:jacocoTestReport', ':common:criticalCoverage'
+}
+
+// Datagen replaces checked-in resources; serialize it after any readers in a combined invocation.
+tasks.named('runDatagen') {
+    subprojects.each { project ->
+        mustRunAfter project.tasks.withType(Jar), project.tasks.withType(Test)
     }
 }

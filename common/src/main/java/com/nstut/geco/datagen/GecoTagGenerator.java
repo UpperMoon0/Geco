@@ -182,16 +182,15 @@ public class GecoTagGenerator {
             existingData.put("values", new ArrayList<>());
         }
 
+        if (existingData == null || !(existingData.get("values") instanceof List<?> rawValues)) {
+            throw new IOException("Invalid existing tag file " + path + ": expected an object with a values array");
+        }
         List<String> values = new ArrayList<>();
-        Object rawValues = existingData.get("values");
-        if (rawValues instanceof List<?>) {
-            for (Object item : (List<?>) rawValues) {
-                if (item instanceof String) {
-                    values.add((String) item);
-                } else {
-                    System.err.println("Warning: Non-string element found in 'values' list in " + path + ". Skipping element: " + item);
-                }
+        for (Object item : rawValues) {
+            if (!(item instanceof String value)) {
+                throw new IOException("Invalid existing tag file " + path + ": expected string tag members");
             }
+            values.add(value);
         }
 
         for (String newValue : newValues) {
